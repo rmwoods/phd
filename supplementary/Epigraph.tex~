@@ -1,0 +1,56 @@
+\thispagestyle{empty}
+\setlength{\epigraphwidth}{5.in}
+
+
+\linespread{1.5}
+\epigraph{\vspace{1.5in}\normalsize ``Imagination is more important
+than knowlege.''}
+  {\normalsize \textsc{\\Albert Einstein} (1879-1955)}
+
+%The surest way to corrupt a youth is to instruct him to hold in higher
+%esteem those who think alike than those who think differently.'' 
+\linespread{1.5}
+\epigraph{\vspace{1.5in}\normalsize ``The surest way to corrupt a
+youth is to instruct him to hold in higher
+esteem those who think alike than those who think differently.''}
+  {\normalsize \textsc{\\Friedrich Nietzsche} (1844-1900)}
+
+\linespread{1.5}
+\epigraph{\vspace{1.5in}\normalsize ``When the going gets weird, the
+weird turn pro.''}
+  {\normalsize \textsc{\\Hunter S. Thompson} (1937-2005)}
+%The Life of Isaac Newton, by Richard Westfall, p.256
+
+%\linespread{1.5}
+%\epigraph{\vspace{1.5in}\normalsize ``When the going gets weird, the
+%weird turn pro.''}
+%  {\normalsize \textsc{\\Hunter S. Thompson} (1937-2005)}
+
+\linespread{1.5}
+\epigraph{\vspace{1.5in}\normalsize ``Instead of building newer and
+larger weapons of mass destruction, I think mankind should try to get
+more use out of the ones we have.''}
+  {\normalsize \textsc{\\Jack Handey} (1949-present)}
+
+
+%Instead of building newer and larger weapons of mass destruction, I
+%think mankind should try to get more use out of the ones we have.
+%JAck Handy
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+% to get the start of Chapter 1 on the right side
+
+
+%\vspace{1in}
+%\epigraph{\normalsize ``Everything should be made as simple as
+%  possible, but not one bit simpler.''}  
+%{\normalsize \textsc{\\Albert Einstein} (1879-1955)}
+
+
+%\epigraph{\normalsize ``The worthwhile problems are the ones you can
+%really solve or help solve, the ones you can really contribute
+%something to. ... No problem is too small or too trivial if we can
+%really do something about it.''}
+%{\normalsize \textsc{\\Richard Feynman} (1918-1988)}

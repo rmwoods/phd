@@ -1,0 +1,332 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     McMaster University Physics & Astronomy PhD Thesis Template
+%
+%     filename  = "thesis.tex",
+%     date      = "03/24/2015",
+%     authors   = "Rory Woods",
+%     copyright = "Rory Woods",
+%     address   = "Physics & Astronomy,
+%                  ABB,
+%                  McMaster University,
+%                  Hamilton, ON,
+%                  CANADA",
+%     telephone = "905-525-9140 ext",
+%     email     = "woodsrm@mcmaster.ca",
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[twoside,letterpaper,phd]{macthesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{deluxetable}
+\usepackage{natbib} % \citet,\citep
+\usepackage{aastex_hack} % Taken from: http://casa.colorado.edu/~danforth/comp/tex/thesistex.html
+\usepackage{rotating}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{exscale}
+\usepackage[mathscr]{eucal}
+\usepackage{bm}
+\usepackage{eqlist} % Makes for a nice list of symbols.
+
+%\usepackage[final]{graphicx}
+
+\usepackage{epigraph}
+\usepackage{lettrine}
+\usepackage{keyval}
+
+\usepackage[dvipsnames]{color}
+%\usepackage{times}
+%\documentstyle[fancyhdr]
+%\usepackage{tabular}
+%\DeclareGraphicsExtensions{.pdf, .jpg}
+
+
+\usepackage{multirow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setting for fncychap     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Comment out or remove the next two lines and you will get
+% the standard LaTeX chapter titles. We like these A LOT
+% better.
+\usepackage[Lenny]{fncychap}
+\ChTitleVar{\Huge\sffamily\bfseries}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SPECIAL SYMBOLS AND NEW COMMANDS %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{SupplementaryMaterial/UserDefinedCommands}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Renewed Float Parameters              %
+% (Makes floats fit better on the page) %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\floatpagefraction}{0.85}
+\renewcommand{\topfraction}      {0.85}
+\renewcommand{\bottomfraction}   {0.85}
+\renewcommand{\textfraction}     {0.15}
+
+
+
+% Alter some LaTeX defaults for better treatment of figures:
+% See p.105 of "TeX Unbound" for suggested values.
+% See pp. 199-200 of Lamport's "LaTeX" book for detail
+%   General parameters, for ALL pages:
+\renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+\renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+%   Parameters for TEXT pages (not float pages):
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}     % 2 may work better
+\setcounter{dbltopnumber}{2}    % for 2-column pages
+\renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+\renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+%   Parameters for FLOAT pages (not text pages):
+\renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+% N.B.: floatpagefraction MUST be less than topfraction !!
+\renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+
+% ----------------------------------------------------------- %
+
+%%%%%%%%%%%%%%%%
+% FRONT-MATTER %
+%%%%%%%%%%%%%%%%
+% Title
+\title{Radiative Transfer in Galaxies}
+% Author and Department
+\author{Rory Woods}
+\dept{Physics and Astronomy}
+% the degree will be conferred on this date
+\degreedate{August 2015}
+\copyrightyear{2015}
+
+
+\documenttype{Thesis}
+
+% This will generally be The Graduate School, though you can
+% put anything in here to suit your needs.
+\submittedto{The Graduate School}
+
+
+%%%%%%%%%%%%%%%%%%
+% Signatory Page %
+%%%%%%%%%%%%%%%%%%
+% You can have up to 7 committee members, i.e., one advisor
+% and up to 6 readers.
+%
+% Begin by specifying the number of readers.
+\numberofreaders{3}
+
+
+\advisor[Thesis Advisor]
+        {Dr. James Wadsley}
+        {Associate Professor, McMaster University}
+
+\readerone[Committee Member]
+        {Dr. Laura Parker}
+        {Associate Professor, McMaster University}
+
+\readertwo[Committee Member]
+          {Dr. Christine Wilson}
+          {Professor, McMaster University}
+
+\readerthree[External]
+          {Dr. ???}
+          {Professor, Somewhere Else}
+
+% If using \include statements instead of \input statements,
+% and you only want a subset of the \include statements to be
+% evaluated, then declare your \includeonly here
+
+%\includeonly{file1.tex,file2.tex,...}
+
+
+
+%%%%%%%%%%%%%%%%%
+% THE BEGINNING %
+%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\parindent=0.5in
+
+%\graphicspath{{Figure/}} define figure search path
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Preliminary Material %
+%%%%%%%%%%%%%%%%%%%%%%%%
+% This command is needed to properly set up the frontmatter.
+\frontmatter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% IMPORTANT
+%
+% The following commands allow you to include all the
+% frontmatter in your thesis. If you don't need one or more of
+% these items, you can comment it out. Most of these items are
+% actually required by the Grad School -- see the Thesis Guide
+% for details regarding what is and what is not required for
+% your particular degree.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% !!! DO NOT CHANGE THE SEQUENCE OF THESE ITEMS !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Generates the signature page. This is not bound with your
+% thesis.
+%\macsigpage
+
+
+% Generates the committee page -- this is bound with your
+% thesis. If this is an baccalaureate honors thesis, then
+% comment out this line.
+%\maccommitteepage
+
+
+% Generates the title page based on info you have provided
+% above.
+\mactitlepage
+
+
+% Generate the descriptive note page: Short-title page
+\descriptivenote{supplementary/DescriptiveNote}
+
+
+% Generates the abstract. The argument should point to the
+% file containing your abstract.
+\thesisabstract{supplementary/Abstract}
+
+% Generates the Epigraph/Dedication. The first argument should
+% point to the file containing your Epigraph/Dedication and
+% the second argument should be the title of this page.
+\thesisdedication{supplementary/Dedication}{}
+
+%\thesiscoauthorship{supplementary/Coauthorship}
+
+\thesisacknowledgments{supplementary/Acknowledgments}
+
+\thesisepigraph{supplementary/Epigraph}
+
+
+% Generates the Table of Contents
+\thesistableofcontents
+
+
+
+% Generates the List of Figures
+\thesislistoffigures
+
+
+
+% Generates the List of Tables
+\thesislistoftables
+
+
+
+% Generates the List of Symbols. The argument should point to
+% the file containing your List of Symbols.
+%\thesislistofsymbols{supplementary/ListOfSymbols}
+
+% Generates the Acknowledgments. The argument should point to
+% the file containing your Acknowledgments.
+%\thesisacknowledgments{supplementary/Acknowledgments}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This command is needed to get the main part of the %
+% document going.                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\thesisepigraph{supplementary/Epigraph}
+
+
+\thesismainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is an AMS-LaTeX command to allow breaking %
+% of displayed equations across pages. Note the  %
+% closing the "}" just before the bibliography.  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\allowdisplaybreaks{
+%
+%%%%%%%%%%%%%%%%%%%%%%
+% THE ACTUAL CONTENT %
+%%%%%%%%%%%%%%%%%%%%%%
+% Chapters
+%\begin{singlespace}
+\begin{doublespace}
+\input{chapter_1/chapter_1}
+\input{chapter_2/chapter_2}
+\input{chapter_3/chapter_3}
+\input{chapter_4/chapter_4}
+\input{chapter_5/chapter_5}
+%\end{singlespace}
+\end{doublespace}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\input{appendix_A/appendix_A}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ESM students need to include a Nontechnical Abstract as the %
+% last appendix.                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This \include command should point to the file containing
+% that abstract.
+%\include{nontechnical-abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End of the \allowdisplaybreak command %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+
+%%%%%%%%%%%%%%%%
+% BIBLIOGRAPHY %
+%%%%%%%%%%%%%%%% 
+% You can use BibTeX or other bibliography facility for your
+% bibliography. LaTeX's standard stuff is shown below. If you
+% bibtex, then this section should look something like:
+\begin{singlespace}
+  
+  \pagestyle{fancy}
+  \headheight 20pt
+  \lhead{Ph.D.~Thesis - R.~Woods}
+  \rhead{McMaster - Physics and Astronomy}
+  \chead{}
+  \lfoot{}
+  \cfoot{\thepage}
+  \rfoot{}
+  \renewcommand{\headrulewidth}{0.1pt}
+  \renewcommand{\footrulewidth}{0.1pt}
+  \thispagestyle{fancy}
+  
+  \bibliography{references}
+% \bibliographystyle{ieeetr}
+  \bibliographystyle{apj}
+%  \bibliographystyle{plain}
+  \nocite{*}
+  
+  \addcontentsline{toc}{chapter}{Bibliography}
+  
+  \thispagestyle{fancy}
+  
+\end{singlespace}
+
+
+\end{document}

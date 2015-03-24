@@ -1,0 +1,37 @@
+%\pagestyle{empty}
+%\vspace*{0.75in}
+
+%\begin{tabular}{ll}
+%  DOCTOR OF PHILOSOPHY (2010) & McMaster University \\
+%  (Physics and Astronomy)     & Hamilton, Ontario
+%\end{tabular}
+%\vspace*{0.5in}
+
+%\begin{tabular}{l}
+%  TITLE: Mass Transfer in Binary Systems using Smoothed Particle \\ 
+%         \hspace{1.55cm}Hydrodynamics \\ \\
+%  AUTHOR: Charles-Philippe Lajoie, M.SC. (Universit\'e de Montr\'eal)
+%  \\ \\
+%  SUPERVISOR: Professor A. Sills\\ \\
+%  NUMBER OF PAGES: xii, 184
+%\end{tabular}
+
+
+%this page is for the Descriptive note.
+
+
+\pagestyle{empty}
+\vspace*{0.5in}
+
+\noindent 
+DOCTOR OF PHILOSOPHY (2010) \hspace{2.0cm} McMaster University \\
+(Physics and Astronomy)     \hspace{4.2cm} Hamilton, Ontario 
+\vspace{0.5in}
+
+\noindent
+TITLE: The Physics of Mergers:  Theoretical and Statistical Techniques Applied to Stellar Mergers in Dense Star Clusters \\ \\
+AUTHOR: Nathan W. C. Leigh, B.Sc. (University of Toronto), M.Sc. (McMaster University)\\ \\
+SUPERVISOR: Professor Alison Sills\\ \\
+NUMBER OF PAGES: xvi, 184
+
+
