@@ -13,7 +13,14 @@
 \label{chap:method}
 \thispagestyle{fancy}
 
+In the absense of absorbing material, the problem of radiative transfer reduces down to that of gravity. As such, the tree-algorithm for calculating gravity can be used \citep{barnesHut86}.
 
+\begin{itemize}
+\item A tree can be used to partition spacec
+\item Each level of the tree holds finer partitions of the volume
+\item Each node of the tree contains accumulated information about the tree below it (total mass, etc.).
+\item In order to calculate gravity on a particular leaf (bucket)...
+\end{itemize}
 
 \section{Tree Data Structures}
 
