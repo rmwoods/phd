@@ -13,16 +13,22 @@
 \label{chap:method}
 \thispagestyle{fancy}
 
-In the absense of absorbing material, the problem of radiative transfer reduces down to that of gravity. As such, the tree-algorithm for calculating gravity can be used \citep{barnesHut86}.
+In the absence of absorbing material, the problem of radiative transfer reduces down to that of gravity. As such, the tree-algorithm for calculating gravity can be used \citep{barnesHut86}.
 
 \begin{itemize}
-\item A tree can be used to partition spacec
-\item Each level of the tree holds finer partitions of the volume
+\item A tree can be used to partition space.
+\item Each level of the tree holds finer partitions of the volume. See figure \ref{fig:tree}
 \item Each node of the tree contains accumulated information about the tree below it (total mass, etc.).
-\item In order to calculate gravity on a particular leaf (bucket)...
+\item In order to calculate gravity on a particular leaf (bucket), you can interact with the moment of another cell (\ref{eq:gravitymoment}).
+\item To decide what level of the tree to interact with, you can define an opening angle/radius, $\theta$. If a cell is smaller than this opening angle (the distribution of matter inside the cell is contained within a small enough angle on the sky), the entire cell can be used in the force calculation. If not, you must consider the child nodes separately. See equation \ref{eq:openingangle}.
+\item On average, the number of interactions a each particle will have is $\log{N}$, where N is the total number of particles. Thus, the force calculation for the whole simulation scales as $N\log{N}$. Note that lowering $\theta$ shifts the number of calculations that are approximated by large cells to smaller cells, and thus if $\theta$ is very small, the code approached scaling of order $N^2$.
+\item In the case of radiation, the math is very similar (See eq \ref{eq:radiationmoments}). However, since radiation does not cancel like forces, the dipole moment does not disappear and a rougher approximation is possible (wording wrong, fix this).
+\item In this case, the interaction scales as $N_{\mbox{sink}}\log{N_{\mbox{source}}}$. However, assuming the full tree is still used, the tree-build still scales as $N\log{N}$.
 \end{itemize}
 
 \section{Tree Data Structures}
+
+
 
 \subsection{kd-Tree}
 
