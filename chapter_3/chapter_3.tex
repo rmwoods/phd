@@ -27,27 +27,48 @@ In the absence of absorbing material, the problem of radiative transfer reduces 
 \end{itemize}
 
 \section{Tree Data Structures}
+\label{sec:treestruct}
 
+In order to understand the radiative transfer algorithm that we are presenting, it is important to understand tree data structures.
 
-
-\subsection{kd-Tree}
+\begin{itemize}
+\item Terminology: Node, root node, leaf tree, interior node, child, parent, sibling, tree build, walk the tree, ascend the tree, descend the tree.
+\item In computer science, a tree is a hierarchical data structure. Typically the tree starts at a single point, usually called the root node, and branches out to many other ``child'' nodes.
+\item Each node in the tree stores some sort of data, and the relative location of the node in the tree indicates the relation of the data in the node to the data in other nodes.
+\item \textsc{Gasoline} uses a ``k-d tree'' for gravity. This is an example of a binary space-partitioning tree. Every node contains 2 children, and each node of the tree represents a particular volume of space. kd-Trees and octrees represent the majority of trees used in astrophysical simulations.
+\end{itemize}
 
 \section{Building a Radiation Tree}
+\label{sec:buildingtree}
 
-\subsection{Criteria for Opening Cells}
+\begin{itemize}
+\item While the algorithm we present is general enough to work with any volume-filling tree, the following sections will introduce the algorithm as we have developed it. \textsc{Gasoline} uses a k-d tree for its gravity solver, and as such, our version of the algorithm stuck with this tree type in order to make use of existing tools in the code base.
+\item The recursive pseudocode for the tree-build is presented below (note - change to nice pseudocode format):
+	\begin{enumerate}
+	\item if number of data elements greater than n$_{\mbox{leaf}}$, partition data
+	\item recursively call build tree on each partition of the data set
+	\item else, if number of data elements less than n$_{\mbox{leaf}}$, calculate basic cell properties
+	\item After if statement, calculate accumulated cell properties (higher moments, etc)
+	\end{itemize}
+\item In our case, the partition data step involves finding the longest axis of the data contained on the current node and dividing particles to the upper and lower halves of the midway point of that axis.
+\item Each volume and its corresponding list of particles is then passed recursively to the tree build function again. This terminates when build tree receives a list of particles that is sufficiently short (less than a user set parameter, n$_{\mbox{leaf}}$). At this point, basic cell properties such as center of luminosity and total luminosity are calculated.
+\item Once the leaf nodes have been calculated, more complicated average properties, such as higher moments, can be calculated by looping through all particles in the node. This applies to both leaf and interior nodes.
+\item The initial partition function does not require that the data be fully sorted, only that it be divided to either side of an intermediate value. This is an order n operation.
+\item The tree will be roughly of depth $\log(N)$, meaning that the partition will need to be performed $\log{N}$ times. Therefore, the tree build should scale as roughly $N\log{N}$.
+\item For radiation, average cell properties that are used are average density, average opacity, standard deviation of opacity, total luminosity, and center of luminosity.
+\item Note that we have calculated center of luminosity without taking into account absorption within the cell.
+\end{itemize}
 
-\subsection{Accumulating Cell Properties}
+\section{Exchanging Radiation}
 
-\section{The Simple Case - No Absorption}
 
-\subsection{Exchanging Radiation}
 
 \section{Adding Absorption}
 
-\subsection{Making Use of the Tree}
+Making Use of the Tree
 
 \section{Refinement}
 
-\subsection{Criteria to Refine}
+Criteria to Refine
 
 \section{Resolving the Sending and Receiving Cells}
