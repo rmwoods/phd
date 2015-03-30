@@ -1,0 +1,6 @@
+*~
+*.lo[tfg]
+*.toc
+*.aux
+*.dvi
+*.ps
