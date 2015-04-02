@@ -26,23 +26,35 @@ In the absence of absorbing material, the problem of radiative transfer reduces 
 \item In this case, the interaction scales as $N_{\mbox{sink}}\log{N_{\mbox{source}}}$. However, assuming the full tree is still used, the tree-build still scales as $N\log{N}$.
 \end{itemize}
 
+%\begin{figure}
+%\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+%\caption{This is a test}
+%\label{fig:test}
+%\end{figure}
+
 \section{Tree Data Structures}
 \label{sec:treestruct}
 
 In order to understand the radiative transfer algorithm that we are presenting, it is important to understand tree data structures.
 
 \begin{itemize}
-\item Terminology: Node, root node, leaf tree, interior node, child, parent, sibling, tree build, walk the tree, ascend the tree, descend the tree.
+\item Terminology: Node, root node, leaf node, interior node, child, parent, sibling, tree build, walk the tree, ascend the tree, descend the tree.
 \item In computer science, a tree is a hierarchical data structure. Typically the tree starts at a single point, usually called the root node, and branches out to many other ``child'' nodes.
 \item Each node in the tree stores some sort of data, and the relative location of the node in the tree indicates the relation of the data in the node to the data in other nodes.
-\item \textsc{Gasoline} uses a ``k-d tree'' for gravity. This is an example of a binary space-partitioning tree. Every node contains 2 children, and each node of the tree represents a particular volume of space. kd-Trees and octrees represent the majority of trees used in astrophysical simulations.
+\item \textsc{Gasoline} uses a ``k-d tree'' for gravity. This is an example of a binary space-partitioning tree. Every node contains 2 children, and each node of the tree represents a particular volume of space. kd-Trees and octrees represent the majority of trees used in astrophysical simulations. See figure \ref{fig:trees} for visual examples of trees.
 \end{itemize}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\caption[Examples of trees.]{This is an example of a binary tree. The volume is represented by a tree node, and each volume is then split into two subvolumes, which are represented by two ``child'' nodes of the original node. This splitting can continue indefinitely on either side, making the tree an effective way at splitting volumes.}
+\label{fig:trees}
+\end{figure}
 
 \section{Building a Radiation Tree}
 \label{sec:buildingtree}
 
 \begin{itemize}
-\item While the algorithm we present is general enough to work with any volume-filling tree, the following sections will introduce the algorithm as we have developed it. \textsc{Gasoline} uses a k-d tree for its gravity solver, and as such, our version of the algorithm stuck with this tree type in order to make use of existing tools in the code base.
+\item While the algorithm we present is general enough to work with any volume-filling tree, the following sections will introduce the algorithm as we have developed it. \textsc{Gasoline} uses a k-d tree for its gravity solver, and as such, our version of the algorithm uses this tree type in order to make use of existing tools in the code base.
 \item The recursive pseudocode for the tree-build is presented below (note - change to nice pseudocode format):
 	\begin{enumerate}
 	\item if number of data elements greater than n$_{\mbox{leaf}}$, partition data
@@ -70,13 +82,25 @@ Once the tree has been built, calculating the radiation (gravity) at any particu
 	\begin{enumerate}
 	\item Given a cell (starting with the root cell), check if the distance, r, from the current leaf to the cell is shorter than the opening radius (given by equation \ref{eq:openingradius}).
 	\item If r is shorter than the opening radius, the cell must be ``opened,'' meaning that we return to step 1, but now passing in each child node to check.
-	\item If r is longer than the opening radius, the cell is acceptable to interact with. The radiation may be calculated to the bucket using equation \ref{eq:bucketflux}.
+	\item If r is longer than the opening radius, the cell is acceptable to interact with. The radiation may be calculated to the bucket using equation \ref{eq:bucketflux}. See figure \ref{fig:openinganglecriteria}.
 	\item In the case that the distance to the cell is smaller than the opening radius, and the node has no children (e.g. for leaves of the tree that are very spatially close to the receiving leaf), the interaction should not be approximated, and the direct n$^2$ summation over all particles in each leaf is performed.
 	\item Once radiation has been calculated from the current cell, the tree-walk is allowed to skip all children of the current cell and move on to its sibling or parent's sibling (parent's sibling in the case that we are the right-hand child of the parent node). 
 	\end{enumerate}
-	\item Once radiation has been calculated for the receiving bucket, we move on to the next bucket, which is accomplished by moving to the sibling if the current bucket is the left child of the parent node, or to the sibling of the parent node if we are the right child.
-	\item The above algorithm will run in $N\log{N}$ time, as with gravity. However, unlike gravity, not all objects emit radiation. Thus, technically the more specific scaling is $N_{\mbox{sink}}\log{N_{\mbox{source}}}$. The slow growth rate of computation time with the number of sources makes the algorithm a very strong candidate for cosmological applications in which there are often similar numbers of star particles to gas particles. In fact, some codes have already made use of this basic idea \citep{gnedinAbel99,hopkins, kannanEt14}. As well, the algorithm may allow for the treatment of gas particles as sources (more caerful considerations must be made to tie the radiation to the cooling of the gas in this case), which is rarely done due to incredibly high computational cost.
+\item Once radiation has been calculated for the receiving bucket, we move on to the next bucket, which is accomplished by moving to the sibling if the current bucket is the left child of the parent node, or to the sibling of the parent node if we are the right child. An example radiation exchange is shown in figure \ref{fig:radexchange}.
+\item The above algorithm will run in $N\log{N}$ time, as with gravity. However, unlike gravity, not all objects emit radiation. Thus, technically the more specific scaling is $N_{\mbox{sink}}\log{N_{\mbox{source}}}$. The slow growth rate of computation time with the number of sources makes the algorithm a very strong candidate for cosmological applications in which there are often similar numbers of star particles to gas particles. In fact, some codes have already made use of this basic idea \citep{gnedinAbel99,hopkins, kannanEt14}. As well, the algorithm may allow for the treatment of gas particles as sources (more caerful considerations must be made to tie the radiation to the cooling of the gas in this case), which is rarely done due to incredibly high computational cost.
 \end{itemize}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\caption[The opening angle criteria.]{Cell A in this image is the receiving cell, while cells B, C, and D are cells that A will receive flux from. Cell A is close enough so that it should be opened, but is a leaf and so it requires a direct $n^2$ summation. Cell C is close enough and is not a leaf, so it will have its two children checked for the same criteria (the left child will be too close, the right child will be acceptable to interact with). Cell D is not a leaf, but is sufficiently far away that leaf A can interact with the full cell.}
+\label{fig:openinganglecriteria}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\caption[The exchange of radiation.]{In this image, cell A is receiving radiation from cell B. Cell B is sufficiently far away that we can find the center of luminosities of all the sources inside of it, and calculate flux based on that single value rather than summing each one individually.}
+\label{fig:radexchange}
+\end{figure}
 
 \section{Absorption}
 \label{sec:absorption}
@@ -91,8 +115,30 @@ The algorithm presented in sections \ref{sec:buildingtree} and \ref{sec:exchange
 \item Our goal then becomes to perform order (1) amount of work during this additional tree climb.
 \item In order to accomplish this, we need only make use of the average properties recorded for each cell during the tree build.
 \item At each higher cell during the tree climb, we obtain a larger representative volume from that cell. The new volume contains the previous volume as well as a new contribution from the previous cell's sibling. This sibling's volume may or may not lie on the vector connecting the two interacting cells. This can be determined by calculating the distance to the edge of the current volume along the vector from the centers of the original interacting cells. This operation is completed in order (1) time. (introduce this algorithm?).
-\item At each new higher cell, if the calculated line segment is longer than the accumulated distance so far, than the difference is the amount of the vector contained in the additional volume. By recording this new line segment, the average density of the cell, and the average opacity of the cell (both values that were accumulated during the tree build), then we have everything needed to calculate the optical depth of the line segment according to equation \ref{eq:opticaldepth}. By summing the optical depth of each line segment, we will have obtained the full optical depth between the interacting cells in order $log{N}$ time.
+\item At each new higher cell, if the calculated line segment is longer than the accumulated distance so far, than the difference is the amount of the vector contained in the additional volume. By recording this new line segment, the average density of the cell, and the average opacity of the cell (both values that were accumulated during the tree build), then we have everything needed to calculate the optical depth of the line segment according to equation \ref{eq:opticaldepth}. By summing the optical depth of each line segment, we will have obtained the full optical depth between the interacting cells in order $log{N}$ time. The algorithm is depicted graphically in figure \ref{fig:absorption}
 \end{itemize}
+
+%\begin{figure}
+%\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+%\caption{}
+%\label{fig:absorption}
+%\end{figure}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/RT_algorithm.eps}
+                \caption{A representation of the algorithm in real space, with the tree overlaid.}
+                \label{fig:treeclimb}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/RT_tree.eps}
+                \caption{The colors correspond to the volumes on the left.}
+                \label{fig:absorptiontree}
+        \end{subfigure}
+        \caption[The absorption algorithm.]{The absorption algorithm.}\label{fig:absorption}
+\end{figure}
 
 \section{Refinement}
 \label{sec:refinement}
@@ -102,17 +148,24 @@ While section \ref{sec:absorption} introduces a very fast algorithm for calculat
 \begin{itemize}
 \item The refinement is a fairly straightforward addition to the algorithm. At the point where the average properties of the cell would normally be considered, we simply check if the current cell passes a refinement criteria.
 \item If the cell passes the criteria to refine, rather than recording the average properties, we recursively check the children of section of the tree we did \emph{not} ascend from.
-\item Once we arrive at a cell that fails the criteria to refine (or at a leaf and can no longer refine), we record the line segment within the cell and the average properties as normal, and return up the recursive call.
+\item Once we arrive at a cell that fails the criteria to refine (or at a leaf and can no longer refine), we record the line segment within the cell and the average properties as normal, and return up the recursive call. See figure \ref{fig:refining} for a visual representation.
 \item The specific refinement criteria has deliberately been left vague until this point. In principle, one can refine on any cell property desired.
 \item For the purposes of this paper, we have decided to use an opacity refinement criteria. Within any cell, if a constant times the standard deviation of the average opacity is larger than the average opacity, the cell is refined. We find this produces a reasonable amount of refinement in code tests.
 \item Note that this is not necessarily the ideal criteria for physical simulations. It would be wise not only to look at the variation in opacity, but also the absolute value. In cases where the optical depth is very high, most of the radiation will be absorbed anyway, and the algorithm can be terminated since this particular vector yields a negligible flux of photons to the receiving cell.
 \end{itemize}
 
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\caption[Refinement during the absorption algorithm.]{When the line segment is too rough in some physical sense, refinement can be triggered. Visually, the algorithm descends back down the tree the opposite direction it came from until the criteria to refine is no longer satisfied or until a leaf is reached.}
+\label{fig:refining}
+\end{figure}
+
+
 Extension of the refinement to ray-tracing
 \begin{itemize}
 \item If very high accuracy is required, the refinement routine is flexible enough that sub-leaf refinement is possible. While this has not currently been tested since it leaves the regime of low computational expense, it could easily be implemented.
 \item If a leaf was reached during refinement and still passed the criteria to be refined on, the individual particles inside the cell could be considered.
-\item A ray tracing scheme through the cell similar to SPHRay \citep{altayCroftPelupessy08} could be performed. The machinery to do this ray trace is already established for use within the receiving and sending cells (see section \ref{sec:resolvingleaves}.
+\item A ray tracing scheme through the cell similar to SPHRay \citep{altayCroftPelupessy08} could be performed. The machinery to do this ray trace is already established for use within the receiving and sending cells (see section \ref{sec:resolvingleaves} and figure \ref{fig:raytracing}).
 \end{itemize}
 
 \section{Resolving the Receiving Cells}
@@ -126,8 +179,14 @@ During testing, we ran into issues with ionization fronts ``stalling'' in certai
 \item The ionized particles will use an opacity that is much too large, therefore reducing the flux that particles at the ``rear'' of the leaf see.
 \item This means that particles at the rear of the leaf are harder to ionize than at the front, and the propagation speed of the front is drastically reduced.
 \item In order to combat this, more detailed tracing is required \emph{only in the receiving leaf}.
-\item This is easily accomplished by implementing a scheme similar to SPHRay \citep{altayCroftPelupessi08}. (introduce simpler method that we use where we order particles along vector and linearly add optical depth?).
+\item This is easily accomplished by implementing a scheme similar to SPHRay \citep{altayCroftPelupessi08}. (introduce simpler method that we use where we order particles along vector and linearly add optical depth?). See figure \ref{fig:raytracing}.
 \end{itemize}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\caption[Ray tracing schemes for receiving cells.]{Two ray tracing schemes. The first is the scheme of \citet{altayCroftPelupessi08} in which the photons are diminished by optical depth along each particle's smoothing length that they pass through. The second scheme is much simpler and yields very similar results. It relies on the fact that the ray actually represents a very large cone of photons, and that most particles in the cell will probably contribute to the absorption of photons at the receiving particle.}
+\label{fig:raytracing}
+\end{figure}
 
 Introducing the ray tracing machinery for the above purpose also creates the ability to ray trace within leaves during the refine mentioned in section \ref{sec:refinement}. In principle, this means the code can easily be forced into a full ray trace if this behavior is desired.
 
