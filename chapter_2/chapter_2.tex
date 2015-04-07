@@ -9,5 +9,51 @@
 \renewcommand{\headrulewidth}{0.1pt}
 \renewcommand{\footrulewidth}{0.1pt}
 
-\chapter{Numerical Methods} \label{chapter2}
+\chapter{Radiative Transfer}
+\label{chap:radtransfer}
+
 \thispagestyle{fancy}
+
+This chapter will contain an overview of current radiative transfer methods and where we stand.
+
+\section{The Radiative Transfer Problem}
+\label{sec:rtformulation}
+
+
+\begin{equation}
+\label{eq:emissioncoef}
+j = \frac{dE}{dV d\Omega dt}
+\end{equation}
+
+\begin{equation}
+\label{eq:intensity}
+dI = j ds
+\end{equation}
+
+\begin{equation}
+\label{eq:absorption}
+dI = -\alpha I ds = -n \sigma I ds = -\rho \kappa I ds
+\end{equation}
+
+\begin{equation}
+\label{eq:radtransfer}
+\frac{dI}{ds} = -\alpha I +j
+\end{equation}
+
+\begin{equation}
+\label{eq:rademission}
+I(s) = I(s_0) + \int_{s_0}^{s} j(s') ds'
+\end{equation}
+
+\begin{equation}
+\label{eq:radabsorption}
+I(s) = I(s_0)\exp{\left[-\int_{s_0}^{s} \alpha(s') ds'\right]} = I(s_0)\exp{\left[ -\tau (s) \right]}
+\end{equation}
+
+\begin{equation}
+\label{eq:opticaldepth}
+\tau(s) = \int_{s_0}^{s} \alpha (s') ds' = \int_{s_0}^{s} \rho (s') \kappa(s') ds'
+\end{equation}
+
+
+\section{Current Methods}

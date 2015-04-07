@@ -17,20 +17,24 @@ In the absence of absorbing material, the problem of radiative transfer reduces 
 
 \begin{itemize}
 \item A tree can be used to partition space.
-\item Each level of the tree holds finer partitions of the volume. See figure \ref{fig:tree}
+\item Each level of the tree holds finer partitions of the volume. See figure \ref{fig:trees}
 \item Each node of the tree contains accumulated information about the tree below it (total mass, etc.).
-\item In order to calculate gravity on a particular leaf (bucket), you can interact with the moment of another cell (\ref{eq:gravitymoment}).
+\item In order to calculate gravity on a particular leaf (bucket), you can interact with the moment of another cell (\ref{eq:gravitymoments}).
 \item To decide what level of the tree to interact with, you can define an opening angle/radius, $\theta$. If a cell is smaller than this opening angle (the distribution of matter inside the cell is contained within a small enough angle on the sky), the entire cell can be used in the force calculation. If not, you must consider the child nodes separately. See equation \ref{eq:openingangle}.
 \item On average, the number of interactions a each particle will have is $\log{N}$, where N is the total number of particles. Thus, the force calculation for the whole simulation scales as $N\log{N}$. Note that lowering $\theta$ shifts the number of calculations that are approximated by large cells to smaller cells, and thus if $\theta$ is very small, the code approached scaling of order $N^2$.
 \item In the case of radiation, the math is very similar (See eq \ref{eq:radiationmoments}). However, since radiation does not cancel like forces, the dipole moment does not disappear and a rougher approximation is possible (wording wrong, fix this).
 \item In this case, the interaction scales as $N_{\mbox{sink}}\log{N_{\mbox{source}}}$. However, assuming the full tree is still used, the tree-build still scales as $N\log{N}$.
 \end{itemize}
 
-%\begin{figure}
-%\includegraphics[width=\textwidth]{graphics/placeholder.eps}
-%\caption{This is a test}
-%\label{fig:test}
-%\end{figure}
+\begin{equation}
+\label{eq:gravitymoments}
+\Phi = \frac{G}{4\pi}\sum\limits_{n=0}^{\infty} \frac{1}{r^{(n+1)}}\int (r')^n P_n (\cos{\theta '}) \rho(\boldsymbol r') d\tau '
+\end{equation}
+
+\begin{equation}
+\label{eq:radiationmoments}
+F = \frac{L}{4 \pi r^2}
+\end{equation}
 
 \section{Tree Data Structures}
 \label{sec:treestruct}
@@ -45,9 +49,19 @@ In order to understand the radiative transfer algorithm that we are presenting, 
 \end{itemize}
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
-\caption[Examples of trees.]{This is an example of a binary tree. The volume is represented by a tree node, and each volume is then split into two subvolumes, which are represented by two ``child'' nodes of the original node. This splitting can continue indefinitely on either side, making the tree an effective way at splitting volumes.}
-\label{fig:trees}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/tree.eps}
+                %\caption{A representation of the algorithm in real space, with the tree overlaid.}
+                \label{fig:volumetree}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/tree_memory.eps}
+                %\caption{The colors correspond to the volumes on the left.}
+                \label{fig:memorytree}
+        \end{subfigure}
+        \caption[Example of trees]{This is an example of a binary tree. The volume is represented by a tree node, and each volume is then split into two subvolumes, which are represented by two ``child'' nodes of the original node. This splitting can continue indefinitely on either side, making the tree an effective way at splitting volumes.}\label{fig:trees}
 \end{figure}
 
 \section{Building a Radiation Tree}
@@ -87,8 +101,23 @@ Once the tree has been built, calculating the radiation (gravity) at any particu
 	\item Once radiation has been calculated from the current cell, the tree-walk is allowed to skip all children of the current cell and move on to its sibling or parent's sibling (parent's sibling in the case that we are the right-hand child of the parent node). 
 	\end{enumerate}
 \item Once radiation has been calculated for the receiving bucket, we move on to the next bucket, which is accomplished by moving to the sibling if the current bucket is the left child of the parent node, or to the sibling of the parent node if we are the right child. An example radiation exchange is shown in figure \ref{fig:radexchange}.
-\item The above algorithm will run in $N\log{N}$ time, as with gravity. However, unlike gravity, not all objects emit radiation. Thus, technically the more specific scaling is $N_{\mbox{sink}}\log{N_{\mbox{source}}}$. The slow growth rate of computation time with the number of sources makes the algorithm a very strong candidate for cosmological applications in which there are often similar numbers of star particles to gas particles. In fact, some codes have already made use of this basic idea \citep{gnedinAbel99,hopkins, kannanEt14}. As well, the algorithm may allow for the treatment of gas particles as sources (more caerful considerations must be made to tie the radiation to the cooling of the gas in this case), which is rarely done due to incredibly high computational cost.
+\item The above algorithm will run in $N\log{N}$ time, as with gravity. However, unlike gravity, not all objects emit radiation. Thus, technically the more specific scaling is $N_{\mbox{sink}}\log{N_{\mbox{source}}}$. The slow growth rate of computation time with the number of sources makes the algorithm a very strong candidate for cosmological applications in which there are often similar numbers of star particles to gas particles. In fact, some codes have already made use of this basic idea \citep{gnedinAbel01,hopkins, kannanEt14}. As well, the algorithm may allow for the treatment of gas particles as sources (more caerful considerations must be made to tie the radiation to the cooling of the gas in this case), which is rarely done due to incredibly high computational cost.
 \end{itemize}
+
+\begin{equation}
+\label{eq:openingangle}
+\theta_{\mbox{crit}} = \frac{b_{\mbox{max}}}{r}
+\end{equation}
+
+\begin{equation}
+\label{eq:openingradius}
+r_{\mbox{crit}} = \frac{b_{\mbox{max}}}{\theta_{\mbox{crit}}}
+\end{equation}
+
+\begin{equation}
+\label{eq:bucketflux}
+F_{\mbox{bucket}} = \frac{L_{\mbox{tot}}}{4\pi r^2}e^{-\tau}
+\end{equation}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/placeholder.eps}
@@ -97,7 +126,7 @@ Once the tree has been built, calculating the radiation (gravity) at any particu
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\includegraphics[width=\textwidth]{graphics/flux.eps}
 \caption[The exchange of radiation.]{In this image, cell A is receiving radiation from cell B. Cell B is sufficiently far away that we can find the center of luminosities of all the sources inside of it, and calculate flux based on that single value rather than summing each one individually.}
 \label{fig:radexchange}
 \end{figure}
@@ -109,7 +138,7 @@ The algorithm presented in sections \ref{sec:buildingtree} and \ref{sec:exchange
 
 \begin{itemize}
 \item As mentioned in chapter \ref{chap:intro}, most current radiative transfer codes either completely ignore intervening material or do very detailed tracing of photons throughout the medium. The former option produces very bad radiation fields while the latter is incredibly computationally expensive.
-\item In order to reproduce the behavior of equation \ref{eq:radtransfereq}, we must modify the algorithm to be able to find the optical depth between any two points. However, we must be careful not to lose the performance afforded by the tree. In order to do this, we have developed the algorithm to make use of the tree during the optical depth calculation as well.
+\item In order to reproduce the behavior of equation \ref{eq:radtransfer}, we must modify the algorithm to be able to find the optical depth between any two points. However, we must be careful not to lose the performance afforded by the tree. In order to do this, we have developed the algorithm to make use of the tree during the optical depth calculation as well.
 \item The crucial point to the algorithm lies in the fact that for any two interacting cells, there exists a common parent node. Thus, all intervening space between the cells must lie within the subtree in which the common parent is the root.
 \item If we traverse up the depth of the tree (hereafter referred to as a tree climb) once from each interacting node to the common parent node, we will have performed roughly $\log(N)$ extra operations per interaction. If we do no other work than this, then our scaling for radiative transfer changes to $N_{\mbox{sink}}\log{N_{\mbox{source}}}\log{N}$. While the extra factor of $\log{N}$ is certainly worth noting, it does not tend to increase scaling by a significant amount.
 \item Our goal then becomes to perform order (1) amount of work during this additional tree climb.
@@ -155,17 +184,28 @@ While section \ref{sec:absorption} introduces a very fast algorithm for calculat
 \end{itemize}
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
-\caption[Refinement during the absorption algorithm.]{When the line segment is too rough in some physical sense, refinement can be triggered. Visually, the algorithm descends back down the tree the opposite direction it came from until the criteria to refine is no longer satisfied or until a leaf is reached.}
-\label{fig:refining}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/refinement.eps}
+                \caption{The tree splits the line segment into the red and orange sections.}
+                \label{fig:refinetree}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/refine_memory.eps}
+                \caption{The colors correspond to the volumes on the left.}
+                \label{fig:refinememory}
+        \end{subfigure}
+        \caption[Refinement during the absorption algorithm.]{When the line segment is too rough in some physical sense, refinement can be triggered. Visually, the algorithm descends back down the tree the opposite direction it came from until the criteria to refine is no longer satisfied or until a leaf is reached.}\label{fig:refining}
 \end{figure}
+
 
 
 Extension of the refinement to ray-tracing
 \begin{itemize}
 \item If very high accuracy is required, the refinement routine is flexible enough that sub-leaf refinement is possible. While this has not currently been tested since it leaves the regime of low computational expense, it could easily be implemented.
 \item If a leaf was reached during refinement and still passed the criteria to be refined on, the individual particles inside the cell could be considered.
-\item A ray tracing scheme through the cell similar to SPHRay \citep{altayCroftPelupessy08} could be performed. The machinery to do this ray trace is already established for use within the receiving and sending cells (see section \ref{sec:resolvingleaves} and figure \ref{fig:raytracing}).
+\item A ray tracing scheme through the cell similar to SPHRay \citep{altayEt08} could be performed. The machinery to do this ray trace is already established for use within the receiving and sending cells (see section \ref{sec:resolvingleaves} and figure \ref{fig:raytracing}).
 \end{itemize}
 
 \section{Resolving the Receiving Cells}
@@ -179,12 +219,12 @@ During testing, we ran into issues with ionization fronts ``stalling'' in certai
 \item The ionized particles will use an opacity that is much too large, therefore reducing the flux that particles at the ``rear'' of the leaf see.
 \item This means that particles at the rear of the leaf are harder to ionize than at the front, and the propagation speed of the front is drastically reduced.
 \item In order to combat this, more detailed tracing is required \emph{only in the receiving leaf}.
-\item This is easily accomplished by implementing a scheme similar to SPHRay \citep{altayCroftPelupessi08}. (introduce simpler method that we use where we order particles along vector and linearly add optical depth?). See figure \ref{fig:raytracing}.
+\item This is easily accomplished by implementing a scheme similar to SPHRay \citep{altayEt08}. (introduce simpler method that we use where we order particles along vector and linearly add optical depth?). See figure \ref{fig:raytracing}.
 \end{itemize}
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
-\caption[Ray tracing schemes for receiving cells.]{Two ray tracing schemes. The first is the scheme of \citet{altayCroftPelupessi08} in which the photons are diminished by optical depth along each particle's smoothing length that they pass through. The second scheme is much simpler and yields very similar results. It relies on the fact that the ray actually represents a very large cone of photons, and that most particles in the cell will probably contribute to the absorption of photons at the receiving particle.}
+\includegraphics[width=\textwidth]{graphics/raytrace.eps}
+\caption[Ray tracing schemes for receiving cells.]{Two ray tracing schemes. The first is the scheme of \citet{altayEt08} in which the photons are diminished by optical depth along each particle's smoothing length that they pass through. The second scheme is much simpler and yields very similar results. It relies on the fact that the ray actually represents a very large cone of photons, and that most particles in the cell will probably contribute to the absorption of photons at the receiving particle. It essentially simplifies to setting b = 0 for every particle in the receiving leaf.}
 \label{fig:raytracing}
 \end{figure}
 

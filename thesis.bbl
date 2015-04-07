@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+
+\bibitem{altayCroftPelupessy08}
+G.~{Altay}, R.~A.~C. {Croft}, and I.~{Pelupessy}.
+\newblock {SPHRAY: a smoothed particle hydrodynamics ray tracer for radiative
+  transfer}.
+\newblock {\em \mnras}, 386:1931--1946, June 2008.
+
+\bibitem{barnesHut86}
+J.~{Barnes} and P.~{Hut}.
+\newblock {A hierarchical O(N log N) force-calculation algorithm}.
+\newblock {\em \nat}, 324:446--449, December 1986.
+
+\bibitem{gnedinAbel01}
+N.~Y. {Gnedin} and T.~{Abel}.
+\newblock {Multi-dimensional cosmological radiative transfer with a Variable
+  Eddington Tensor formalism}.
+\newblock {\em \na}, 6:437--455, October 2001.
+
+\bibitem{kannanEt14}
+R.~{Kannan}, G.~S. {Stinson}, A.~V. {Macci{\`o}}, J.~F. {Hennawi}, R.~{Woods},
+  J.~{Wadsley}, S.~{Shen}, T.~{Robitaille}, S.~{Cantalupo}, T.~R. {Quinn}, and
+  C.~{Christensen}.
+\newblock {Galaxy formation with local photoionization feedback - I. Methods}.
+\newblock {\em \mnras}, 437:2882--2893, January 2014.
+
+\end{thebibliography}

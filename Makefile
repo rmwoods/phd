@@ -2,7 +2,7 @@ RM := rm -rf
 
 thesis: thesis.tex
 	-latex -interaction=nonstopmode 'thesis.tex'
-	-bibtex 'references'
+	-bibtex 'thesis'
 	-latex -interaction=nonstopmode 'thesis.tex' #Run latex twice
 	-latex -interaction=nonstopmode 'thesis.tex'
 	-dvips -o 'thesis.ps' 'thesis.dvi'
