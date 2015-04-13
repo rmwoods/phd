@@ -230,6 +230,53 @@ During testing, we ran into issues with ionization fronts ``stalling'' in certai
 
 Introducing the ray tracing machinery for the above purpose also creates the ability to ray trace within leaves during the refine mentioned in section \ref{sec:refinement}. In principle, this means the code can easily be forced into a full ray trace if this behavior is desired.
 
+\subsection{High Optical Depth Particles}
+\label{sec:hightau}
+
+High tau particles are problematic. This is how we deal with them...
+
+\section{Periodicity}
+\label{sec:periodicity}
+
+Move to future work?
+
+\section{Cosmological Background Radiation}
+\label{sec:cosmobackground}
+
+In order to do cosmological simulations properly, we must account for the radiation coming from the rest of the universe outside of the simulation volume. Most current codes apply a constant UV field to the entire box, essentially the lowest order approximation possible.
+\begin{itemize}
+\item Few codes have moved past this for cosmology, though some have.
+\item OTVET \citep{petkovaSpringel09} uses their radiation scheme with periodic boundaries.
+\item Other more detailed scheme apply a constant radiation field at the boundaries coming into the volume (add citations).
+\item While our scheme is perfectly capable of doing a periodic option, we have opted to set up a number of ``background sources.'' The sources are distributed on the surface of a sphere at the very edge of the simulation (or larger if required) and the number of sources can be varied to match the required angular resolution of the background.
+\item Finding the flux at the center of a sphere of sources is a problem akin to Newton's Shell Theorem. However, because the flux doesn't cancel like force, the solution does not work out the same. See equation \ref{eq:shellflux}.
+\item Since the solution is logarithmic in r, the we can assume the flux is roughly constant at similar radii. Since most cosmological zoom simulations only consider gas at a fairly small radius, this is acceptable.
+\end{itemize}
+
+\begin{equation}
+\label{eq:shellflux}
+F = K\left[ \log{R+r} - ln(R-r) \right]
+\end{equation}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/backgroundflux.eps}
+\caption[Flux due to the cosmological background.]{The distribution of flux particles receive due to cosmological background particles when distributed in a sphere at the edge of the box. Note that value of the flux at the center can be easily scaled by simply scaling the luminosity of all sources on the sphere.}
+\label{fig:backgroundflux}
+\end{figure}
+
+\section{Cosmological Effects}
+\label{sec:cosmoeffects}
+Move this section to ``future plans'' section?
+
+\subsection{Cosmological Redshift of Radiation}
+\label{sec:redshiftingradiation}
+
+
+\subsection{Accounting for a Finite Speed of Light}
+\label{sec:finitespeedoflight}
+
+Move this section to ```future plans'' section?
+
 \section{Summary of Algorithm}
 \label{sec:algorithmsummary}
 
