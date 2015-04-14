@@ -53,7 +53,7 @@ F = \frac{L}{4\pi r^2} \exp{-\tau}
 \end{equation}
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\includegraphics[width=\textwidth]{graphics/error.eps}
 \caption[Error distribution for a single source in a uniform field.]{The distribution of flux errors among particles.}
 \label{fig:thickglasserrors}
 \end{figure}
@@ -76,9 +76,14 @@ We now look closely at what effects averaging sources can have on results.
 \subsection{Two star}
 \label{sec:twostar}
 
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/errorMap2starthick.eps}
+\caption[The error associated with averaging star positions.]{The error associated with averaging star positions.}
+\label{fig:twostar}
+\end{figure}
 
 
-\subsection{Isothermal Sphere with a Cluster}
+\subsection{Isothermal Sphere with a Cluster(?)}
 \label{sec:cluster}
 
 
@@ -86,45 +91,101 @@ We now look closely at what effects averaging sources can have on results.
 \section{The Str\"omgren Sphere}
 \label{sec:stromgren}
 
+\begin{equation}
+\label{eq:strmogrenradius}
+R_S = \left( \frac{3}{4\pi} \frac{\dot{N_{\gamma}}}{\alpha n_H^2}\right)
+\end{equation}
 
+\begin{equation}
+\label{eq:stromgrentime}
+R(t) = R_S[1-\exp{(t/t_{\mbox{recomb}})}]^{1/3}
+\end{equation}
 
 \subsection{The Isothermal Case}
 \label{sec:isostromgren}
 
-
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/ifront6401000.eps}
+\caption[The isothermal Str\"omgren Sphere.]{A slice of particles showing the ionization state.}
+\label{fig:stromgreniso}
+\end{figure}
 
 \subsection{The Thermal Case}
 \label{sec:thermalstromgren}
 
-
+Text to fix the formatting.
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/ifrontThermal6400020Tempprofile.eps}
+                \label{fig:stromgrenthermal10}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/ifrontThermal6400200Tempprofile.eps}
+                \label{fig:stromgrenthermal100}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/ifrontThermal6400200Tempprofile.eps}
+                \label{fig:stromgrenthermal500}
+        \end{subfigure}
+        \caption[Temperature vs radius for the thermal Str\"omgren sphere.]{Temperature vs radius for the thermal Str\"omgren sphere.}
+        \label{fig:stromgrenthermal}
+\end{figure}
 
 \section{The Gas Wall}
 \label{sec:gaswall}
 
-
+Text to fix the formatting.
 
 \subsection{Only Radiation}
 \label{sec:gaswallradonly}
 
+Text to fix the formatting.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/gasWall01000HIslice.eps}
+\caption[Two slabs of gas at different densities.]{Two slabs of gas at different densities.}
+\label{fig:gaswall}
+\end{figure}
 
 
 \subsection{With Hydrodynamics - the Champagne Flow}
 \label{sec:champagne}
 
+Text to fix the formatting.
 
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\caption[An example of a champagne flow.]{An example of a champagne flow.}
+\label{fig:champagne}
+\end{figure}
 
 \section{Shadowing}
 \label{sec:shadowing}
 
+Text to fix the formatting.
 
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/shadow10000.eps}
+\caption[Shadowing.]{Demonstrating the codes ability to shadow.}
+\label{fig:shadow}
+\end{figure}
 
 \section{Galaxy Disk}
 \label{sec:galaxydisk}
 
-
+Text to fix the formatting.
 
 \section{Timings and Scaling}
 \label{sec:timing}
 
+Text to fix the formatting.
 
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/Timings.eps}
+\caption[Wall time vs the number of sources.]{Wall time vs the number of sources.}
+\label{fig:scaling}
+\end{figure}
 

@@ -5,9 +5,10 @@ The style file: plain.bst
 Database file #1: thesis.bib
 Warning--I didn't find a database entry for "hopkins"
 Warning--I didn't find a database entry for "altayEt08"
+Warning--I didn't find a database entry for "petkovaSpringel09"
 You've used 4 entries,
             2118 wiz_defined-function locations,
-            567 strings with 5329 characters,
+            569 strings with 5363 characters,
 and the built_in function-call counts, 1646 in all, are:
 = -- 152
 > -- 102
@@ -46,4 +47,4 @@ warning$ -- 0
 while$ -- 12
 width$ -- 5
 write$ -- 46
-(There were 2 warnings)
+(There were 3 warnings)
