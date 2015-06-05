@@ -19,7 +19,7 @@ In this chapter, I present tests to demonstrate the strengths and limitations of
 \section{Glass}
 \label{sec:glass}
 
-A glass of particles is a simple way to demonstrate the most basic functionality of the algorithm. Each particle effectively acts to sample the radiation field at a particular point and has an easily calculated exact solution to compare to. A glass is also the relaxed state for an SPH simulation
+A glass of particles is a simple way to demonstrate the most basic functionality of the algorithm. Each particle effectively acts to sample the radiation field at a particular point and has an easily calculated exact solution to compare to. A glass is also the relaxed state for an SPH simulation.
 
 \subsection{Optically Thin}
 \label{sec:thinglass}
@@ -86,23 +86,33 @@ We now look closely at what effects averaging sources can have on results.
 \subsection{Isothermal Sphere with a Cluster(?)}
 \label{sec:cluster}
 
-
+Words.
 
 \section{The Str\"omgren Sphere}
 \label{sec:stromgren}
 
+The str\"omgren sphere is a theoretical ionized sphere of gas. It was first discussed by Bengt Str\"omgren in 1938 \citep{stromgren39}. We start with a cloud of homogeneous neutral Hydrogen gas and an ionizing source, commonly representing an O or B-type star, at the center. As the photons from the source ionize the hydrogen, the optical depth of the gas decreases, and so the ionizing photons move further out creating an ionization front. As the front moves out, the photon density as a function of radius falls off simply due to $1/r^2$ geometry and eventually a point is reached where the ionization rate falls to the recombination rate. At this point, the front stops in equilibrium.
+
+One can solve for this radius by setting the photon density as a function of radius to the recombination rate and solving for radius \citep{stromgren39,spitzer78},
+
 \begin{equation}
-\label{eq:strmogrenradius}
-R_S = \left( \frac{3}{4\pi} \frac{\dot{N_{\gamma}}}{\alpha n_H^2}\right)
+\label{eq:stromgrenradius}
+R_S = \left( \frac{3}{4\pi} \frac{\dot{N_{\gamma}}}{\alpha n_H^2}\right).
 \end{equation}
+
+One can also find the growth rate of the front,
 
 \begin{equation}
 \label{eq:stromgrentime}
-R(t) = R_S[1-\exp{(t/t_{\mbox{recomb}})}]^{1/3}
+R(t) = R_S[1-\exp{(t/t_{\mbox{recomb}})}]^{1/3}.
 \end{equation}
+
+The above equations are the solutions for the evolution of a sharp ionization front, meaning that we have assumed the transition from ionized to neutral is infinitesimal in size. In order to solve for a non-sharp front, we must solve some equations numerically. FILL IN METHOD HERE.
 
 \subsection{The Isothermal Case}
 \label{sec:isostromgren}
+
+It is easiest to start by assuming the gas is isothermal and that all incoming photons have only enough energy to ionize the gas (13.6 ev). In this way, all gas is heated to the same temperature, and both cross section (due to only a single photon wavelength) and recombination (due to only a single temperature) can be assumed to be constant.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/ifront6401000.eps}
@@ -113,7 +123,10 @@ R(t) = R_S[1-\exp{(t/t_{\mbox{recomb}})}]^{1/3}
 \subsection{The Thermal Case}
 \label{sec:thermalstromgren}
 
-Text to fix the formatting.
+
+The above formulation assumed the gas was isothermal in order to simplify assumptions about cross section and recombination. In reality, both change with temperature. As well, the incoming photons are typically not all at a single wavelength but are distributed among many. The following test accounts for the latter factor, though not the former.
+
+In this test, the incident photons are assumed to be from a black body with temperature 1e5 K. The cross section is changed to an integrated cross section, obtained by integrating the cross section as a function of wavelength over all wavelengths having energies between 13.6 ev and 29.65 ev.
 \begin{figure}
         \centering
         \begin{subfigure}[b]{0.3\textwidth}
@@ -134,15 +147,17 @@ Text to fix the formatting.
         \label{fig:stromgrenthermal}
 \end{figure}
 
+
+
 \section{The Gas Wall}
 \label{sec:gaswall}
 
-Text to fix the formatting.
+In order to test the algorithm's ability to handle a sharp density jump, we again perform the isothermal stromgren front (section \ref{sec:isostromgren}), but with a large density jump. We keep all of the same initial parameters, but change the density to the left of x = 0 to $\rho/2$ and the density to the right of x = 0 to $3/2 \rho$.
 
 \subsection{Only Radiation}
 \label{sec:gaswallradonly}
 
-Text to fix the formatting.
+In the case that hydrodynamics is off, the solution is two stromgren hemispheres centered at x = 0.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/gasWall01000HIslice.eps}
@@ -154,7 +169,7 @@ Text to fix the formatting.
 \subsection{With Hydrodynamics - the Champagne Flow}
 \label{sec:champagne}
 
-Text to fix the formatting.
+In order to test the coupling of radiation to the hydrodynamics, we perform a similar test in which the code now uses its hydrodynamics solvers. We follow the setup of \citet{gendelevKrumholz12}; A 50 pc cube is initialized with a density of 0.055 atoms cm$^{-3}$ to the right of x = 0, and 63 atoms cm$^{3}$ to the left. The temperatures of the left and right halves are 55 K and 6.3e3 K, respectively. This density/temperature combination gives pressure equilibrium at the boundary. An ionizing source is turned on at the origin that emits 5.3e47 photons/s, similar to a type BO.5 star. The combination of density and luminosity gives a stromgren sphere radius of 1.5 pc in the dense regions and a recombination time of 2.48e4 Years. The simulation is run for more than 4e6 years, meaning that the gas has time to heat and expand.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/placeholder.eps}
