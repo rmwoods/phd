@@ -1,0 +1,534 @@
+Gnedin + Abel, 2001 - OTVET
+Scales as nlogn, independent of source distribution, applied in Softend Lagrangian Hydrodynamics (SLH) code for re-ionization.
+@ARTICLE{2001NewA....6..437G,
+   author = {{Gnedin}, N.~Y. and {Abel}, T.},
+    title = "{Multi-dimensional cosmological radiative transfer with a Variable Eddington Tensor formalism}",
+  journal = {\na},
+   eprint = {astro-ph/0106278},
+     year = 2001,
+    month = oct,
+   volume = 6,
+    pages = {437-455},
+      doi = {10.1016/S1384-1076(01)00068-9},
+   adsurl = {http://adsabs.harvard.edu/abs/2001NewA....6..437G},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+ 
+Ricotti, Gnedin, + Shull, 2002
+OTVET for cosmological galaxy formation, H2 LyWerner. Chemistry for H2 formation/destruction, molecular + atomic cooling, ionization by secondary electrons, and heating by Ly Alpha scattering. "We find that the first galaxies (``small-halo galaxies'') are characterized by bursting star formation, self-regulated by a feedback process that acts on cosmological scales. The mass in stars produced by these objects can exceed the mass in stars produced by normal galaxies; therefore, their impact on cosmic evolution cannot be neglected." More results in companion paper.
+@ARTICLE{2002ApJ...575...33R,
+   author = {{Ricotti}, M. and {Gnedin}, N.~Y. and {Shull}, J.~M.},
+    title = "{The Fate of the First Galaxies. I. Self-consistent Cosmological Simulations with Radiative Transfer}",
+  journal = {\apj},
+   eprint = {astro-ph/0110431},
+ keywords = {Cosmology: Theory, Galaxies: Dwarf, Galaxies: Evolution, Galaxies: Formation, Galaxies: High-Redshift, Galaxies: Intergalactic Medium},
+     year = 2002,
+    month = aug,
+   volume = 575,
+    pages = {33-48},
+      doi = {10.1086/341255},
+   adsurl = {http://adsabs.harvard.edu/abs/2002ApJ...575...33R},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Pawlick + Schaye, 2008
+TRAPHIC (RT for SPH). Includes source merging procedure. Photons sent out in cones and photons are conserved. Implemented in GADGET-2.
+@ARTICLE{2008MNRAS.389..651P,
+   author = {{Pawlik}, A.~H. and {Schaye}, J.},
+    title = "{TRAPHIC - radiative transfer for smoothed particle hydrodynamics simulations}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {0802.1715},
+ keywords = {radiative transfer , hydrodynamics , methods: numerical , HII regions , diffuse radiation , large-scale structure of Universe},
+     year = 2008,
+    month = sep,
+   volume = 389,
+    pages = {651-677},
+      doi = {10.1111/j.1365-2966.2008.13601.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2008MNRAS.389..651P},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Altay, Croft, + Pelupessy, 2008
+SPHRAY: A Smoothed Particle Hydrodynamics Ray Tracer for Radiative Transfer - Monte Carlo RT scheme that integrates SPH kernel to get radiation fields (rather than interpolating particles to grid). Calculates non-equilibrium ionization and temperature. Uses tests from Iliev et al. " quick Axis Aligned Bounding Box (AABB) test taken from computer graphics applications allows for the acceleration of the raytracing component."
+@ARTICLE{2008MNRAS.386.1931A,
+   author = {{Altay}, G. and {Croft}, R.~A.~C. and {Pelupessy}, I.},
+    title = "{SPHRAY: a smoothed particle hydrodynamics ray tracer for radiative transfer}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {0802.3698},
+ keywords = {radiative transfer , methods: numerical , cosmology: theory},
+     year = 2008,
+    month = jun,
+   volume = 386,
+    pages = {1931-1946},
+      doi = {10.1111/j.1365-2966.2008.13212.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2008MNRAS.386.1931A},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Petkova + Springel, 2009
+OTVET in gadget. Provides tests, agree well except with shadowing.
+@ARTICLE{2009MNRAS.396.1383P,
+   author = {{Petkova}, M. and {Springel}, V.},
+    title = "{An implementation of radiative transfer in the cosmological simulation code GADGET}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {0812.1801},
+ keywords = {radiative transfer , methods: numerical},
+     year = 2009,
+    month = jul,
+   volume = 396,
+    pages = {1383-1403},
+      doi = {10.1111/j.1365-2966.2009.14843.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2009MNRAS.396.1383P},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Kuiper et al., 2010
+Frequency-dependent RT for hydrodynamics simulations in massive star formation - "The module combines the advantage of the speed of an approximate flux limited diffusion (FLD) solver in the one-temperature approach, which is valid in the static diffusion limit, with the high accuracy of a frequency dependent first order ray-tracing routine." Speed?
+@ARTICLE{2010A&A...511A..81K,
+   author = {{Kuiper}, R. and {Klahr}, H. and {Dullemond}, C. and {Kley}, W. and 
+	{Henning}, T.},
+    title = "{Fast and accurate frequency-dependent radiation transport for hydrodynamics simulations in massive star formation}",
+  journal = {\aap},
+archivePrefix = "arXiv",
+   eprint = {1001.3301},
+ primaryClass = "astro-ph.SR",
+ keywords = {radiative transfer, hydrodynamics, stars: formation, circumstellar matter, accretion, accretion disks, methods: numerical},
+     year = 2010,
+    month = feb,
+   volume = 511,
+      eid = {A81},
+    pages = {A81},
+      doi = {10.1051/0004-6361/200912355},
+   adsurl = {http://adsabs.harvard.edu/abs/2010A%26A...511A..81K},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+Parkin, 2011
+Adaptive ray tracing for creating synthetic images.
+@ARTICLE{2011MNRAS.410L..28P,
+   author = {{Parkin}, E.~R.},
+    title = "{Adaptive image ray-tracing for astrophysical simulations}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {1010.5534},
+ primaryClass = "astro-ph.IM",
+ keywords = {radiative transfer, methods: data analysis, methods: numerical, X-rays: general},
+     year = 2011,
+    month = jan,
+   volume = 410,
+    pages = {L28-L31},
+      doi = {10.1111/j.1745-3933.2010.00972.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2011MNRAS.410L..28P},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Cantalupo + Porciani, 2011
+RADAMESH: cosmological RT for AMR - Monte Carlo ray tracing scheme. MC samples radiation field on cell-by-cell basis to get higher accuracy and lower cost. Follows cosmological ionization fronts for H, He. Tests from Iliev, apply to QUASAR. 
+@ARTICLE{2011MNRAS.411.1678C,
+   author = {{Cantalupo}, S. and {Porciani}, C.},
+    title = "{RADAMESH: cosmological radiative transfer for Adaptive Mesh Refinement simulations}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {1009.1625},
+ primaryClass = "astro-ph.CO",
+ keywords = {radiative transfer, methods: numerical, H II regions, intergalactic medium, cosmology: theory, diffuse radiation},
+     year = 2011,
+    month = mar,
+   volume = 411,
+    pages = {1678-1694},
+      doi = {10.1111/j.1365-2966.2010.17799.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2011MNRAS.411.1678C},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Petkova, 2011
+PhD thesis for OTVET. OTVET used for reionization.
+@PHDTHESIS{2011PhDT.......155P,
+   author = {{Petkova}, M.},
+    title = "{Numerical Radiative Transfer and the Hydrogen Reionization of the Universe}",
+   school = {Ludwig Maximilians Universitat Munchen},
+     year = 2011,
+    month = March,
+   adsurl = {http://adsabs.harvard.edu/abs/2011PhDT.......155P},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Pawlik + Schaye, 2011
+Multifrequency, thermally coupled radiative transfer with TRAPHIC: method and tests. Adds ionization, temperature dependence, and multiband support.
+@ARTICLE{2011MNRAS.412.1943P,
+   author = {{Pawlik}, A.~H. and {Schaye}, J.},
+    title = "{Multifrequency, thermally coupled radiative transfer with TRAPHIC: method and tests}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {1008.1071},
+ primaryClass = "astro-ph.IM",
+ keywords = {hydrodynamics, radiative transfer, methods: numerical, H II regions, diffuse radiation, large-scale structure of Universe},
+     year = 2011,
+    month = apr,
+   volume = 412,
+    pages = {1943-1964},
+      doi = {10.1111/j.1365-2966.2010.18032.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2011MNRAS.412.1943P},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Susa, 2011
+Review of RT in SPH.
+@INPROCEEDINGS{2011IAUS..270..195S,
+   author = {{Susa}, H.},
+    title = "{SPH Radiative Hydrodynamics Methods}",
+ keywords = {methods: numerical, radiative transfer, hydrodynamics},
+booktitle = {Computational Star Formation},
+     year = 2011,
+   series = {IAU Symposium},
+   volume = 270,
+   editor = {{Alves}, J. and {Elmegreen}, B.~G. and {Girart}, J.~M. and {Trimble}, V.
+	},
+    month = apr,
+    pages = {195-202},
+      doi = {10.1017/S1743921311000366},
+   adsurl = {http://adsabs.harvard.edu/abs/2011IAUS..270..195S},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Wise + Abel, 2011 (super long)
+ENZO+MORAY: radiation hydrodynamics AMR simulations with adaptive ray tracing - used for stellar + BH feedback. Test against Iliev et al. Also tough tests like ionization front through RT instability (?!). Scales as n_source.
+@ARTICLE{2011MNRAS.414.3458W,
+   author = {{Wise}, J.~H. and {Abel}, T.},
+    title = "{ENZO+MORAY: radiation hydrodynamics adaptive mesh refinement simulations with adaptive ray tracing}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {1012.2865},
+ primaryClass = "astro-ph.IM",
+ keywords = {hydrodynamics, radiative transfer, methods: numerical},
+     year = 2011,
+    month = jul,
+   volume = 414,
+    pages = {3458-3491},
+      doi = {10.1111/j.1365-2966.2011.18646.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2011MNRAS.414.3458W},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Clark, Glover, + Klessen, 2012
+TREECol - Calculate column densities using HEALPIX at each resolution element in GADGET2. Scales as NlogN. Applied to spherical protostellar core. Generally accurate to about 10%.
+@ARTICLE{2012MNRAS.420..745C,
+   author = {{Clark}, P.~C. and {Glover}, S.~C.~O. and {Klessen}, R.~S.},
+    title = "{TreeCol: a novel approach to estimating column densities in astrophysical simulations}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {1109.3861},
+ primaryClass = "astro-ph.GA",
+ keywords = {radiative transfer, methods: numerical},
+     year = 2012,
+    month = feb,
+   volume = 420,
+    pages = {745-756},
+      doi = {10.1111/j.1365-2966.2011.20087.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2012MNRAS.420..745C},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Steinacker, Baes, + Gordon, 2012 (Review?)
+3D dust RT - We discuss the complexity of this problem, the two most successful solution techniques [ray-tracing (RayT) and Monte Carlo (MC)], and the state of the art in modeling observational data using 3D dust RT codes.
+@ARTICLE{2013ARA&A..51...63S,
+   author = {{Steinacker}, J. and {Baes}, M. and {Gordon}, K.~D.},
+    title = "{Three-Dimensional Dust Radiative Transfer*}",
+  journal = {\araa},
+archivePrefix = "arXiv",
+   eprint = {1303.4998},
+ primaryClass = "astro-ph.IM",
+     year = 2013,
+    month = aug,
+   volume = 51,
+    pages = {63-104},
+      doi = {10.1146/annurev-astro-082812-141042},
+   adsurl = {http://adsabs.harvard.edu/abs/2013ARA%26A..51...63S},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Yajima, Li, Zhu, + Abel, 2012
+Art^2 RT to look at Ly-alpha properties of galaxies from z=10-3. Claims to do all wavelengths? Implementation? "This code is based on the original version of Li et al."
+@ARTICLE{2012MNRAS.424..884Y,
+   author = {{Yajima}, H. and {Li}, Y. and {Zhu}, Q. and {Abel}, T.},
+    title = "{ART$^{2}$: coupling Ly{$\alpha$} line and multi-wavelength continuum radiative transfer}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {1109.4891},
+ primaryClass = "astro-ph.CO",
+ keywords = {line: profiles, radiative transfer, dust, extinction, galaxies: evolution, galaxies: formation, galaxies: high-redshift},
+     year = 2012,
+    month = aug,
+   volume = 424,
+    pages = {884-901},
+      doi = {10.1111/j.1365-2966.2012.21228.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2012MNRAS.424..884Y},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+Saftly, Baes, + Camps, 2014
+Hierarchical octree and k-d tree grids for 3D radiative transfer simulations - We implemented a k-d tree grid in the 3D radiative transfer code SKIRT. Includes small suite of tests. Looks at kd-tree vs octree and refinement criteria (mass, optical depth)."We advocate the use of k-d trees and the proposed combination of criteria to set up hierarchical grids for 3D radiative transfer."
+@ARTICLE{2014A&A...561A..77S,
+   author = {{Saftly}, W. and {Baes}, M. and {Camps}, P.},
+    title = "{Hierarchical octree and k-d tree grids for 3D radiative transfer simulations}",
+  journal = {\aap},
+archivePrefix = "arXiv",
+   eprint = {1311.0705},
+ primaryClass = "astro-ph.IM",
+ keywords = {radiative transfer, methods: numerical},
+     year = 2014,
+    month = jan,
+   volume = 561,
+      eid = {A77},
+    pages = {A77},
+      doi = {10.1051/0004-6361/201322593},
+   adsurl = {http://adsabs.harvard.edu/abs/2014A%26A...561A..77S},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Natale et al., 2014 (arxiv)
+DART-Ray: a 3D ray-tracing RT code - used to get radiation field energy densities (RFED) in dusty galaxies. Calculates lower limit for RFED and restricts ray tracing to only these regions of influence. Includes anisotropic scattering. Compare to 1D and 2D DUSTY calculations.
+@ARTICLE{2014arXiv1401.1437N,
+   author = {{Natale}, G. and {Popescu}, C.~C. and {Tuffs}, R.~J. and {Semionov}, D.
+	},
+    title = "{DART-Ray: a 3D ray-tracing radiative transfer code for calculating the propagation of light in dusty galaxies}",
+  journal = {ArXiv e-prints},
+archivePrefix = "arXiv",
+   eprint = {1401.1437},
+ primaryClass = "astro-ph.IM",
+ keywords = {Astrophysics - Instrumentation and Methods for Astrophysics, Astrophysics - Galaxy Astrophysics},
+     year = 2014,
+    month = jan,
+   adsurl = {http://adsabs.harvard.edu/abs/2014arXiv1401.1437N},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+Steinacker, Jürgen, 2009, Jets From Young Stars V, Lecture Notes in Physics, Volume 791. ISBN 978-3-642-03371-1.
+Possibly good intro paper. Discuss line and continuum emission, and adaptive grids + ray tracing.
+@INPROCEEDINGS{2009LNP...791..117S,
+   author = {{Steinacker}, J.},
+    title = "{Three Dimensional Continuum Radiative Transfer}",
+booktitle = {Jets From Young Stars V},
+     year = 2009,
+   series = {Lecture Notes in Physics, Berlin Springer Verlag},
+   volume = 791,
+   editor = {{Gracia}, J. and {de Colle}, F. and {Downes}, T.},
+    pages = {117},
+      doi = {10.1007/978-3-642-03370-4_4},
+   adsurl = {http://adsabs.harvard.edu/abs/2009LNP...791..117S},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Iliev, Ilian,  proceedings.
+Simulate cosmic reionization using very large cosmological simulation (163 Mpc)^3, 29 billion particles. Use ray tracing code for post processing.
+@INPROCEEDINGS{2008tera.conf...31I,
+   author = {{Iliev}, I.~T. and {Shapiro}, P.~R. and {Mellema}, G. and {Merz}, H. and 
+	{Pen}, U.-L.},
+    title = "{Simulating Cosmic Reionization}",
+booktitle = {''Proceedings of the TeraGrid 2008 Conference. June 9-13, 2008. Las Vegas, USA. <A href=''http://archive.teragrid.org/events/teragrid08/index.htm''> http://archive.teragrid.org/events/teragrid08/index.htm</A>, p.31''},
+     year = 2008,
+archivePrefix = "arXiv",
+   eprint = {0806.2887},
+    pages = {31},
+   adsurl = {http://adsabs.harvard.edu/abs/2008tera.conf...31I},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Trac, Hy; Cen, Renyue; ApJ
+Simulations of cosmic reionization, uses adaptive ray tracing for RT. 3 billion particles, 400 million rays, 50/h Mpc box. Sounds quite impressive...
+@ARTICLE{2007ApJ...671....1T,
+   author = {{Trac}, H. and {Cen}, R.},
+    title = "{Radiative Transfer Simulations of Cosmic Reionization. I. Methodology and Initial Results}",
+  journal = {\apj},
+   eprint = {astro-ph/0612406},
+ keywords = {Cosmology: Theory, Galaxies: Formation, Galaxies: Intergalactic Medium, Cosmology: Large-Scale Structure of Universe, Methods: Numerical, Radiative Transfer, Stars: Formation},
+     year = 2007,
+    month = dec,
+   volume = 671,
+    pages = {1-13},
+      doi = {10.1086/522566},
+   adsurl = {http://adsabs.harvard.edu/abs/2007ApJ...671....1T},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Iliev et al., 2006
+RT code comparison project - static density field tests. Common comparison tests.
+@ARTICLE{2006MNRAS.371.1057I,
+   author = {{Iliev}, I.~T. and {Ciardi}, B. and {Alvarez}, M.~A. and {Maselli}, A. and 
+	{Ferrara}, A. and {Gnedin}, N.~Y. and {Mellema}, G. and {Nakamoto}, T. and 
+	{Norman}, M.~L. and {Razoumov}, A.~O. and {Rijkhorst}, E.-J. and 
+	{Ritzerveld}, J. and {Shapiro}, P.~R. and {Susa}, H. and {Umemura}, M. and 
+	{Whalen}, D.~J.},
+    title = "{Cosmological radiative transfer codes comparison project - I. The static density field tests}",
+  journal = {\mnras},
+   eprint = {astro-ph/0603199},
+ keywords = {radiative transfer: ISM: bubbles: HII regions: galaxies: formation: intergalactic medium: cosmology: theory, radiative transfer, ISM: bubbles, HII regions, galaxies: formation, intergalactic medium, cosmology: theory},
+     year = 2006,
+    month = sep,
+   volume = 371,
+    pages = {1057-1086},
+      doi = {10.1111/j.1365-2966.2006.10775.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2006MNRAS.371.1057I},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@ARTICLE{2009MNRAS.400.1283I,
+   author = {{Iliev}, I.~T. and {Whalen}, D. and {Mellema}, G. and {Ahn}, K. and 
+	{Baek}, S. and {Gnedin}, N.~Y. and {Kravtsov}, A.~V. and {Norman}, M. and 
+	{Raicevic}, M. and {Reynolds}, D.~R. and {Sato}, D. and {Shapiro}, P.~R. and 
+	{Semelin}, B. and {Smidt}, J. and {Susa}, H. and {Theuns}, T. and 
+	{Umemura}, M.},
+    title = "{Cosmological radiative transfer comparison project - II. The radiation-hydrodynamic tests}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {0905.2920},
+ keywords = {radiative transfer , methods: numerical , HII regions , galaxies: high-redshift , intergalactic medium , cosmology: theory},
+     year = 2009,
+    month = dec,
+   volume = 400,
+    pages = {1283-1316},
+      doi = {10.1111/j.1365-2966.2009.15558.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2009MNRAS.400.1283I},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+Cen, Renyue. ApJs. Fast, accurate, robust algorithm for RT.
+Uses FFT to calculate RT. Scales as NlogN^2. Sounds good, look into this.
+@ARTICLE{2002ApJS..141..211C,
+   author = {{Cen}, R.},
+    title = "{A Fast, Accurate, and Robust Algorithm for Transferring Radiation in Three-dimensional Space}",
+  journal = {\apjs},
+   eprint = {astro-ph/0111197},
+ keywords = {Cosmology: Theory, Galaxies: Formation, Hydrodynamics, Cosmology: Large-Scale Structure of Universe, Methods: Numerical, Radiative Transfer},
+     year = 2002,
+    month = jul,
+   volume = 141,
+    pages = {211-227},
+      doi = {10.1086/339805},
+   adsurl = {http://adsabs.harvard.edu/abs/2002ApJS..141..211C},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Tom Abel and B. D. Wandelt., MNRAS.
+Adaptive Ray Tracing (ART?), splits rays as it moves out.
+@ARTICLE{2002MNRAS.330L..53A,
+   author = {{Abel}, T. and {Wandelt}, B.~D.},
+    title = "{Adaptive ray tracing for radiative transfer around point sources}",
+  journal = {\mnras},
+   eprint = {astro-ph/0111033},
+ keywords = {HYDRODYNAMICS, RADIATIVE TRANSFER, METHODS: N -BODY SIMULATIONS, METHODS: NUMERICAL, ISM: EVOLUTION, COSMOLOGY: THEORY, hydrodynamics, radiative transfer, methods: N-body simulations, methods: numerical, ISM: evolution, cosmology: theory},
+     year = 2002,
+    month = mar,
+   volume = 330,
+    pages = {L53-L56},
+      doi = {10.1046/j.1365-8711.2002.05206.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2002MNRAS.330L..53A},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Kessel-Deynet, Burkert. MNRAS.
+Ray traces from sources to SPH particles to get optical depth. Couple to ionization equations.
+@ARTICLE{2000MNRAS.315..713K,
+   author = {{Kessel-Deynet}, O. and {Burkert}, A.},
+    title = "{Ionizing radiation in smoothed particle hydrodynamics}",
+  journal = {\mnras},
+   eprint = {astro-ph/0002251},
+ keywords = {HYDRODYNAMICS, RADIATIVE TRANSFER, METHODS: NUMERICAL, HII REGIONS},
+     year = 2000,
+    month = jul,
+   volume = 315,
+    pages = {713-721},
+      doi = {10.1046/j.1365-8711.2000.03451.x},
+   adsurl = {http://adsabs.harvard.edu/abs/2000MNRAS.315..713K},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Razoumov, A., Scott, D., MNRAS
+Suggest ray tracing is best suited for astrophysics. Algorithm combines advection of radiation with implicit solution of local rate equations (super slow?).
+@ARTICLE{1999MNRAS.309..287R,
+   author = {{Razoumov}, A.~O. and {Scott}, D.},
+    title = "{Three-dimensional numerical cosmological radiative transfer in an inhomogeneous medium}",
+  journal = {\mnras},
+   eprint = {astro-ph/9810425},
+     year = 1999,
+    month = oct,
+   volume = 309,
+    pages = {287-298},
+      doi = {10.1046/j.1365-8711.1999.02775.x},
+   adsurl = {http://adsabs.harvard.edu/abs/1999MNRAS.309..287R},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Dana, R. Phd thesis.
+Looks at RT in dusty nebula. Investigates how scattering effects RT approximations. Ray tracing used?
+@PHDTHESIS{1978PhDT.........6D,
+   author = {{Dana}, R.~A.},
+    title = "{Radiative transfer in dusty nebulae}",
+ keywords = {Interplanetary Dust, Nebulae, Radiative Transfer, Boundary Value Problems, Dispersions, Interstellar Matter, Scattering},
+   school = {Stanford Univ., CA.},
+     year = 1978,
+   adsurl = {http://adsabs.harvard.edu/abs/1978PhDT.........6D},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Skinner and E. Ostriker, ApJs
+Solves grey equations of of Radiation Hydrodynamics (RHD) based on first 2 moments of RT equation. Uses gadunov + implicit solver with M1 closure relation. Use reduced speed of light approximation. 
+@ARTICLE{2013ApJS..206...21S,
+   author = {{Skinner}, M.~A. and {Ostriker}, E.~C.},
+    title = "{A Two-moment Radiation Hydrodynamics Module in Athena Using a Time-explicit Godunov Method}",
+  journal = {\apjs},
+archivePrefix = "arXiv",
+   eprint = {1306.0010},
+ primaryClass = "astro-ph.IM",
+ keywords = {methods: numerical, radiative transfer },
+     year = 2013,
+    month = jun,
+   volume = 206,
+      eid = {21},
+    pages = {21},
+      doi = {10.1088/0067-0049/206/2/21},
+   adsurl = {http://adsabs.harvard.edu/abs/2013ApJS..206...21S},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Altay and Theuns, MNRAS.
+URCHIN, reverse ray tracer. Optimized to model self shielding in cosmological sims. Cast rays from each sink and get optical depth (using healpix for nrays). Scales as Nsink*Nray. Nray ~ 12 for cosmological simulations? Seems low. Use background UV field (as a function of z, from e.g. Haardt and Madau).
+@ARTICLE{2013MNRAS.434..748A,
+   author = {{Altay}, G. and {Theuns}, T.},
+    title = "{URCHIN: a reverse ray tracer for astrophysical applications}",
+  journal = {\mnras},
+archivePrefix = "arXiv",
+   eprint = {1304.4235},
+ primaryClass = "astro-ph.CO",
+ keywords = {radiative transfer, methods: numerical, intergalactic medium, quasars: absorption lines, diffuse radiation, ultraviolet: general},
+     year = 2013,
+    month = sep,
+   volume = 434,
+    pages = {748-764},
+      doi = {10.1093/mnras/stt1067},
+   adsurl = {http://adsabs.harvard.edu/abs/2013MNRAS.434..748A},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+Sokasian et., 2001
+
+@ARTICLE{2001NewA....6..359S,
+   author = {{Sokasian}, A. and {Abel}, T. and {Hernquist}, L.~E.},
+    title = "{Simulating reionization in numerical cosmology}",
+  journal = {\na},
+   eprint = {astro-ph/0105181},
+     year = 2001,
+    month = sep,
+   volume = 6,
+    pages = {359-379},
+      doi = {10.1016/S1384-1076(01)00065-3},
+   adsurl = {http://adsabs.harvard.edu/abs/2001NewA....6..359S},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}

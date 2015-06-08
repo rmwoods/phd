@@ -14,12 +14,12 @@
 \label{chap:codetests}
 \thispagestyle{fancy}
 
-In this chapter, I present tests to demonstrate the strengths and limitations of the above algorithm.
+In this chapter, I present a variety of tests to demonstrate the strengths and limitations of the above algorithm. Many tests cases have been drawn from previous RT papers including \citet{ilievEt06,gendelevKrumholz12,skinnerOstriker13}. This chapter also include tests of accuracy and scaling of the algorithm.
 
 \section{Glass}
 \label{sec:glass}
 
-A glass of particles is a simple way to demonstrate the most basic functionality of the algorithm. Each particle effectively acts to sample the radiation field at a particular point and has an easily calculated exact solution to compare to. A glass is also the relaxed state for an SPH simulation.
+A glass of particles is a simple way to demonstrate the most basic functionality of the algorithm. Each particle effectively acts to sample the radiation field at a particular point and has an easily calculated exact solution to compare to. A glass is also the relaxed state for an SPH simulation
 
 \subsection{Optically Thin}
 \label{sec:thinglass}
@@ -86,7 +86,7 @@ We now look closely at what effects averaging sources can have on results.
 \subsection{Isothermal Sphere with a Cluster(?)}
 \label{sec:cluster}
 
-Words.
+Words
 
 \section{The Str\"omgren Sphere}
 \label{sec:stromgren}
@@ -112,7 +112,30 @@ The above equations are the solutions for the evolution of a sharp ionization fr
 \subsection{The Isothermal Case}
 \label{sec:isostromgren}
 
-It is easiest to start by assuming the gas is isothermal and that all incoming photons have only enough energy to ionize the gas (13.6 ev). In this way, all gas is heated to the same temperature, and both cross section (due to only a single photon wavelength) and recombination (due to only a single temperature) can be assumed to be constant.
+In the simplest case, the ionizing source is assumed to emit photons at exactly 13.7 ev, meaning that the hydrogen gas is ionized but not heated. Cooling is also disabled, meaning that the gas is isothermal. If we assume that the ionization front propagates until the ionization rate drops low enough (due to geometric diminishment) to equal the recombination rate of the ambient medium, then we can solve for the equilibrium ionization radius by setting the two rates equal.
+
+The ionization rate per unit volume can be written as the (fill in here)
+
+%\begin{equation}
+%\label{eq:fluxrecomb}
+%F = \int_0^{r_s} n_e n_H \alpha_B(T) dl,
+%\end{equation}
+%
+%where $n_e$ is the number density of electrons, $n_H$ is the number density of neutral Hydrogen, $\alpha_B$ is the case B recombination coefficient for Hydrogen for a given temperature, and $r_s$ is the equilibrium radius or ``Str\"omgren radius.'' 
+
+\begin{equation}
+\label{eq:strmogrenradius}
+R_S = \left( \frac{3}{4\pi} \frac{\dot{N_{\gamma}}}{\alpha n_H^2}\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:stromgrentime}
+R(t) = R_S[1-\exp{(t/t_{\mbox{recomb}})}]^{1/3}
+\end{equation}
+
+The above derivation assumes a ``sharp'' ionization front, meaning the transition from ionized to neutral is across an infinitesimal region. In practice, the transition region is small compared to the size of the ionized region, but there is structure interior to the Str\"omgren radius that is not accounted for by simply solving for the equilibrium radius. In order to solve for a non-sharp ionization front, we must integrate the above ionization equations \citep{osterbrockFerland2006}. (ADD HERE). In the following tests, we include both the sharp and non-sharp ionization front solutions for comparison to our results.
+
+We follow the initial conditions of \citet{ilievEt2006}; the medium is initially neutral with a temperature 1e5 K and a density of 1e-3 cm$^{-3}$. An ionizing source is turned on at t = 0 that emits $\dot{N} = 5e48$ photons s$^{-1}$ at 13.6 ev. We use a cross section $\sigma = 6.3e-18 cm^2$ and a recombination rate of $\alpha = 2.59e-13 cm^{-3} s^{-1}$, typical of 1e5 K gas. These values give a Str\"omgren radius of 5.38 kpc and a recombination time of 125 Myr.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/ifront6401000.eps}
@@ -123,10 +146,10 @@ It is easiest to start by assuming the gas is isothermal and that all incoming p
 \subsection{The Thermal Case}
 \label{sec:thermalstromgren}
 
-
 The above formulation assumed the gas was isothermal in order to simplify assumptions about cross section and recombination. In reality, both change with temperature. As well, the incoming photons are typically not all at a single wavelength but are distributed among many. The following test accounts for the latter factor, though not the former.
 
 In this test, the incident photons are assumed to be from a black body with temperature 1e5 K. The cross section is changed to an integrated cross section, obtained by integrating the cross section as a function of wavelength over all wavelengths having energies between 13.6 ev and 29.65 ev.
+
 \begin{figure}
         \centering
         \begin{subfigure}[b]{0.3\textwidth}
@@ -146,8 +169,6 @@ In this test, the incident photons are assumed to be from a black body with temp
         \caption[Temperature vs radius for the thermal Str\"omgren sphere.]{Temperature vs radius for the thermal Str\"omgren sphere.}
         \label{fig:stromgrenthermal}
 \end{figure}
-
-
 
 \section{The Gas Wall}
 \label{sec:gaswall}
