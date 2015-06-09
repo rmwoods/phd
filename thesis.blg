@@ -5,46 +5,48 @@ The style file: plain.bst
 Database file #1: thesis.bib
 Warning--I didn't find a database entry for "hopkins"
 Warning--I didn't find a database entry for "altayEt08"
-Warning--I didn't find a database entry for "petkovaSpringel09"
-You've used 4 entries,
+Warning--I didn't find a database entry for "ilievEt06"
+Warning--empty publisher in osterbrockFerland2006
+Warning--empty publisher in spitzer78
+You've used 13 entries,
             2118 wiz_defined-function locations,
-            569 strings with 5363 characters,
-and the built_in function-call counts, 1646 in all, are:
-= -- 152
-> -- 102
+            627 strings with 7271 characters,
+and the built_in function-call counts, 5111 in all, are:
+= -- 457
+> -- 346
 < -- 0
-+ -- 40
-- -- 36
-* -- 144
-:= -- 289
-add.period$ -- 12
-call.type$ -- 4
-change.case$ -- 30
++ -- 137
+- -- 124
+* -- 439
+:= -- 904
+add.period$ -- 39
+call.type$ -- 13
+change.case$ -- 99
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 44
-empty$ -- 109
-format.name$ -- 36
-if$ -- 327
+cite$ -- 15
+duplicate$ -- 145
+empty$ -- 328
+format.name$ -- 124
+if$ -- 1004
 int.to.chr$ -- 0
-int.to.str$ -- 4
-missing$ -- 4
-newline$ -- 23
-num.names$ -- 8
-pop$ -- 22
+int.to.str$ -- 13
+missing$ -- 15
+newline$ -- 68
+num.names$ -- 26
+pop$ -- 89
 preamble$ -- 1
-purify$ -- 26
+purify$ -- 88
 quote$ -- 0
-skip$ -- 30
+skip$ -- 94
 stack$ -- 0
-substring$ -- 116
-swap$ -- 4
+substring$ -- 287
+swap$ -- 13
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
-warning$ -- 0
-while$ -- 12
-width$ -- 5
-write$ -- 46
-(There were 3 warnings)
+type$ -- 48
+warning$ -- 2
+while$ -- 37
+width$ -- 15
+write$ -- 141
+(There were 5 warnings)
