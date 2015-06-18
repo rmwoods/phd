@@ -19,41 +19,155 @@ This chapter will contain an overview of current radiative transfer methods and 
 \section{The Radiative Transfer Problem}
 \label{sec:rtformulation}
 
+When considering the transfer of photons, we must consider the scale we are dealing with. At the individual photon level, propagation is described by classical electrodynamics. Once we get to larger scales, however, it is more useful to treat radiation in ``packets'' or as an energy flux.
 
-\begin{equation}
-\label{eq:emissioncoef}
-j = \frac{dE}{dV d\Omega dt}
-\end{equation}
+Consider an infinitesimal patch of area, dA, normal to a direction $\hat{n}$. We consider an infinitesimal solid angle, $d\Omega$, and consider all rays passing through the area and within the solid angle (see figure \ref{fig:intensity}).
+
+\begin{figure}
+\label{fig:intensity}
+\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\caption{The geometry for all rays at a point p through area dA within solid angle $d\Omega$.}
+\end{figure}
+
+The energy through this area patch, within the solid angle, in time dt, and within the frequency range $d\nu$ is
 
 \begin{equation}
 \label{eq:intensity}
-dI = j ds
+dE = I_{\nu}dA dt d\Omega d\nu,
 \end{equation}
+
+where $I_{\nu}$ is \emph{specific intensity} (specific because it is within a frequency range; dropping the frequency dependence makes this intensity). Specific intensity has units of energy per unit area per unit time per unit solid angle per unit frequency. It is useful to consider radiation in terms of intensity because it enables a macroscopic description of radiation that includes microscopic effects like scattering and absorption.
+
+We can recover familiar values such as flux (or pressure or density) by taking moments of the intensity,
+
+\begin{equation}
+\label{eq:flux}
+F_{\nu} = \int I_{\nu}\cos{\theta}d\Omega,
+\end{equation}
+
+where $F_{\nu}$ is the specific flux (flux at a particular wavelength).
+
+Let us now consider the passage of these rays through some matter. If we consider a ray, then energy may be added or removed from this ray due to absorption (removing photons), emission from the matter (adding photons), or scattering (scattering into or out of the ray). We first consider emission.
+
+We define the specific (monochromatic) emission emission coefficient, j, as the energy emitted per unit time, per unit solid angle, per unit volume, and per unit frequency,
+
+\begin{equation}
+\label{eq:emissioncoef}
+dE = j_{\nu} dV dt d\Omega d\nu.
+\end{equation}
+
+If we trace along a ray with cross section dA some distance ds, it will cover a volume of $dV = dA ds$. Since equation \ref{eq:emissioncoef} and equation \ref{eq:intensity} only differ by a factor of distance (dA compared to dV), we can find the change intensity along the beam due to emission as
+
+\begin{equation}
+\label{eq:emissionintensity}
+dI = j_{\nu} ds.
+\end{equation}
+
+Equation \ref{eq:emissionintensity} describes the amount of intensity added to a ray along some path ds due to spontaneous emission. If emission were the only process to worry about, finding intensity would be a simple matter of integrating the equation. [However, we must consider other physical processes for a more complete description.]
+
+We next consider absorption. Consider again a ray traveling along a path ds. The amount of intensity lost due to absorption can be defined as
 
 \begin{equation}
 \label{eq:absorption}
-dI = -\alpha I ds = -n \sigma I ds = -\rho \kappa I ds
+dI = -\alpha I ds,
 \end{equation}
 
-\begin{equation}
-\label{eq:radtransfer}
-\frac{dI}{ds} = -\alpha I +j
-\end{equation}
+where $\alpha$ is called the absorption coefficient and has units of distance$^{-1}$. It can be shown \citep{rybickiLightman86} that $\alpha$ is a function of more commonly known variables,
 
 \begin{equation}
-\label{eq:rademission}
-I(s) = I(s_0) + \int_{s_0}^{s} j(s') ds'
+\label{eq:absorptioncoeff}
+\alpha = -n \sigma I ds = -\rho \kappa I ds
 \end{equation}
 
+where n is the number density of particles, $\sigma$ is the cross section (in units of distance squared) of each absorbing particle, $\rho$ is the mass density, and $\kappa$ is the opacity (in units of distance squared per unit mass). Notice that the only difference between $n \sigma$ and $\rho \kappa$ is the average mass of the absorbing particles. Note that our algorithm has chosen to use $\rho$ and $\kappa$.
+
+Finally, we consider scattering. Scattering is a process that both subtracts and adds to the intensity. We can define a specific emission coefficient for scattering by equating the power per unit volume per frequency emitted to the power received,
+
 \begin{equation}
-\label{eq:radabsorption}
-I(s) = I(s_0)\exp{\left[-\int_{s_0}^{s} \alpha(s') ds'\right]} = I(s_0)\exp{\left[ -\tau (s) \right]}
+\label{eq:scatteringcoefficient}
+j_{s,\nu} = \sigma_{\nu} J_{\nu},
 \end{equation}
+
+where $\sigma_{\nu}$ is the specific scattering coefficient, and $J_{\nu}$ is the specific mean intensity, defined as
+
+\begin{equation}
+\label{eq:meanintensity}
+J_{\nu} = \frac{1}{4\pi}\int I_{\nu} d\Omega.
+\end{equation}
+
+Before combining all of the processes affecting radiative transfer, it is useful to introduce a variable called the specific \emph{Source Function},
+
+\begin{align}
+\label{eq:sourcefunction}
+S_{a,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}},\\
+S_{s,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}.
+\end{align}
+
+The source function is the ratio of emission to absorption and describes the intensity that an object will tend to. In the case of pure absorption, emission is 0 and so the source function is 0, since the intensity would tend to 0. In the case of pure emission, the source function is infinite and intensity tends to infinity since nothing is removing photons.
+
+We now have the base equations to put together a description of radiative transfer that includes the processes of spontaneous emission, absorption, and scattering. Combining equations \ref{eq:emissionintensity}, \ref{eq:absorption}, \ref{eq:scatteringcoefficient}, \ref{eq:meanintensity}, and \ref{eq:sourcefunction}, we can write
+
+\begin{align}
+\label{eq:combinedtransfer}
+\frac{dI_{\nu}}{ds} &= (-\alpha_{\nu}I_{\nu} + j_{\nu}) - (\sigma_{\nu}I_{\nu} + j_{s,\nu}) \nonumber\\
+ &= -\alpha_{\nu}(I_{\nu} - S_{a,\nu}) - \sigma_{\nu}(I_{\nu} - S_{s,\nu}) \nonumber\\
+ &= -(\alpha_{\nu} + \sigma_{\nu})(I_{\nu}-S_{\nu}),
+\end{align}
+
+where the combined source function $S_{\nu}$ is defined as
+
+\begin{equation}
+\label{eq:combinedsourcefunction}
+S_{\nu} \equiv \frac{\alpha_{\nu}S_{a,\nu} + \sigma_{\nu}S_{s,\nu}}{\alpha_{\nu} + \sigma_{\nu}}.
+\end{equation}
+
+According to equation \ref{eq:scatteringcoefficient}, the source function for scattering is actually mean intensity (equation \ref{eq:meanintensity}), meaning that the above equation is actually an integro-differential equation - it is a function of $I_{\nu}$, $\frac{dI_{\nu}}{ds}$, and $\int I_{\nu} d\Omega$. Thus, any equation involving scattering is significantly more difficult to solve. Numerical solutions to integro-differential equations are usually specialized and complex [cite someone].
+
+For this reason, scattering is often omitted from radiative transfer solver due to very large added computational cost. In this thesis, our solutions do not explicitly account for scattering, though it is possible scattering-like behavior (due to properties of the RT algorithm and the properties of SPH) may result in some solutions [remove this line I think].
+
+If scattering is omitted, equation \ref{eq:combinedtransfer} is simplified to a nicer form. We combine equations \ref{eq:emissionintensity}, \ref{eq:absorption}, and \ref{eq:sourcefunction} to obtain
+
+\begin{equation}
+\label{eq:transferequation_s}
+\frac{dI_{\nu}}{ds} = -\alpha_{\nu}I_{\nu} + j_{\nu}.
+\end{equation}
+
+It is now useful to introduce optical depth $\tau_{\nu}$,
 
 \begin{equation}
 \label{eq:opticaldepth}
-\tau(s) = \int_{s_0}^{s} \alpha (s') ds' = \int_{s_0}^{s} \rho (s') \kappa(s') ds'
+\tau(s) = \int_{s_0}^{s} \alpha_{\nu}(s')ds' = \int_{s_0}^{s} \reveryho(s') \kappa_{\nu}(s') ds'.
 \end{equation}
+
+Optical depth is a unitless value that describes the mean free path of a photon between interactions. The distance needed in the integral to give $\tau_{\nu} = 1$ should correspond to one mean free path given the absorption coefficient $\alpha_{\nu}$. It is useful to rewrite equation \ref{eq:transferequation_s} in terms of $\tau_{\nu}$ and $S_{\nu}$ by simply dividing by $\alpha_{\nu}$
+
+\begin{equation}
+\label{eq:transferequation_t}
+\frac{dI_{\nu}}{d\tau_{\nu}} = -I_{\nu} + S_{\nu}.
+\end{equation}
+
+Equation \ref{eq:transferequation_t} is the transfer equation for radiation as it is most commonly seen. A solution can be obtained by using an integrating factor of $e^{\tau_{\nu}}$, which gives the formal solution to the transfer equation
+
+\begin{equation}
+\label{eq:transferequationsolution}
+I_{\nu}(\tau_{\nu}) = I_{\tau}(0)e^{-\tau_{\nu}} + \int_0^{\tau_{\nu}} e^{-(\tau_\nu - \tau'_{\nu})} S_{\nu}(\tau'_{\nu})d\tau'_{\nu}.
+\end{equation}
+
+Solving the above equation at a point in a simulation would give you a radiation field that accounted for emission and absorption at all other points in the simulation. This would then be repeated at all points for which a radiation field should be known.
+
+It should now be clear why radiative transfer is a difficult problem; analytically, it involves integrals over source functions that are not necessarily known at all points in space, with both density and opacity varying as a function of position as well. Numerically, we are trying to solve a function of seven variables - three position, two angular, time, and frequency - $I = I(x,y,z,\theta,\phi,t,\nu)$.
+
+[Add further simplifications to the equation here? Just talk about the absorption solution? Mention that integrating over all emission typically amounts to summing over all sources.]
+
+%\begin{equation}
+%\label{eq:rademission}
+%I(s) = I(s_0) + \int_{s_0}^{s} j(s') ds'
+%\end{equation}
+%
+%\begin{equation}
+%\label{eq:radabsorption}
+%I(s) = I(s_0)\exp{\left[-\int_{s_0}^{s} \alpha(s') ds'\right]} = I(s_0)\exp{\left[ -\tau (s) \right]}
+%\end{equation}
 
 \section{Current Methods}
 \label{sec:currentmethods}
