@@ -93,21 +93,21 @@ Words
 
 The str\"omgren sphere is a theoretical ionized sphere of gas. It was first discussed by Bengt Str\"omgren in 1938 \citep{stromgren39}. We start with a cloud of homogeneous neutral Hydrogen gas and an ionizing source, commonly representing an O or B-type star, at the center. As the photons from the source ionize the hydrogen, the optical depth of the gas decreases, and so the ionizing photons move further out creating an ionization front. As the front moves out, the photon density as a function of radius falls off simply due to $1/r^2$ geometry and eventually a point is reached where the ionization rate falls to the recombination rate. At this point, the front stops in equilibrium.
 
-One can solve for this radius by setting the photon density as a function of radius to the recombination rate and solving for radius \citep{stromgren39,spitzer78},
-
-\begin{equation}
-\label{eq:stromgrenradius}
-R_S = \left( \frac{3}{4\pi} \frac{\dot{N_{\gamma}}}{\alpha n_H^2}\right).
-\end{equation}
-
-One can also find the growth rate of the front,
-
-\begin{equation}
-\label{eq:stromgrentime}
-R(t) = R_S[1-\exp{(t/t_{\mbox{recomb}})}]^{1/3}.
-\end{equation}
-
-The above equations are the solutions for the evolution of a sharp ionization front, meaning that we have assumed the transition from ionized to neutral is infinitesimal in size. In order to solve for a non-sharp front, we must solve some equations numerically. FILL IN METHOD HERE.
+%One can solve for this radius by setting the photon density as a function of radius to the recombination rate and solving for radius \citep{stromgren39,spitzer78},
+%
+%\begin{equation}
+%\label{eq:stromgrenradius}
+%R_S = \left( \frac{3}{4\pi} \frac{\dot{N_{\gamma}}}{\alpha n_H^2}\right).
+%\end{equation}
+%
+%One can also find the growth rate of the front,
+%
+%\begin{equation}
+%\label{eq:stromgrentime}
+%R(t) = R_S[1-\exp{(t/t_{\mbox{recomb}})}]^{1/3}.
+%\end{equation}
+%
+%The above equations are the solutions for the evolution of a sharp ionization front, meaning that we have assumed the transition from ionized to neutral is infinitesimal in size. In order to solve for a non-sharp front, we must solve some equations numerically. FILL IN METHOD HERE.
 
 \subsection{The Isothermal Case}
 \label{sec:isostromgren}
@@ -148,7 +148,7 @@ We follow the initial conditions of \citet{ilievEt06}; the medium is initially n
 
 The above formulation assumed the gas was isothermal and that all incident photons had the same energy. In reality, photons range across many wavelengths (commonly in a Planck spectrum) with differing cross sections for each wavelength. As well, absorption typically causes heating, which effects, among many properties, recombination rate.
 
-In order to do a more realistic test,the incident photons are assumed to be from a black body with temperature 1e5 K. The cross section is changed to an integrated cross section, obtained by integrating the cross section as a function of wavelength over all wavelengths having energies between 13.6 ev and 29.65 ev. The gas has an initial temperature, This scenario does not have an analytic solution to compare to, and so we instead compare to the results of \citet{ilievEt06} and \citet{petkovaSpringel09}. (NOTE - seems to be inconsistency. 10^5 K source corresponds to ~43 ev = 29.65 + 13.6, but other areas seem to indicate total energy of 29.65, not heating energy = 29.65. Figure this out).
+In order to do a more realistic test,the incident photons are assumed to be from a black body with temperature 1e5 K. The cross section is changed to an integrated cross section, obtained by integrating the cross section as a function of wavelength over all wavelengths having energies between 13.6 ev and 29.65 ev. The gas has an initial temperature, This scenario does not have an analytic solution to compare to, and so we instead compare to the results of \citet{ilievEt06} and \citet{petkovaSpringel09}. (NOTE - seems to be inconsistency. 10$^5$ K source corresponds to ~43 ev = 29.65 + 13.6, but other areas seem to indicate total energy of 29.65, not heating energy = 29.65. Figure this out).
 
 This test includes heating due to absorption and cooling due to recombination $\Lambda_r$, collisional ionization $\Lambda_{ci}$, line cooling $\Lambda_l$, and Bremsstrahlung radiation $\Lambda_B$. The rate are taken from \citet{cen92} in order to match \citet{petkovaSpringel09}. The following are those rates in ergs cm$^{-3}$ s$^{-1}$:
 

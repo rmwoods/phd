@@ -9,8 +9,61 @@
 \renewcommand{\headrulewidth}{0.1pt}
 \renewcommand{\footrulewidth}{0.1pt}
 
-\chapter{Applications to Galaxy Formation}
+\chapter{Applications to Galaxy Formation (Future Work?)}
 \label{chap:galaxyformation}
 \thispagestyle{fancy}
 
+In this chapter, we discuss current and planned applications of the algorithm.
 
+\section{Galactic UV Fields}
+\label{sec:galacticuvfields}
+
+Currently, there is very little work in computational astrophysics that models the UV fields in and around galaxies. While many models have been created from the observational side [references], due to large computational cost, simulations have left this area largely unexplored or explored only at high redshift [references].
+
+We have used [will be using] the above algorithm to re-run the MUGS2 comparison project [cite Ben].
+
+\begin{itemize}
+\item What effect does radiation have on the galaxy in MUGS2 (as a function of redshift, all the way to redshift 0)?
+ \begin{itemize}
+ \item What effect does UV have on the ISM? (sam?)
+ \item What effect does UV have on satellite galaxies, gas properties, SFR - shut down mechanism?
+ \item What is the typical escape fraction of UV in galaxies (isolated disk from Sam, consistent with results from MUGS? Compare to Kannan et al. escape fractions)
+ \item Compare to observations of UV fields
+ \end{itemize}
+\end{itemize}
+
+Future work of this algorithm is quite broad; the flexibility allows application to a wide range of problems. The following are immediately planned projects, and following that is a short list of unplanned but possibly interesting projects.
+
+\begin{itemize}
+\item Look at H2 formation and destruction using Ly-Werner bands of radiation (Charlotte). How does cloud shielding depend on density? Compare to OWLS/EAGLE w/ TRAPHIC (Rahmati+ 13ab) (this is HI shielding and ntot H2 shielding... not great comparison?).
+\item Considering the properties of the ISM and molecular clouds (Samantha, Sijing). [Author] suggests 4 radiation bands are needed to sufficiently find ISM properties. Using these 4 bands, calculate effect of radiation on ISM. How do gas properties effect SFR and vice versa? [ask Sam for more info here]
+\item Potential to look at the effect of radiation processing. How does processing radiation (UV re-emitted as IR) effect the gas properties? How important of an effect is it in determining SFR? This project depends on a successful implementation of a self consistent gas source function. Can we do this in a stable way with respect to the cooling code?
+\item An obvious application is cosmic re-ionization, but this has already been done a bit since it does not require running to low redshift. That said, can we do it better/cheaper? Do our results agree? 
+\end{itemize}
+
+%Future Work
+%Cosmology
+%Reionization of the universe
+%·         not original goal, but is possible
+%
+% 
+%Running simulations with radiative transfer for systems with low red shift
+%·         most radiative transfer simulations are very computationally expensive
+%·         Looking at galactic UV fields
+%o   from the gas inside of the galaxy
+%o   around the galaxy
+%o   and the satellites around it
+%o   has potential link to observations
+%·         Lyman-Werner radiation and molecular hydrogen formation/destruction
+%
+% 
+%Properties of molecular clouds (Properties of the ISM)
+%·         smaller scale
+%·         how does the clod get changes after star formation
+%
+%
+%Radiations for gas
+%·         stars radiation is fairly straight forward, but adding the radiation from the gas would not be that computationally expensive
+%·         line emission from gas
+%·         being able to treat all of the gas particles as emitting gas
+%·         not sure if can be done in a self-consistent way (does the radiation correspond to the amount that it cools be and is it stable?)

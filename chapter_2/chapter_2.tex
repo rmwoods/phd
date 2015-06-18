@@ -55,5 +55,80 @@ I(s) = I(s_0)\exp{\left[-\int_{s_0}^{s} \alpha(s') ds'\right]} = I(s_0)\exp{\lef
 \tau(s) = \int_{s_0}^{s} \alpha (s') ds' = \int_{s_0}^{s} \rho (s') \kappa(s') ds'
 \end{equation}
 
-
 \section{Current Methods}
+\label{sec:currentmethods}
+
+The current set of computational methods can be classified as follows:
+
+\begin{itemize}
+\item Very accurate, expensive methods - monte carlo, ray tracing
+\item Methods accurate in specific scenarios, e.g. FLD for optically thick, ``str\"omgren method'' from Dale
+\item \emph{Very} rough approximations, e.g. method that only looks at absorption near sink and source.
+\end{itemize}
+
+As will be seen, there is currently an opening in the market for something in the middle - Decent accuracy at a low cost.
+
+%\subsection{Numerical Strategy for Solving RT}
+%\label{}
+
+\begin{itemize}
+\item RT is a function of seven variables - $x, y, z, \theta, \phi, t, \nu$.
+\item Simple division of each variable into 100 bins means storage of over 10$^{14}$ elements, or roughly 1 Petabyte of data if each piece of information stored was ten bytes. First problem - large memory cost.
+ \begin{itemize}
+ \item Note that 100 elements is minimal in many cases due to sharply peaked functions, e.g. $\nu$.
+ \item 100x100 for angle only gives angular resolution of roughly 2.7$^{\circ}$ [not quite right - check this (steinacker 09 book)] 
+ \end{itemize}
+\item RT equation is an integro-differential equation - difficult to use any sort of common solver.
+\end{itemize}
+
+Strategies include monte-carlo, ray tracing, grid-based solvers, and moment methods, each with certain advantages and disadvantages. [Following sections are first pass. Brief overview of advantages and disadvantages. Second pass will give a basic intro into how the algorithm works so that it's clear why the methods have the advantages/disadvantages they do. Can also compare/contrast our method with current ones better.
+
+\subsection{Monte-Carlo Solvers}
+\label{montecarlo}
+
+In monte-carlo methods, a photon is carefully tracked through a domain, following scattering, absorption, and re-emission. See [from steinacker 09] \citet{wolf03,woodEt2004,ercolanoEt2005,jonsson06,pinteEt06}. [ADD method basics]
+
+
+\begin{itemize}
+\item Advantages - can treat complicated spatial distributions, arbitrary scattering functions, and polarization.
+\item Disadvantages - Very high or low optical depths hard (why?), re-emission in all directions over many events hard (why?), no global error control
+\end{itemize}
+
+
+\subsection{Ray Tracing}
+\label{sec:raytracing}
+
+Ray tracing has the ability to treat arbitrary density distributions, and can use general solvers for ODEs. Fairly accurate and fairly expensive.
+
+\begin{itemize}
+\item Often combined with monte-carlo methods
+\item Provides quite accurate results.
+\item Provides global error control.
+\item Can cause step-size limitations in order to consistently transfer photons.
+\item Becomes impractical at high optical depth and can require complicated solvers.
+\end{itemize}
+
+
+\subsection{Grid-Based Methods}
+\label{sec:gridmethods}
+
+Can use simple solvers (finite differencing or short characteristics) and gives good error control.
+
+\begin{itemize}
+\item Grid must be adaptable to be practical, though good refinement criteria is unclear
+\item Interpolation between grids can be costly and give interpolation errors.
+\item Numerical diffusion typically not taken into account.
+\end{itemize}
+
+
+\subsection{Moment Methods}
+\label{sec:momentmethods}
+
+e.g. FLD or M1 moment codes (skinner + ostriker, others). Fairly accurate, faster than ray tracing, in specific regimes.
+
+\begin{itemize}
+\item Well suited for optically thick regime (can do free streaming)
+\item Struggles with peaked radiation in optical depths of order 1.
+\end{itemize}
+
+
