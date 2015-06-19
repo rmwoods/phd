@@ -172,41 +172,43 @@ It should now be clear why radiative transfer is a difficult problem; analytical
 \section{Current Methods}
 \label{sec:currentmethods}
 
-The current set of computational methods can be classified as follows:
+The equations presented in section \ref{sec:rtformulation} are very difficult to solve if approximations are not made. Seven dimensions means that even if each dimension only has a resolution of 100 elements, we must keep track of $10^14$ elements, or roughly one petabyte of data if each element is 10 bytes. In many cases, 100 elements is not nearly fine enough to resolve important features in a dimension, especially in frequency where many sharp features are present. The problem is already numerically impractical from a memory perspective.
 
-\begin{itemize}
-\item Very accurate, expensive methods - monte carlo, ray tracing
-\item Methods accurate in specific scenarios, e.g. FLD for optically thick, ``str\"omgren method'' from Dale
-\item \emph{Very} rough approximations, e.g. method that only looks at absorption near sink and source.
-\end{itemize}
+As well, the transfer equation is an integro-differential equation, meaning that common numerical solvers are not useful. Solvers for this type of equation are generally complex and specific purpose, so the actual numerical method side is also difficult.
 
-As will be seen, there is currently an opening in the market for something in the middle - Decent accuracy at a low cost.
+In order to overcome the above, different approximations to the equation are adopted. Different approximations give rise to different advantages and disadvantages in accuracy and speed and typically apply best to particular regimes.
 
-%\subsection{Numerical Strategy for Solving RT}
-%\label{}
-
-\begin{itemize}
-\item RT is a function of seven variables - $x, y, z, \theta, \phi, t, \nu$.
-\item Simple division of each variable into 100 bins means storage of over 10$^{14}$ elements, or roughly 1 Petabyte of data if each piece of information stored was ten bytes. First problem - large memory cost.
- \begin{itemize}
- \item Note that 100 elements is minimal in many cases due to sharply peaked functions, e.g. $\nu$.
- \item 100x100 for angle only gives angular resolution of roughly 2.7$^{\circ}$ [not quite right - check this (steinacker 09 book)] 
- \end{itemize}
-\item RT equation is an integro-differential equation - difficult to use any sort of common solver.
-\end{itemize}
-
-Strategies include monte-carlo, ray tracing, grid-based solvers, and moment methods, each with certain advantages and disadvantages. [Following sections are first pass. Brief overview of advantages and disadvantages. Second pass will give a basic intro into how the algorithm works so that it's clear why the methods have the advantages/disadvantages they do. Can also compare/contrast our method with current ones better.
+Current popular strategies include monte-carlo, ray tracing, grid-based solvers, and moment methods. The following sections will give a brief description of each method as well as common properties of the methods.
 
 \subsection{Monte-Carlo Solvers}
 \label{montecarlo}
 
-In monte-carlo methods, a photon is carefully tracked through a domain, following scattering, absorption, and re-emission. See [from steinacker 09] \citet{wolf03,woodEt2004,ercolanoEt2005,jonsson06,pinteEt06}. [ADD method basics]
+Monte-Carlo methods are perhaps the most obvious way to solve the radiative transfer problem. The most basic solution follows a photon from emission, through any scattering, until it leaves the simulation. At any point during the path, random numbers are used to determine whether the photon will be scattered, what direction it will be scattered, whether it will be absorbed and re-emitted, and what wavelength the re-emitted photon(s) will be.
+
+In practice, following individual photons is not practical. Instead, following ``photon packets'' is more useful. Packets are typically defined as a group of photons [cite codes that do this] or as having a specified energy (in which case, the number of photons can be determined by using $E = h\nu$). The latter choice has the benefit that when re-emission occurs after an absorption at a lower wavelength, there are not now more photons to keep track of. The ray retains the same energy and more photons are implied since $\nu$ changes \citep{ercolanoEt03,abbottLucy85}.
+
+% calculate random distance based on relation between random number and normalized optical depth - harries and howarth 97
+% or, ask probability at each new cell that it is absorbed - Lucy 1999.
+% first method more expensive - ercolano et al 2003
+
+%estimator is needed - MC provides means to relate quantities we observe to physical quantities we want to determine. Need measure of mean intensity. See eq 9 in ercolano 03 for estimator from Och et al 98. Also create new estimator.
+
+%Emission happens as sampled from local gas spectrum.
+
+%process is iterative. When photons have all been sent, can iterate with estimator from above and local ionization state to converge on values.
+
+%can finally use results to make observations if desired (usually primary use of this method).
 
 
-\begin{itemize}
-\item Advantages - can treat complicated spatial distributions, arbitrary scattering functions, and polarization.
-\item Disadvantages - Very high or low optical depths hard (why?), re-emission in all directions over many events hard (why?), no global error control
-\end{itemize}
+
+
+
+%In monte-carlo methods, a photon is carefully tracked through a domain, following scattering, absorption, and re-emission. See [from steinacker 09] \citet{wolf03,woodEt2004,ercolanoEt2005,jonsson06,pinteEt06}. [ADD method basics]
+
+%\begin{itemize}
+%\item Advantages - can treat complicated spatial distributions, arbitrary scattering functions, and polarization.
+%\item Disadvantages - Very high or low optical depths hard (why?), re-emission in all directions over many events hard (why?), no global error control
+%\end{itemize}
 
 
 \subsection{Ray Tracing}
@@ -245,4 +247,17 @@ e.g. FLD or M1 moment codes (skinner + ostriker, others). Fairly accurate, faste
 \item Struggles with peaked radiation in optical depths of order 1.
 \end{itemize}
 
+\subsection{Summary of Methods}
+\label{sec:summaryofmethods}
+
+
+%The current set of computational methods can be classified as follows:
+%
+%\begin{itemize}
+%\item Very accurate, expensive methods - monte carlo, ray tracing
+%\item Methods accurate in specific scenarios, e.g. FLD for optically thick, ``str\"omgren method'' from Dale
+%\item \emph{Very} rough approximations, e.g. method that only looks at absorption near sink and source.
+%\end{itemize}
+%
+%As will be seen, there is currently an opening in the market for something in the middle - Decent accuracy at a low cost.
 
