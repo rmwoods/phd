@@ -136,7 +136,7 @@ It is now useful to introduce optical depth $\tau_{\nu}$,
 
 \begin{equation}
 \label{eq:opticaldepth}
-\tau(s) = \int_{s_0}^{s} \alpha_{\nu}(s')ds' = \int_{s_0}^{s} \reveryho(s') \kappa_{\nu}(s') ds'.
+\tau(s) = \int_{s_0}^{s} \alpha_{\nu}(s')ds' = \int_{s_0}^{s} \rho(s') \kappa_{\nu}(s') ds'.
 \end{equation}
 
 Optical depth is a unitless value that describes the mean free path of a photon between interactions. The distance needed in the integral to give $\tau_{\nu} = 1$ should correspond to one mean free path given the absorption coefficient $\alpha_{\nu}$. It is useful to rewrite equation \ref{eq:transferequation_s} in terms of $\tau_{\nu}$ and $S_{\nu}$ by simply dividing by $\alpha_{\nu}$
@@ -183,27 +183,46 @@ Current popular strategies include monte-carlo, ray tracing, grid-based solvers,
 \subsection{Monte-Carlo Solvers}
 \label{montecarlo}
 
-Monte-Carlo methods are perhaps the most obvious way to solve the radiative transfer problem. The most basic solution follows a photon from emission, through any scattering, until it leaves the simulation. At any point during the path, random numbers are used to determine whether the photon will be scattered, what direction it will be scattered, whether it will be absorbed and re-emitted, and what wavelength the re-emitted photon(s) will be.
+Monte-Carlo (MC) methods are perhaps the most obvious way to solve the radiative transfer problem. The most basic solution follows a photon from emission, through any scattering, absorption, and re-emission, until it leaves the simulation. At any point during the path, random numbers are used to determine whether the photon will be scattered, what direction it will be scattered, whether it will be absorbed and re-emitted, and what wavelength the re-emitted photon(s) will be.
 
-In practice, following individual photons is not practical. Instead, following ``photon packets'' is more useful. Packets are typically defined as a group of photons [cite codes that do this] or as having a specified energy (in which case, the number of photons can be determined by using $E = h\nu$). The latter choice has the benefit that when re-emission occurs after an absorption at a lower wavelength, there are not now more photons to keep track of. The ray retains the same energy and more photons are implied since $\nu$ changes \citep{ercolanoEt03,abbottLucy85}.
+In practice, following individual photons is not practical. Instead, following ``photon packets'' is more useful. Packets are typically defined as a group of photons [cite codes that do this] or as having a specified energy [codes that do this](in which case, the number of photons can be determined by using $E = h\nu$). The latter choice has the benefit that when re-emission occurs after an absorption at a lower wavelength, there are not now more photons to keep track of. The ray retains the same energy and more photons are implied since $\nu$ changes \citep{ercolanoEt03,abbottLucy85}.
 
-% calculate random distance based on relation between random number and normalized optical depth - harries and howarth 97
-% or, ask probability at each new cell that it is absorbed - Lucy 1999.
-% first method more expensive - ercolano et al 2003
+In order to determine when a photon packet will interact, most codes use one of two methods. The first strategy is to use a probability distribution function (PDF) for optical depth. The PDF takes the form
 
-%estimator is needed - MC provides means to relate quantities we observe to physical quantities we want to determine. Need measure of mean intensity. See eq 9 in ercolano 03 for estimator from Och et al 98. Also create new estimator.
+\begin{equation}
+\label{eq:taupdf}
+P(l) = \frac{\int_0^{\tau(l)}e^{\tau}d\tau}{\int_0^{\infty}e^{\tau}d\tau} = 1-e^{-\tau},
+\end{equation}
 
-%Emission happens as sampled from local gas spectrum.
+where P(l) is the probability of an interaction happening at a distance l and $\tau(l)$ is the optical depth corresponding to the interaction. By inverting equation \ref{eq:taupdf}, one can use a random number for P(l) to determine the interaction optical depth (or distance). The photon packet is then assumed to interact at that position, and the process is repeated \citep{harriesHoworth97}.
 
-%process is iterative. When photons have all been sent, can iterate with estimator from above and local ionization state to converge on values.
+Another strategy is to simply trace the photon packet from resolution element to resoultion element (cells, particles), and at each point, to use a random number to determine if the photon packet should interact at that cell. This has the advantage that the code does not need to calculate and normalize optical depths \citep{lucy99,ercolanoEt03}.
 
-%can finally use results to make observations if desired (usually primary use of this method).
+The above process is repeated until a photon packet leaves the simulation volume, and for many photon packets. Once a large number of photon packets have been sent out, physical quantities must be estimated from observed MC quantities. In this case, a common physical quantity to determine is mean intensity $J$ and the MC quantity is the photon packet. In order to relate the quantities, an \emph{estimator} is needed. An obvious choice (though not necessarily the most optimal, \citet{ercolanoEt2003}) is to simply use the definition of intensity (equation \ref{eq:intensity}),
 
+\begin{equation}
+\label{eq:mcstimator}
+\Delta E = I_{\nu}(r,\theta)\Delta A |\cos{\theta}|\Delta \nu \Delta \omega \Delta t,
+\end{equation}
 
+Where $\Delta A$ is the reference surface, $\theta$ is the angle between the photon packet vector and surface normal vector, $\Delta \omega$ is the solid angle, $\Delta \nu$ is the frequency range, and $\Delta t$ is the time interval. By combining with equation \ref{eq:meanintensity}, one can obtain a mean intensity from a sum of photon packets \citep{ercolanoEt03},
 
+\begin{equation}
+\label{eq:mcmeanintensity}
+J_{\nu}(r) = \frac{1}{4\pi}\frac{\Delta E}{\Delta t} \sum_i^{N_k} \frac{1}{\cos{\theta}}\frac{1}{\Delta A}\frac{1}{\Delta \nu}.
+\end{equation}
 
+Once a mean intensity is found at a location, a solution for ionization can be iterated to by integrating out the ionization and heating terms. Note that it must be iterated since a chance in ionization and temperature may imply a change in local absorption properties.
 
-%In monte-carlo methods, a photon is carefully tracked through a domain, following scattering, absorption, and re-emission. See [from steinacker 09] \citet{wolf03,woodEt2004,ercolanoEt2005,jonsson06,pinteEt06}. [ADD method basics]
+The MC process is very accurate. It can deal with arbitrary spatial distributions, arbitrary scattering functions, polarization, and provides a natural way for ``observing'' a simulated object.
+
+However, MC is \emph{very} computationally costly. Large numbers of photon packets must be sent out and individually tracked in order to get a good estimate of the true mean intensity. While photons can be added to a packet along its path, new photon packets must be created for all sources [is this strictly true?] in order to ensure energy conservation (a star should radiate $L\Delta t$ energy in time $\Delta t$). This means as more sources are added, the computational cost rises quickly.
+
+There is also an indirect cost associated with optical depth. In the case of very optically thick systems, interactions occur far more often between photon packets and the medium, meaning more computation is needed per photon packet. In the case of very optically thin systems, interactions are very rare and very large numbers of photons must be cast to get accurate statistics on heating, ionization, and scattering. From a numerical perspective, MC provides poor error control. The typical solution to better accuracy is to simply increase the number of photons [check if other strategies?). However, this converges very slowly and often still does not guarantee good statistics on rare events such as low probability re-emission or scattering.
+
+For the above reasons, MC radiative transfer is most commonly used as a post-processing technique for creating images of astrophysical objects. For more details on specific codes, please see \citet{dullemon12,cantalupoPorciani11,altayPelupessyCroft08,ercolanoEt03,nenkovaEt99,lucy99,harriesHowarth97}, among many others.
+
+%In monte-carlo methods, a photon is carefully tracked through a domain, following scattering, absorption, and re-emission. See [from steinacker 09] \citet{wolf03,woodEt2004,ercolanoEt2005,jonsson06,pinteEt06}.
 
 %\begin{itemize}
 %\item Advantages - can treat complicated spatial distributions, arbitrary scattering functions, and polarization.

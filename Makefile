@@ -1,6 +1,14 @@
 RM := rm -rf
 
 thesis: thesis.tex
+	-latex 'thesis.tex'
+	-bibtex 'thesis'
+	-latex 'thesis.tex' #Run latex twice
+	-latex 'thesis.tex'
+	-dvips -o 'thesis.ps' 'thesis.dvi'
+	-ps2pdf 'thesis.ps' 'thesis.pdf'
+
+thesis-ignoreerr: thesis.tex
 	-latex -interaction=nonstopmode 'thesis.tex'
 	-bibtex 'thesis'
 	-latex -interaction=nonstopmode 'thesis.tex' #Run latex twice
