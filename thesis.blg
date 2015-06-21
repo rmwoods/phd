@@ -1,15 +1,15 @@
-This is BibTeX, Version 0.99d (TeX Live 2012/Mageia)
+This is BibTeX, Version 0.99d (TeX Live 2013/Cygwin)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 I couldn't open style file apj.bst
----line 224 of file thesis.aux
+---line 238 of file thesis.aux
  : \bibstyle{apj
  :              }
 I'm skipping whatever remains of this command
 I found no style file---while reading file thesis.aux
-You've used 23 entries,
+You've used 25 entries,
             0 wiz_defined-function locations,
-            125 strings with 1052 characters,
+            129 strings with 1125 characters,
 and the built_in function-call counts, 0 in all, are:
 = -- 0
 > -- 0

@@ -98,14 +98,13 @@ J_{\nu} = \frac{1}{4\pi}\int I_{\nu} d\Omega.
 Before combining all of the processes affecting radiative transfer, it is useful to introduce a variable called the specific \emph{Source Function},
 
 \begin{align}
-\label{eq:sourcefunction}
-S_{a,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}},\\
-S_{s,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}.
+S_{a,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}, \label{eq:sourcefunction_a}\\
+S_{s,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}. \label{eq:sourcefunction_s}
 \end{align}
 
 The source function is the ratio of emission to absorption and describes the intensity that an object will tend to. In the case of pure absorption, emission is 0 and so the source function is 0, since the intensity would tend to 0. In the case of pure emission, the source function is infinite and intensity tends to infinity since nothing is removing photons.
 
-We now have the base equations to put together a description of radiative transfer that includes the processes of spontaneous emission, absorption, and scattering. Combining equations \ref{eq:emissionintensity}, \ref{eq:absorption}, \ref{eq:scatteringcoefficient}, \ref{eq:meanintensity}, and \ref{eq:sourcefunction}, we can write
+We now have the base equations to put together a description of radiative transfer that includes the processes of spontaneous emission, absorption, and scattering. Combining equations \ref{eq:emissionintensity}, \ref{eq:absorption}, \ref{eq:scatteringcoefficient}, \ref{eq:meanintensity}, \ref{eq:sourcefunction_a}, and \ref{eq:sourcefunction_s}, we can write
 
 \begin{align}
 \label{eq:combinedtransfer}
@@ -181,7 +180,7 @@ In order to overcome the above, different approximations to the equation are ado
 Current popular strategies include monte-carlo, ray tracing, grid-based solvers, and moment methods. The following sections will give a brief description of each method as well as common properties of the methods.
 
 \subsection{Monte-Carlo Solvers}
-\label{montecarlo}
+\label{sec:montecarlo}
 
 Monte-Carlo (MC) methods are perhaps the most obvious way to solve the radiative transfer problem. The most basic solution follows a photon from emission, through any scattering, absorption, and re-emission, until it leaves the simulation. At any point during the path, random numbers are used to determine whether the photon will be scattered, what direction it will be scattered, whether it will be absorbed and re-emitted, and what wavelength the re-emitted photon(s) will be.
 
@@ -220,7 +219,7 @@ However, MC is \emph{very} computationally costly. Large numbers of photon packe
 
 There is also an indirect cost associated with optical depth. In the case of very optically thick systems, interactions occur far more often between photon packets and the medium, meaning more computation is needed per photon packet. In the case of very optically thin systems, interactions are very rare and very large numbers of photons must be cast to get accurate statistics on heating, ionization, and scattering. From a numerical perspective, MC provides poor error control. The typical solution to better accuracy is to simply increase the number of photons [check if other strategies?). However, this converges very slowly and often still does not guarantee good statistics on rare events such as low probability re-emission or scattering.
 
-For the above reasons, MC radiative transfer is most commonly used as a post-processing technique for creating images of astrophysical objects. For more details on specific codes, please see \citet{dullemon12,cantalupoPorciani11,altayPelupessyCroft08,ercolanoEt03,nenkovaEt99,lucy99,harriesHowarth97}, among many others.
+For the above reasons, MC radiative transfer is most commonly used as a post-processing technique for creating images of astrophysical objects. For more details on specific codes, please see \citet{dullemond12,cantalupoPorciani11,altayPelupessyCroft08,ercolanoEt03,nenkovaEt99,lucy99,harriesHowarth97}, among many others.
 
 %In monte-carlo methods, a photon is carefully tracked through a domain, following scattering, absorption, and re-emission. See [from steinacker 09] \citet{wolf03,woodEt2004,ercolanoEt2005,jonsson06,pinteEt06}.
 
@@ -233,38 +232,140 @@ For the above reasons, MC radiative transfer is most commonly used as a post-pro
 \subsection{Ray Tracing}
 \label{sec:raytracing}
 
-Ray tracing has the ability to treat arbitrary density distributions, and can use general solvers for ODEs. Fairly accurate and fairly expensive.
+At the most basic level, Ray Tracing is a fairly natural way to go about solving the equations of radiative transfer and is probably the most popular method in astrophysics. Rays are cast from sources and the energy or photons contained in the ray are diminished as it passes through absorbing material \citep{razoumovScott99,abelNormanMadau99} [add more RT codes here]. This may sound familiar to section \ref{sec:montecarlo} because many Monte Carlo codes often use a ray tracing approach to follow their photon packets.
+
+Most ray tracing codes tend to start by simplifying the radiative transport equation (\ref{eq:transferequation_s}) by assuming the the emissivity of intervening material is 0. This leads to a much simplified version of the equation
 
 \begin{itemize}
-\item Often combined with monte-carlo methods
-\item Provides quite accurate results.
-\item Provides global error control.
-\item Can cause step-size limitations in order to consistently transfer photons.
-\item Becomes impractical at high optical depth and can require complicated solvers.
+\label{eq:transferequation_abs}
+\frac{dI_{\nu}}{ds\tau_{\nu}} = -I_{\nu},
 \end{itemize}
 
+which has the simple solution
 
-\subsection{Grid-Based Methods}
-\label{sec:gridmethods}
+\begin{equation}
+\label{eq:transfersolution_abs}
+I_{\nu} = I_{\nu}(0)e^{-\tau_{\nu}}.
+\end{equation}
 
-Can use simple solvers (finite differencing or short characteristics) and gives good error control.
+It remains only for the ray tracer to calculate the optical depth between a source and another point. The simplest strategy to do this is to send rays out that intersect every cell in the simulation, and simply remove photons from the ray as they pass through each cell according to equations \ref{eq:opticaldepth} and \ref{eq:transfersolution_abs}. This process is visualized in figure \ref{fig:raytracing}.
 
-\begin{itemize}
-\item Grid must be adaptable to be practical, though good refinement criteria is unclear
-\item Interpolation between grids can be costly and give interpolation errors.
-\item Numerical diffusion typically not taken into account.
-\end{itemize}
+\begin{figure}
+\label{fig:raytracing}
+\includegraphics[width=\textwidth]{graphics/placeholder.eps}
+\caption[A visualization of ray tracing.]{Rays being traced through a grid in a simulation. Each ray has an associated energy or number of photons that are removed from the ray as it traverses through each cell according to the properties of each cell.}
+\end{figure}
 
+In principle, this process would solve the radiative transfer problem provided enough rays were cast. However, many practical problems arise that require special care. When casting rays, closer cells are intersected by far more rays than far away cells, as can be seen in figure \ref{fig:raytracing}. This means redundant work is performed near the source in order to get sufficient resolution of intensity at large distances. Many codes have created adaptive techniques to reduce the number of rays that are needed. For example, \citet{abelWandelt02} make use of the HEALPIX algorithm \citep{gorskiEt99} to determine rays that create an equal area per ray on a sphere. As the ray moves out and the ratio of the surface area of a cell to the solid angle of a ray decreases, the HEALPIX algorithm is recursively called on a single ray to subdivide it into four smaller rays to better sample further cells. This reduces the number of rays that need to be cast (see figure 2 in \citet{abelWandelt02}).
+
+A more difficult problem that arises is the computational cost associate with more sources. For most ray tracing codes, every additional source requires the whole tracing procedure to be performed again. While there are a few codes that have attempted to remove this poor scaling [fill in authors], it is more often seen as a limitation of the method and so the method is not often applied to problems with large numbers of sources [I don't know if I like this sentence].
+
+While the above description was based off of the initial assumption that scattering was zero, ray tracing codes do exist that attempt to model scattering in some way. Some authors have chosen to break the field into a direct component (due to ionizing sources) and a diffuse component (due to recombination in gas). The diffuse component can then be tracked and solved separately from the direct component. For example, \citet{razoumovScott99} chooses to use an operator split explicit-implicit scheme to advect the radiation variable along the separate rays. Other authors, e.g. \citet{abelNormanMadau99}, use a similar approach advecting the diffuse radiation, but choose not to keep track of rays at this point.
+
+The ray tracing method affords many advantages - it can handle arbitrary geometries and gives good error control, meaning very accurate results can be obtained. However, the method is typically limited to simulations that contain small numbers of sources due to poor scaling. As well, the method tends to have difficulty with very high optical depths and it usually becomes more practical to use a moment method (section \ref{sec:momentmethods}) [why is this? is this because of time steps? Says more complicated solvers needed? Mention time steps...].
+
+
+%ray tracing need 4piR^2/deltax^2 rays to sample far away cells, gives inner sampling of (r/R)^2, wasteful.
+%Ray tracing has the ability to treat arbitrary density distributions, and can use general solvers for ODEs. Fairly accurate and fairly expensive.
+%
+%\begin{itemize}
+%\item Often combined with monte-carlo methods
+%\item Provides quite accurate results.
+%\item Provides global error control.
+%\item Can cause step-size limitations in order to consistently transfer photons.
+%\item Becomes impractical at high optical depth and can require complicated solvers.
+%\end{itemize}
+
+%razoumovScott99 - account for travel time in similar way I suggested.
 
 \subsection{Moment Methods}
 \label{sec:momentmethods}
 
-e.g. FLD or M1 moment codes (skinner + ostriker, others). Fairly accurate, faster than ray tracing, in specific regimes.
+[Add citations to OTVET, description of., davis et al? short vs long characteristic.]
 
-\begin{itemize}
-\item Well suited for optically thick regime (can do free streaming)
-\item Struggles with peaked radiation in optical depths of order 1.
-\end{itemize}
+Moment methods represent a large chunk of astrophysical radiative transfer codes currently available. Very broadly, these methods take moments of the radiative transfer equations and make simplifications to make the equations easier to solve by common techniques.
+
+Specifically, we can start by taking angular moments of the radiative transfer equation (equation \ref{eq:transferequation_t}?). If this is done in a frame comoving with the radiating fluid and local thermodynamic equilibrium is assumed, we get (to first order in v/c) \citep{mihalasMihalas84}
+
+\begin{align}
+&\frac{D\rho}{Dt} + \rho \mathbf{\nabla \cdot v} = 0,\label{eq:rhd1}\\
+&\rho \frac{D\mathbf{v}}{Dt} = -\nabla P + \frac{1}{c}\chi_F \mathbf{F},\label{eq:rhd2}\\
+&\rho \frac{D}{Dt}\left(\frac{E}{\rho}\right) = -\mathbf{\nabla \cdot F} - \mathbf{\nabla v:P} + 4\pi\kappa_p B - c\kappa_E E,\label{eq:rhd3}\\
+&\rho \frac{D}{Dt}\left(\frac{e}{\rho}\right) = -P\mathbf{\nabla \cdot v} - 4\pi \kappa_P B + c\kappa_E E,\label{eq:rhd4}\\
+&\frac{\rho}{c^2}\frac{D}{Dt}\left(\frac{\mathbf{F}}{\rho}\right) = -\mathbf{\nabla \cdot P} - \frac{1}{c} \chi_F \mathbf{F}.\label{eq:rhd5}
+\end{align}
+
+In the above equations, $D/Dt$ is the convective derivative, defined as $D/Dt \equiv \partial / \partial t + \mathbf{v}\cdot \nabla$. The quantities $\rho$, e, $\mathbf{v}$, and p are the mass density, energy density, velocity, and scalar isotropic pressure, respectively. E, $\mathbf{F}$, and $\mathbf{P}$ are the frequency-integrated radiation energy density, momentum density or flux, and pressure tensor, respectively. E, $\mathbf{F}$, and $\mathbf{P}$ are the zeroth, first, and second order angular moments of intensity (equation \ref{eq:intensity}),
+
+\begin{equation}
+A^n(\mathbf{x},t) = \oint I \cos^{n}{\theta}d\Omega.
+\end{equation}
+
+$\chi_F$ is the flux mean total opacity, $\kappa_P$ is the planck mean absorption opacity, and $\kappa_E$ is the energy mean absorption opacity. The first opacity represents an effective opacity with contributions from absorption and scattering across all wavelengths. [The second and third are absorption opacities....?]. Finally, c is the speed of light. [What is B? Planck? What is : in math equation?]
+
+%\subsubsection{Flux Limited Diffusion}
+
+%add whitehouse & bate
+One popular moment method is Flux Limited Diffusion (FLD) \citep{almeWilson74,levermorePomraning81,pomraning83,meliaZylstra91,anileRomano92}. In FLD, the assumption is made that intensity is a slowly varying function of space and time. This is certainly true in the limit of very high or very low optical depth. It is the intermediate region ($\tau \approx 1$) where this assumption may not be true. This assumption allows the radiative flux to be written in the form of Fick's Law of diffusion \citep{livermorePomraning81},
+
+\begin{equation}
+\label{eq:fluxfdiffusion}
+\mathbf{F} = -D\nabla E,
+\end{equation}
+
+where D is the diffusion coefficient, given by
+
+\begin{equation}
+\label{eq:diffusioncoeff}
+D = \frac{c\lambda}{\chi}.
+\end{equation}
+
+$\lambda$ is a dimensionless function of energy called the flux limiter.
+
+In order to solve equations \ref{eq:rhd1}-\ref{eq:rhd5}, the system must be closed by relating the moments of radiation. An obvious first choice is the Eddington Approximation, which assumes the field is isotropic and implies that
+
+\begin{equation}
+\label{eq:eddingtonapprox}
+\mathbf{P} = \frac{1}{3}E.
+\end{equation}
+
+Using this approximation, equation \ref{eq:rhd5} becomes
+
+\begin{equation}
+\label{eq:eddingtonrhd}
+\mathbf{F} = -\frac{c}{3\chi}\nabla E,
+\end{equation}
+
+which is correct in the optically thick limit, but gives an infinite speed of light in optically thin regions. Thus, the flux limiter in equation \ref{eq:diffusioncoeff} functions to allow the Eddington Approximation to be made by creating physical behavior in the optically thin regime by limiting the radiation propagation speed [reword].
+
+By combining equations \ref{eq:fluxfdiffusion} and a relationship between moments of intensity, equations \ref{eq:rhd1}-\ref{eq:rhd4} can be solved numerically \citep{turnerStone01}.[Should I go into the actual solving process? I don't think so...]
+
+Other common moment methods follow a similar path, but use different assumptions for the closure relation. Another popular choice is called the ``M1 closure relation'' \citep{levermore84, skinnerOstriker13}[add more codes here]. This assumes that intensity is rotationally invariant about the direction of radiative flux, rather than fully isotropic. This assumption allows better results in particular scenarios (e.g. shadowing behind dense objects \citep{skinnerOstriker13}) and a more efficient numerical solution \citep{gonzalezEt07,aubertTeyssier08}. However, its applications are limited as it cannot deal with complex radiation fields from distributed sources since it uses entirely local information to get the closure relation.
+
+%add stone et al 92
+The majority of moment methods tend to have a difficult time dealing with complex source distributions because they adopt a closure relation that only accounts for short-characteristics of the radiation field (local intensity). There is one moment code that has managed to get around this, called OTVET \citep{gnedinAbel01}. OTVET explicitly constructs the radiation pressure tensor from the source distribution in the simulation, removing the need to assume a relationship between moments. This enables a combination of contributions to the intensity from both long characteristics and short characteristics.
+
+Overall, moment methods provide a useful and efficient way to solve problems that consist of high optical depth, where long characteristics are not important, or low optical depth with simple source distributions, so the intensity field is simple. Note that the method also tends to be very diffusive in many cases, and so special care must be taken to avoid this behavior if it is not desired.
+
+\subsection{Other Methods}
+\label{sec:othermethods}
+
+Sections \ref{sec:montecarlo}-\ref{sec:momentmethods} cover some of the most common radiative transfer methods currently used in astrophysics. However, it is worth mentioning a few other methods that aren't as easily grouped into the above categories.
+
+
+
+%Grid methods, statistic approach (MC?), fourier transforms (cen), hybrid methods (rijkhorst, mikhail), treeCOL, TRAPHIC.
+
+%\subsection{Grid-Based Methods}
+%\label{sec:gridmethods}
+%
+%Can use simple solvers (finite differencing or short characteristics) and gives good error control.
+%
+%\begin{itemize}
+%\item Grid must be adaptable to be practical, though good refinement criteria is unclear
+%\item Interpolation between grids can be costly and give interpolation errors.
+%\item Numerical diffusion typically not taken into account.
+%\end{itemize}
 
 \subsection{Summary of Methods}
 \label{sec:summaryofmethods}
