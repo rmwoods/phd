@@ -24,9 +24,9 @@ When considering the transfer of photons, we must consider the scale we are deal
 Consider an infinitesimal patch of area, dA, normal to a direction $\hat{n}$. We consider an infinitesimal solid angle, $d\Omega$, and consider all rays passing through the area and within the solid angle (see figure \ref{fig:intensity}).
 
 \begin{figure}
-\label{fig:intensity}
 \includegraphics[width=\textwidth]{graphics/placeholder.eps}
 \caption{The geometry for all rays at a point p through area dA within solid angle $d\Omega$.}
+\label{fig:intensity}
 \end{figure}
 
 The energy through this area patch, within the solid angle, in time dt, and within the frequency range $d\nu$ is
@@ -236,10 +236,10 @@ At the most basic level, Ray Tracing is a fairly natural way to go about solving
 
 Most ray tracing codes tend to start by simplifying the radiative transport equation (\ref{eq:transferequation_s}) by assuming the the emissivity of intervening material is 0. This leads to a much simplified version of the equation
 
-\begin{itemize}
+\begin{equation}
 \label{eq:transferequation_abs}
-\frac{dI_{\nu}}{ds\tau_{\nu}} = -I_{\nu},
-\end{itemize}
+\frac{dI_{\nu}}{d\tau_{\nu}} = -I_{\nu},
+\end{equation}
 
 which has the simple solution
 
@@ -251,9 +251,9 @@ I_{\nu} = I_{\nu}(0)e^{-\tau_{\nu}}.
 It remains only for the ray tracer to calculate the optical depth between a source and another point. The simplest strategy to do this is to send rays out that intersect every cell in the simulation, and simply remove photons from the ray as they pass through each cell according to equations \ref{eq:opticaldepth} and \ref{eq:transfersolution_abs}. This process is visualized in figure \ref{fig:raytracing}.
 
 \begin{figure}
-\label{fig:raytracing}
 \includegraphics[width=\textwidth]{graphics/placeholder.eps}
 \caption[A visualization of ray tracing.]{Rays being traced through a grid in a simulation. Each ray has an associated energy or number of photons that are removed from the ray as it traverses through each cell according to the properties of each cell.}
+\label{fig:raytracing}
 \end{figure}
 
 In principle, this process would solve the radiative transfer problem provided enough rays were cast. However, many practical problems arise that require special care. When casting rays, closer cells are intersected by far more rays than far away cells, as can be seen in figure \ref{fig:raytracing}. This means redundant work is performed near the source in order to get sufficient resolution of intensity at large distances. Many codes have created adaptive techniques to reduce the number of rays that are needed. For example, \citet{abelWandelt02} make use of the HEALPIX algorithm \citep{gorskiEt99} to determine rays that create an equal area per ray on a sphere. As the ray moves out and the ratio of the surface area of a cell to the solid angle of a ray decreases, the HEALPIX algorithm is recursively called on a single ray to subdivide it into four smaller rays to better sample further cells. This reduces the number of rays that need to be cast (see figure 2 in \citet{abelWandelt02}).
@@ -367,7 +367,7 @@ Sections \ref{sec:montecarlo}-\ref{sec:momentmethods} cover some of the most com
 %\item Numerical diffusion typically not taken into account.
 %\end{itemize}
 
-\subsection{Summary of Methods}
+\section{Summary of Methods}
 \label{sec:summaryofmethods}
 
 

@@ -14,17 +14,12 @@
 \label{chap:codetests}
 \thispagestyle{fancy}
 
-In this chapter, I present a variety of tests to demonstrate the strengths and limitations of the above algorithm. Many tests cases have been drawn from previous RT papers including \citet{ilievEt06,gendelevKrumholz12,skinnerOstriker13}. This chapter also include tests of accuracy and scaling of the algorithm.
+In this chapter, I present a variety of tests to demonstrate the strengths and limitations of the above algorithm. Many test cases have been drawn from previous RT papers including \citet{ilievEt06,gendelevKrumholz12,skinnerOstriker13}. This chapter also include tests of accuracy and scaling of the algorithm.
 
 \section{Glass}
 \label{sec:glass}
 
-A glass of particles is a simple way to demonstrate the most basic functionality of the algorithm. Each particle effectively acts to sample the radiation field at a particular point and has an easily calculated exact solution to compare to. A glass is also the relaxed state for an SPH simulation
-
-\subsection{Optically Thin}
-\label{sec:thinglass}
-
-{TAKE THIS SECTION OUT? TOO SIMPLE?}
+A glass of particles is a simple way to demonstrate the most basic functionality of the algorithm. Each particle effectively acts to sample the radiation field at a particular point and has an easily calculated exact solution to compare to. A glass is also the relaxed state for an SPH simulation.
 
 In the optically thin case, we simply want to ensure that we obtain a $1/r^2$ dropoff with flux. There should be no errors present in this test case because in the case of a single source, no averaging is needed and both exact luminosity and position of the source is used for every sink.
 
@@ -33,12 +28,7 @@ In the optically thin case, we simply want to ensure that we obtain a $1/r^2$ dr
 F = \frac{L}{4\pi r^2}
 \end{equation}
 
-\subsection{Optically Thick}
-\label{sec:thickglass}
-
-{TAKE THIS SECTION OUT? TOO SIMPLE?}
-
-Like section \ref{sec:thinglass}, this section aims to demonstrate the base ability of the code. In this case, the glass of particles has a roughly homogeneous density and thus the flux is still easily calculated for comparison.
+In the case of absorption, the glass of particles has a roughly homogeneous density and thus the flux is still easily calculated for comparison.
 
 \begin{itemize}
 \item The equation for flux in this case is still fairly simple. If we refer to equation \ref{eq:radabsorption}, we can see the theoretical flux is simply equation \ref{eq:flux} multiplied by the exponential of optical depth. See equation \ref{eq:thickflux}.
@@ -65,16 +55,17 @@ We now show the effect of including many sources. The code is now performing at 
 
 \begin{itemize}
 \item We first present the optically thin case. In this case, the glass has had half of its gas particles replaced with sources so that there are an equal number of each.
-\item The error distribution present in this
+\item The error distribution present in this case demonstrates the errors associated with the tree method. [make mean error vs theta plot?]
+\item 
 \end{itemize}
 
 \section{Effects of Averaging the Source}
 \label{sec:averagingsource}
 
-We now look closely at what effects averaging sources can have on results.
+We now look closely at what effects averaging sources can have on results. To demonstrate this, we have created a box of gas with two stars placed offset from each other.
 
-\subsection{Two star}
-\label{sec:twostar}
+%\subsection{Two star}
+%\label{sec:twostar}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/errorMap2starthick.eps}
@@ -83,10 +74,10 @@ We now look closely at what effects averaging sources can have on results.
 \end{figure}
 
 
-\subsection{Isothermal Sphere with a Cluster(?)}
-\label{sec:cluster}
-
-Words
+%\subsection{Isothermal Sphere with a Cluster(?)}
+%\label{sec:cluster}
+%
+%Words
 
 \section{The Str\"omgren Sphere}
 \label{sec:stromgren}
@@ -216,7 +207,32 @@ ns and a recombination time of 2.48e4 Years. The simulation is run for more than
 \section{Shadowing}
 \label{sec:shadowing}
 
-Text to fix the formatting.
+We present the shadowing test from \citet{hayesNorman03,gonzalezEt07,skinnerOstriker13}. A thin 2-D tube of gas with dimensions 0.12 cm tall x 1 cm long is irradiated from the left by a distance ((x,y) = (-100,0) cm) source with a characteristic temperature of 1740 K. The gas has an ambient density of $\rho_0 = 0.001 g cm^{-3}$ and an ambient temperature of 290 K. An oblate spheroid with dimensions $(x_0,y_0) = (0.1,0.06) cm$ is placed in the tube at $(x_c,y_c) = (0.5,0) cm$. The spheroid has a central density of $\rho_1 = 1000\rho_0 = 1 g cm^{-3}$ and the same ambient temperature. Note that hydrodynamics is turned off, so a mismatch in pressure is not an issue. The cloud has a density structure described by
+
+\begin{equation}
+\label{eq:shadowdensity}
+\rho_{cloud}(x,y) = \rho_0 + \frac{(\rho_1 - \rho_0}){(1+e^{\Delta})},
+\end{equation}
+
+where
+
+\begin{equation}
+\label{eq:shadowdelta}
+\Delta = 10\left\lbrace\left[\frac{x-x_c)}{x_0}\right]^2 + \left[\frac{y-y_c}{y_0}\right]^2-1\right\rbrace.
+\end{equation}
+
+This structure gives the cloud a ``fuzzy'' surface in that the density smoothly transitions rather than sharply jumps. The opacity is set as a function of density and temperature,
+
+\begin{equation}
+\label{eq:shadowopacity}
+\kappa(T_{gas},\rho) = \kappa_0\left(\frac{T_{gas}}{T_0}\right)^{-3.5}\left(\frac{\rho}{\rho_0}\right),
+\end{equation}
+
+with $\kappa_0 = 100 cm^2 g^{-1}$. This gives an optical depth of 0.1 across the length of the box, excluding the dense cloud, and an optical depth of roughly 2000 across the diameter of the blob.
+
+The tube is resolved by 280x80 SPH resolution elements, and the above density structure is obtained by changing the mass of the SPH particles (as opposed to increasing the number of particles). Note that this is not realistic for SPH, where higher densities are usually represented by a higher density of particles. However, we have elected to keep the same resolution as previous papers to aid in comparison.
+
+At t = 0, the source is turned on and the simulation is evolved for 0.1 s, or $3\e{9}$ light crossing times. Figure \ref{fig:shadow} shows the simulation at t = 0.1 s.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/shadow10000.eps}
@@ -224,10 +240,14 @@ Text to fix the formatting.
 \label{fig:shadow}
 \end{figure}
 
-\section{Galaxy Disk}
-\label{sec:galaxydisk}
+Need to fill in results...
 
-Text to fix the formatting.
+%Keep in mind that if a similar situation appeared in a simulation, the results would be improved due to a higher effective resolution in the dense clump.
+
+%\section{Galaxy Disk}
+%\label{sec:galaxydisk}
+%
+%Text to fix the formatting.
 
 \section{Timings and Scaling}
 \label{sec:timing}
