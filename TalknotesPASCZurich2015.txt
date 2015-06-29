@@ -1,0 +1,218 @@
+Benoit Commercon   RHD on AMR grids (RAMSES) FLD
+App Star formation 1/2 au -> 2000 AU
+First core: 10 AU, rho ~ 1e-13 -> 1e-10 g/cc
+Optically thick at ~ 10 AU inwards
+Goal: Correect initial entropy for forming protostar 
+-- IC for PMS evolution
+Approx: Moments, Grey FLD
+Courant condition: dt ~ dx^2
+Add Rad P to total P for Riemann Solver
+All oher RT on RHS 
+Solve inplicitly: Conj gradient Commercon+ 2011a, single timestep
+-- alternately -- do levels indep w/ BC (Tomida+)
+     -- photons can propagate more than one level
+   Adaptive timestep  (ORION, CASTRO)
+   Attempt to add fluxes at level bnd -- large dt --- negative E
+   Neumann
+   Dirichelet -->  no E cons, small error
+Multi-freq  Gonzalez+ 2015
+Ng+1 g group
+  Implicit not symmetric -- BiCGSTAB not CG
+  Cross term b/n all groups  Ng^2 terms 
+   -- calculated each iteration not stored, cost grows rapidly w/ Ng
+  Strong scaling good --> 1000 cores,  Weak scalng poor
+
+Time dep RT -- Jiang -- Harvard, w/ Stone + Davis in Athena
+1.  Variable Eddington Tensor (VET) vs. FLD/M1
+  Claim: no closure relation-
+  Grey
+  VET -- short characteristics dI/ds = kappa(S-I)
+2. Complete scheme -- see Stone+Mihalas 1992
+   Finite # angles per cell, can do scattering too
+   JIang+ 2012
+Shadow test -- two beams -- Gonzalez et al 2007, McKinney+ 2014 (c.f. FLD, M1)
+Atmosphere Test (Patrick did this)  rho ~ exp(-x), T ~ 1-0.01x
+  Exact Analytic soln:  FLD+M1 wrong answer for tau <~ 1
+Disk Emission: Rosdahl & Teyssier 2015
+  VET, M1F,FLD different (Rosdahl disagrees M1 gives that answer)
+Results for Rad P feeback ?
+Super-Eddington Magnetized BH Accretion Disks
+ -- 80 angles per cell N_r = 512, N_phi = 128, Nz=1024
+ -- Radiation Driven Outflow
+
+Rolf Kuiper- Hybrid Scheme for Star + Planet
+  Stellar irradiation -- ray-trace
+  Dust re-emission: FLD
+ Accretion disk benchmark:  Pascucci+ 2005 tau=0.1-100, Pinte+ 2004 tau=1e3-1e6
+   Benchmark for MC codes  Kuiper & Klessen 2013
+  FLD wrong -- but there is a central source
+ App: Massive Star Formation
+  Eddington lim (F_rad/F_grad = kappa L/4 pi G c M > 1  (assumes optically thin)
+  If kappa(r) rad driven outflow collapses
+  Can continue to accrete via disk
+ Klassen, Kuiper + 2014  FLD+Hybrid char in FLASH4
+  "Long characteristics too expensive"
+  Ray Trace: 80 bins ~ 5% of hydro cost
+
+Christian Baczynski -- RT+chemistry -- Simon Glover
+  FLASH -- adaptive RT cf. Wise+Abel 2011
+  RT-- Raytrace HEALPIX
+    -- split compare A_cell to r^2 Omega -- subtended Area for solid angle Omega
+   Claim not diffusive vs. Hybrid char. -- no interpolation
+     linear scaling to ~ 1000 cores
+   Chemical network -- DVODE
+  15.2 eV  H + gamma -> H+ + e-
+  15.2 eV  H + gamma -? h2+ + e-
+   Problem w/ incorrect ionization fronts 
+   need dt related to x_HI to avoid kappa change
+   5.6-11.2 eV PE
+   11.2-13.6 eV dissoc H2
+   13.6-15.2 eV 
+   15.2-
+  PDR -- no ionizing rad, dissociating
+    -- comparison study 2015
+
+
+JW: Fast Adapt. Radiative Transfer
+cf.  MODA -- radiative transfer code
+http://adsabs.harvard.edu/abs/2014A%26A...568A..11P
+speed of light: 300 kpc per Myr
+--- Can accurately use source/sink velocity difference for redshifting
+--- Recombination radiation/scattering: Traphic does this
+
+Ali Rahmati -- Traphic  SPH  Pawlik+Schaye 08,11
+ -- Full spatial adaptibility -- down to particles
+ -- Computational indep of #sources
+ -- Hydro coupling
+ -- Non-diffusive RT
+ -- source: randomly orient directions every step
+    Cones pass on radiation to nbrs
+    Virtual particle if no nbr -- but still bias, tend to choose nbr
+    in density increase direction
+ -- Merging photon packets if directions similar
+ -- packets eventually deleted -- a bit odd if periodic
+ Aurora: 60M cpu hours on Gauss  Pawlik+ 15
+ Cosmic HI: OWLS/EAGLE -- w/ TRAPHIC Rahmati+ 13ab
+   --> self-shielding
+   --> Include Recombination radiation
+   --> average self-shielding effect: fall off n < 1e-2 H/cc
+      But: Recomb Radiation kicks in and adds more radiation!
+   --> Also local stelar radiation     Rahmati 13b
+  Gasoline sim: Tamburello et al. in prep
+ 1st galaxies: Pawlik, Milosavljevic + Bromm
+   Raicevic+ 14 ---> recombination radiation into shadows
+ X-ray feedback/1st galaxies: high mass binaries: Jeon+ 12, 14, 15
+ TRAPHIC -- being implemented in GASOLINE?
+ So far just post-processing GASOLINE sims
+
+Joki Rosdahl - Leiden --- Galaxy evolution w/ RT Hydro in Ramses RT
+ w/ Agertz, Aubert, Blaizot, Dubois, Schate, Stranex, Teyssier
+ Rosdahl+ 2013, Rosdahl + Teyssier 2015 -- part of public RAMSES
+ Radiation icl. scattering on dust, coupling to dust
+ Local gas around galalxies, diff Ly-alpha
+  Stellar AGN/fb
+ Note good for re-ionization (reduced light speed), lines
+Main features:
+  -- challenges: 1) 7d  2) timescale c ~ 1000 c_s
+  -- M1 method, lose 2 dim (angles)  M1 closure, Levermore '84
+   -- 1st order Godunov
+   -- Crossing beams: nasty!
+   -- No limit to sources: e.g. rotating disk w/ stars model, 300 Myr
+  -- Reduced light speed: c_red = c/1000  comparable to hydro
+    c.f. Gnedin+Abel 2001
+    As long as ionization front speed captured ok
+  -- Freq bins -- extra eqns
+  -- Non-eqm chemistry  "most codes don't" -- really?
+  -- Radiation pressure dp/dt ~ L_UV/c
+    -- assess correctness of subgrid models
+  -- Multi-scattering:  dp/dt ~ L_opt/c tau_IR
+    -- diffusion, need to resolve mean free path or photons leave
+    -- approx: f_trapped = exp(2/3 tau_cell)
+       recover FLD behaviour -- F ~~ grad E
+  -- Upcoming comparison project...
+  Kimm+Cen 2014:  F_esc ~ avg 10% varies 1-50% 
+       correlated w. recent SFR making holes 
+  Geen+   Radp in star forming clouds
+  Rosdahl+ 2015: Radiation Feedbaback in isolated galaxies
+   --> RT big impact only in lower mass galaxies
+       smooths out gas distribution: primary effect photo-ionization heating
+  Future: implicit advection?  
+     rad+metal cooling, H2 dormation, dust
+JW: Why does M1 not do as well as FLD for large optical depth?
+   JR: Operator splitting, code doesn't know optical depth is locally high
+   RomTey: Advection of flux targets free streaming -- in this
+      case diffusion error in adv. is larger than true diffusion
+  Jiang: use a different solver
+
+Intermittency of sources
+  JW: must be modulated by recombination radiation
+
+LM: Ramses-RT only factor of 2 slower than normal Ramses
+    --> lot more memory required  
+    --> 5 photon groups, 4 variables each vs. 6 for hydro in ramses
+
+VS: Direct rad p -- not much effect
+    Boost w/ IR (tau<10) -- not much effect
+
+---
+Joachim Stadel + Christian Reinhardt
+ Doing moon forming planet collisions w/ Gasoline
+ Interesting work on EOS noise issues
+ Split energy Hydro into PdV + Shock
+   Shock done at kick
+   PdV done at drift following exact density 
+    -- using tabulated EOS
+    -- tricky because no analytic entropy defined to conserve
+ Cool results:
+  clumping structures forming in ejecta
+  Res dependence?
+  EOS has negative pressure -- tensile instability
+ Issue with density systematic at edge of planet
+  --> correct using empirical estimate of active volume
+  --> Nice sharp density at edge
+    (I mentioned drho/dt approach)
+ --> Offered latest Gasoline to play with -- RTFORCE
+ Iterested in P+P/(rho_i rho_j) stuff
+   interested in Lagrangian derivations -- pointed at Hopkins 2013
+   Main difference is kernel avg vs. weighted avg.
+ GENGA guy: Postdoc: Simon Grimm
+
+Lucio Group:
+  Alexsandra Sokolowska: CGM/Corona around Eris
+   -- Looking at X-rays vs. Bregman (see also D. Wang)
+   -- Looking at OVI, OVII -- metal dist, corona structure
+  David Fiacconi
+   -- Elliptical progenitor sim to z ~ 6 ,  m_gas ~ 800 Msun
+   -- very fluffy disk, pounded by gas clumps vertically
+   -- Res 40 pc -- cf. Bondi Radius of 1e7 Msun BH ~ 200 pc (his estimate)
+   Visitor: Jiang (Harvard/IAS-Stone PhD)
+   -- accretion disks around black holes w/ MHD+RT in 3D
+   --> super eddington accretion easy
+     -- optically thick accretion disk all the way into BH (effectively)
+        (no need for "inner edge" opactity games)
+     -- important role for convection/MRI in vertical transport in disk 
+        energy source gravity: mdot GM/r  --> erg/s
+     -- disk structure adjusts depending on torus mass to give higher mdot
+Robert Feldmann coming to Zurich as faculty
+
+To Tom: 
+
+Joachim and his student are doing cool stuff with planet collisions.
+Currently they are using a relatively old Gasoline.  I am going to get them connected to Ben's code.  
+
+They have done cool stuff with EOS and solids stuff.  Joachim is also doing GENGA and Pkdgrav3 which can handle trillion particle runs.  Pkdgrav3 is now using GPU and full FMM and scales very well.  Thus there is a lot here and things of mutual benefit to exchange.  My sense is that Joachim's focus with pkdgrav3+ will always be being faster and bigger and this fundamentally excludes bringing more physics into that code.  However, with his student using GASOLINE he has lots of incentive to make GASOLINE/CHANGA better right now.
+
+Lucio is doing all sorts of things (e.g. galaxies, CGM, feedback).  His student David is doing some very high res disks looking at early galaxies and AGN formation. As part of their radiative transfer consortium Lucio has Ali Rahmati (TRAPHIC) as a postdoc whose tasks include putting TRAPHIC Radiative
+Transfer into GASOLINE.  I told Ali we were already tweaking GASOLINE to make a cleaner interface for cooling and Rory's RT.  I told him I'd help but that 
+we should really consider transitioning everything to CHANGA.  I only had an hour or two to talk with him.  In the end the suggestion was to do things in the most
+straightforward way, getting used to our nbr list approach and then consider
+optimization and migration later. 
+
+Another thing is they have a few ideas about public release/documentation.  In particular, we need to consolidate documentation and make it public.  Something I wasn't fully aware of is that the broader group also wants quite detailed code documentation so they can understand units and what is going on.  This could be addressed with Doxygen but also detailed descriptions of what output files contain and so forth.  I think we need a central, official wiki where editing can be opened up and then people like Lucio's students would happily help extend it to add these details.
+
+Joachim mentioned that you were considering a visit to Zurich.   With so much going on it seems like a productive idea if I visit around the same time and they were pretty keen on this.  Joachim didn't mention a specific time but indicated maybe this summer.  I am away in August but I might be able to visit earlier with the caveat that there are thesis defences and things coming up.   Lucio suggested January (during their 1 week break) and getting in some skiing.  That would work better for me since I can reschedule my grad teaching for that term for 1 week pretty easily.
+
+
+
+
+

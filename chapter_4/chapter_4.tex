@@ -24,14 +24,14 @@ A glass of particles is a simple way to demonstrate the most basic functionality
 In the optically thin case, we simply want to ensure that we obtain a $1/r^2$ dropoff with flux. There should be no errors present in this test case because in the case of a single source, no averaging is needed and both exact luminosity and position of the source is used for every sink.
 
 \begin{equation}
-\label{eq:flux}
+\label{eq:r2flux}
 F = \frac{L}{4\pi r^2}
 \end{equation}
 
 In the case of absorption, the glass of particles has a roughly homogeneous density and thus the flux is still easily calculated for comparison.
 
 \begin{itemize}
-\item The equation for flux in this case is still fairly simple. If we refer to equation \ref{eq:radabsorption}, we can see the theoretical flux is simply equation \ref{eq:flux} multiplied by the exponential of optical depth. See equation \ref{eq:thickflux}.
+\item The equation for flux in this case is still fairly simple. If we refer to equation \ref{eq:radabsorption}, we can see the theoretical flux is simply equation \ref{eq:r2flux} multiplied by the exponential of optical depth. See equation \ref{eq:thickflux}.
 \item This assumes a homogeneous density field. The glass does not have an exactly homogeneous field, but has little variance from the average.
 \item Figure \ref{fig:thickglasserrors} shows the error distribution of the particles.
 \item Note that in the case that the density field is exact, the errors reduce down to machine precision. This emphasizes the importance of accurately modeling the density distribution.
@@ -199,9 +199,26 @@ In order to test the coupling of radiation to the hydrodynamics, we perform a si
 ns and a recombination time of 2.48e4 Years. The simulation is run for more than 4e6 years, meaning that the gas has time to heat and expand.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
-\caption[An example of a champagne flow.]{An example of a champagne flow.}
-\label{fig:champagne}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/blister25600040rhoslice.eps}
+                \caption{0.5 Myr}
+                \label{fig:champagne1}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/blister25600080rhoslice.eps}
+                \caption{1 Myr}
+                \label{fig:champagne2}
+        \end{subfigure}
+         ~ 
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/blister25600400rhoslice.eps}
+                \caption{5 Myrs}
+                \label{fig:champagne3}
+        \end{subfigure}
+        \caption[A champagne flow.]{The Blister HII region from \citet{gendelevKrumholz12}.}
+        \label{fig:champagne}
 \end{figure}
 
 \section{Shadowing}
@@ -241,6 +258,58 @@ At t = 0, the source is turned on and the simulation is evolved for 0.1 s, or $3
 \end{figure}
 
 Need to fill in results...
+
+
+\section{Ionization Front Trapping}
+\label{sec:ifronttrapping}
+
+Along the same lines of section \ref{sec:shadowing}, this section performs a shadowing test. However, this test includes ionizing radiation and is constructed in such a way that the ionization front should stall out inside of the dense sphere. The test is taken from \citet{ilievEt06}.
+
+A 6.6 kpc cube is initiated with mean background density $2\e{-4} cm^{-3}$ and background temperature 8000 K. The dense clump is located at (x,y,z) = (5,3.3,3.3) and is given a density of 200 times the background, or 0.04 $cm^{-3}$, and a temperature of 40 K.
+
+The conditions for trapping an ionization front are presented in \citet{shapiroEt04}. The authors show that a clump can trap an ionization front if
+
+\begin{equation}
+\label{eq:ifronttrap}
+l_s = \frac{F}{\alpha n_H^2}
+\end{equation}
+
+is less than the diameter of the clump. In the above simulation $\alpha = 2.59\e{-13} (T/10^4 K)^(-3/4)$, which suggests the clump should trap the ionization front at $10^4$ somewhere around halfway through.
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/ifrontTrap00010HI.eps}
+                \caption{HI, 1 Myr}
+                \label{fig:ifronttrap1a}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/ifrontTrap00010Temp.eps}
+                \caption{T, 1 Myr}
+                \label{fig:ifronttrap1b}
+        \end{subfigure}
+        \caption[]{}
+        \label{fig:ifronttrap1}
+\end{figure}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/ifrontTrap00010HI.eps}
+                \caption{HI, 1 Myr}
+                \label{fig:ifronttrap2a}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{graphics/ifrontTrap00010Temp.eps}
+                \caption{T, 15 Myrs}
+                \label{fig:ifronttrap2b}
+        \end{subfigure}
+        \caption[]{}
+        \label{fig:ifronttrap2}
+\end{figure}
+
 
 %Keep in mind that if a similar situation appeared in a simulation, the results would be improved due to a higher effective resolution in the dense clump.
 

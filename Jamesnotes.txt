@@ -1,0 +1,180 @@
+Ali Rahmati -- putting Traphic into Gasoline for Swiss RT consortium
+Consult on adaptibe Gasoline to separate out cooling/RT etc...
+Consult on RT in Changa?
+
+Bern talk, McCray -- 35+10 min
+
+
+--
+
+PASC talk
+
+
+Tuesday, June 2, 2015
+HG E3
+10:30 - 11:00	Multifrequency Radiation Hydrodynamics on Adaptive-mesh-refinement using the Flux-limited Diffusion Approximation, Benoit Commercon (CNRS, France) Abstract
+11:00 - 11:30	Numerical Algorithms to Solve the Time-Depedent Radiative Transfer Equation Based on VET and Finite Volume Method, Yan-Fei Jiang (Harvard-Smithsonian Center for Astrophysics, USA) Abstract
+11:30 - 12:00	Hybrid Radiation Transport Methods for Star and Planet Formation, Rolf Kuiper (University of Tübingen, Germany) Abstract
+12:00 - 12:30	Chemistry-Coupled Radiative Transfer in Flash4: Towards Fully Self-consistent Massive Stellar Feedback on the ISM, Christian Baczynski (University Heidelberg, Germany) Abstract
+
+
+
+Tuesday, June 2, 2015
+HG E3
+13:30 - 14:00	A New Method for Fast Approximate Radiative Transfer, James Wadsley (McMaster University, Canada) Abstract
+14:00 - 14:30	TRAPHIC: an Efficient Radiative Transfer Method for SPH Simulations with Many Sources, Alireza Rahmati (University of Zurich, Switzerland) Abstract
+14:30 - 15:00	Galaxy Evolution with Radiation-Hydrodynamics in RAMSES-RT, Joakim Rosdahl (Leiden University, Netherlands) Abstract
+
+
+
+
+
+Tuesday, June 2, 2015 
+HG E3, 13:30 - 14:00 
+
+A New Method for Fast Approximate Radiative Transfer; James Wadsley (McMaster University, Canada) 
+
+Co-Authors: Rory Woods (McMaster University, Canada); Hugh Couchman (McMaster University, Canada) 
+
+We present a new scheme for radiative transfer. The goals are a fast approach (low cost, no timestep constraints) for an approximate radiation field to drive chemistry and heating for many potential applications. The method combines ray tracing and the tree method. It is flexible in terms of geometry and can use multiple wave-bands. It has been implemented in the GASOLINE2 code but is modular and could be added to different code types. The result scales well with source numbers and is cheap for sub-regions (i.e. multiple timesteps). We demonstrate test results for ionizing radiation (HII regions) and shadowing tests. We show first results on some astrophysical applications.
+
+
+--
+N_sources, N_sinks, total N = N_sources + N_sinks  box size L
+Cost: O(N_sink log N_source) -- Luminosities
+ int 4 pi r^2/(theta^3 r^3/L^3) dr ~ 4 pi/theta^3 (log L - log (L/N^1/3))
+    ~ 4 pi/3 theta^-3 Log N
+
+Minimum climb up -- upper bound on work x Log N_total
+  sink+source -- distance r, tree cell size ~ r 
+  Like a two sides opening angle -- keep angle
+  subtended to sink AND to source less than theta_Def
+    theta_def s.t.  d_cell/r ~ 1
+
+Refinement criteria:
+  Assume beam angle that subtended by source to sink
+  refine to this size at all intermediate distances:
+     cost ~ log r - log L/N^1/3 = log (r/L N^1/3)
+ int 4 pi r^2/(theta^3 r^3/L^3) log(r/L N^1/3) dr
+   still x Log N total -- may be more or less work depending on theta
+
+May need to do some averaging to get effective opacities
+on scale of cell
+exp(-tau_avg) = Average weighted by area of subcell exp(-tau), subcell
+This depends on size of cell, not just kappa
+Should do some Monte Carlo to prove behaviour?
+  OR refine like crazy (not desirable)
+In limit of small optical depths -- equivalent to avg kappa
+
+Should dt be s.t. delta kappa is small in one step?
+  cf. c2ray discussion
+  c2ray does projection forward of ionization fractions over step
+  --> only possible if you have a reasonable guess for the field
+     otherwise may need to iterate
+     iterating kills most advantages of method
+   ** May need a timestep criterion associated w/ ionization
+      to make sure ionization front particles on smallest steps
+
+Most other workers use on the spot approx -- need to handle
+   re-emission scattering (dust contributes too?)
+  -- Special integration approaches that are stable with gas sources
+     (Can't emit more than you have even when dt large)
+
+Advantages:  multiple timesteps -- cost proportional to n_active
+   not n_source
+
+Zoom-in -- do background with shell of sources
+  Note that flux only sensible for r << r_shell
+   -- math
+
+For filled periodic box, something like Gnedin/otvet trick
+  do 1 periodic replica
+  for final cell, replace w/ background L \propto cell area subtended x Flux
+
+ENZO  Abel, Norman + Madau 1999
+      1999ApJ...523...66A
+   -- photon conserving ray trace 
+ Wise & Abel 2011 - add source merging?
+
+Traphic   Pawlik & Schaye 2008 
+          2008MNRAS.389..651P
+
+Fully threaded transport engine: new method for multi-scale radiative transfer
+      Razoumov, A. O.; Cardall, C. Y.	
+       2005MNRAS.362.1413R	
+
+"Stroemgren Volume Method"
+SPH new algorithm: Dale, J. E.; Ercolano, B.; Clarke, C. J.
+     2007MNRAS.382.1759D	
+    -- all ionized or not  (similar to Hopkins count the photons)
+    -- cannot deal correctly with multiple sources
+Owes a lot to:
+Kessel-Dynet & Burket method 2000,  2000MNRAS.315..713K
+     
+SPHRay   Altay, Croft + Pelupessy 2008
+   2008MNRAS.386.1931A
+   -- lots of detail on creation of additional ionizing photons
+   -- BUT -- uses on the spot approx., reabsorb immediately
+   -- exact photon conservation along rays ( eps 1e-10 )
+   -- can do explicit RK or interative (implicit soln)
+       -- iterative Mellema+ 2006, C2ray stuff
+       -- iterative uses time average opacity estimates aims for large dt
+   -- very complete references
+
+RSPH   Susa 2006
+
+TreeCol
+URCHIN -- altay + theuns   "Reverse ray tracer"
+     -- 2013MNRAS.434..748A
+     -- shielding of each particle to uniform background
+        post-processing? -- iterative eqm solution
+        -- nothing in paper about using it during a run
+     -- Approach: Optimized for post-reionization
+         1Reverse ideal for background -- don't need large box to get sources
+         2Ray's determined by sink -- good angular resolution for dense gas
+         3Spectral resolution -- remember properties of sources
+         c.f. Mirocha+ 2013 -- need 4 freq bin 13.6-100 eV for smooth spec source 
+           Conceptually: calc tau(freq) -- apply to outside spectrum
+         4Optmization: skip optically thin sinks
+       -- does near/far breakdown to avoid self-shielding issues due to nbrs
+
+         
+CRASH: a radiative transfer scheme
+       Maselli, A.; Ferrara, A.; Ciardi, B.	
+       2003MNRAS.345..379M	
+
+c2ray   Mellema+ 2006
+         Mellema, G; Iliev, I.; Alvarez, M; Shapiro, P.
+         2006NewA...11..374M	
+  -- goal relaxed hydro res/timestep constraints  via photo-conservation
+   -- claim: preventing disconnect ionizations-absorptions forces high res
+   -- also: dt must be < time to ionize cell or mismatch
+See also: Mackey & Lim 2010 (similar)
+Accuracy and efficiency of raytracing photoionisation algorithms
+Mackey, J. 2012A%26A...539A.147M
+
+Cosmological radiative transfer codes comparison project - I. The static density field tests  
+     Iliev + 2006
+     2006MNRAS.371.1057I	
+
+Scooper: Tree
+ 2014MNRAS.437.2882K	
+Kannan, R.; Stinson, G. S.; Macciò, A. V.; Hennawi, J. F.; Woods, R.; Wadsley, J.; Shen, S.; Robitaille, T.; Cantalupo, S.; Quinn, T. R.; Christensen, C.	
+Galaxy formation with local photoionization feedback - I. Methods
+
+cf.  MODA -- radiative transfer code
+ Multidimensional Optical Depth Algorithm
+http://adsabs.harvard.edu/abs/2014A%26A...568A..11P
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+talk:
+Put in MNRAS for Keller 2014...
+Show more typical phase diagrams -- e.g. Nevada, Old BW
+2014MNRAS.442.3013K
+
+ 2011MNRAS.415.2293K	
+1.000	08/2011	A      E  F          X                      R  C                      U      
+Knebe, Alexander; Knollmann, Steffen R.; Muldrew, Stuart I.; Pearce, Frazer R.; Aragon-Calvo, Miguel Angel; Ascasibar, Yago; Behroozi, Peter S.; Ceverino, Daniel; Colombi, Stephane; Diemand, Juerg; and 27 coauthors	
+Haloes gone MAD: The Halo-Finder Comparison Project

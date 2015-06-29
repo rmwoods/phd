@@ -24,8 +24,8 @@ When considering the transfer of photons, we must consider the scale we are deal
 Consider an infinitesimal patch of area, dA, normal to a direction $\hat{n}$. We consider an infinitesimal solid angle, $d\Omega$, and consider all rays passing through the area and within the solid angle (see figure \ref{fig:intensity}).
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
-\caption{The geometry for all rays at a point p through area dA within solid angle $d\Omega$.}
+\includegraphics[width=\textwidth]{graphics/intensity.eps}
+\caption[A visualization of how intensity is measured.]{The geometry for all rays at a point p through area dA within solid angle $d\Omega$. Figure adapted from \citet{rybickiLightman86}, figure 1.2.}
 \label{fig:intensity}
 \end{figure}
 
@@ -124,7 +124,7 @@ According to equation \ref{eq:scatteringcoefficient}, the source function for sc
 
 For this reason, scattering is often omitted from radiative transfer solver due to very large added computational cost. In this thesis, our solutions do not explicitly account for scattering, though it is possible scattering-like behavior (due to properties of the RT algorithm and the properties of SPH) may result in some solutions [remove this line I think].
 
-If scattering is omitted, equation \ref{eq:combinedtransfer} is simplified to a nicer form. We combine equations \ref{eq:emissionintensity}, \ref{eq:absorption}, and \ref{eq:sourcefunction} to obtain
+If scattering is omitted, equation \ref{eq:combinedtransfer} is simplified to a nicer form. We combine equations \ref{eq:emissionintensity}, \ref{eq:absorption}, and \ref{eq:sourcefunction_a} to obtain
 
 \begin{equation}
 \label{eq:transferequation_s}
@@ -193,11 +193,11 @@ In order to determine when a photon packet will interact, most codes use one of 
 P(l) = \frac{\int_0^{\tau(l)}e^{\tau}d\tau}{\int_0^{\infty}e^{\tau}d\tau} = 1-e^{-\tau},
 \end{equation}
 
-where P(l) is the probability of an interaction happening at a distance l and $\tau(l)$ is the optical depth corresponding to the interaction. By inverting equation \ref{eq:taupdf}, one can use a random number for P(l) to determine the interaction optical depth (or distance). The photon packet is then assumed to interact at that position, and the process is repeated \citep{harriesHoworth97}.
+where P(l) is the probability of an interaction happening at a distance l and $\tau(l)$ is the optical depth corresponding to the interaction. By inverting equation \ref{eq:taupdf}, one can use a random number for P(l) to determine the interaction optical depth (or distance). The photon packet is then assumed to interact at that position, and the process is repeated \citep{harriesHowarth97}.
 
 Another strategy is to simply trace the photon packet from resolution element to resoultion element (cells, particles), and at each point, to use a random number to determine if the photon packet should interact at that cell. This has the advantage that the code does not need to calculate and normalize optical depths \citep{lucy99,ercolanoEt03}.
 
-The above process is repeated until a photon packet leaves the simulation volume, and for many photon packets. Once a large number of photon packets have been sent out, physical quantities must be estimated from observed MC quantities. In this case, a common physical quantity to determine is mean intensity $J$ and the MC quantity is the photon packet. In order to relate the quantities, an \emph{estimator} is needed. An obvious choice (though not necessarily the most optimal, \citet{ercolanoEt2003}) is to simply use the definition of intensity (equation \ref{eq:intensity}),
+The above process is repeated until a photon packet leaves the simulation volume, and for many photon packets. Once a large number of photon packets have been sent out, physical quantities must be estimated from observed MC quantities. In this case, a common physical quantity to determine is mean intensity $J$ and the MC quantity is the photon packet. In order to relate the quantities, an \emph{estimator} is needed. An obvious choice (though not necessarily the most optimal, \citet{ercolanoEt03}) is to simply use the definition of intensity (equation \ref{eq:intensity}),
 
 \begin{equation}
 \label{eq:mcstimator}
@@ -219,7 +219,7 @@ However, MC is \emph{very} computationally costly. Large numbers of photon packe
 
 There is also an indirect cost associated with optical depth. In the case of very optically thick systems, interactions occur far more often between photon packets and the medium, meaning more computation is needed per photon packet. In the case of very optically thin systems, interactions are very rare and very large numbers of photons must be cast to get accurate statistics on heating, ionization, and scattering. From a numerical perspective, MC provides poor error control. The typical solution to better accuracy is to simply increase the number of photons [check if other strategies?). However, this converges very slowly and often still does not guarantee good statistics on rare events such as low probability re-emission or scattering.
 
-For the above reasons, MC radiative transfer is most commonly used as a post-processing technique for creating images of astrophysical objects. For more details on specific codes, please see \citet{dullemond12,cantalupoPorciani11,altayPelupessyCroft08,ercolanoEt03,nenkovaEt99,lucy99,harriesHowarth97}, among many others.
+For the above reasons, MC radiative transfer is most commonly used as a post-processing technique for creating images of astrophysical objects. For more details on specific codes, please see \citet{dullemond12,cantalupoPorciani11,altayEt08,ercolanoEt03,nenkovaEt99,lucy99,harriesHowarth97}, among many others.
 
 %In monte-carlo methods, a photon is carefully tracked through a domain, following scattering, absorption, and re-emission. See [from steinacker 09] \citet{wolf03,woodEt2004,ercolanoEt2005,jonsson06,pinteEt06}.
 
@@ -251,16 +251,22 @@ I_{\nu} = I_{\nu}(0)e^{-\tau_{\nu}}.
 It remains only for the ray tracer to calculate the optical depth between a source and another point. The simplest strategy to do this is to send rays out that intersect every cell in the simulation, and simply remove photons from the ray as they pass through each cell according to equations \ref{eq:opticaldepth} and \ref{eq:transfersolution_abs}. This process is visualized in figure \ref{fig:raytracing}.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
-\caption[A visualization of ray tracing.]{Rays being traced through a grid in a simulation. Each ray has an associated energy or number of photons that are removed from the ray as it traverses through each cell according to the properties of each cell.}
+\includegraphics[width=\textwidth]{graphics/ray_flux.eps}
+\caption[A visualization of ray tracing.]{Rays being traced through a grid in a simulation. Each ray has an associated energy or number of photons that are removed from the ray as it traverses through each cell according to the properties of each cell. The blue highlighted cells show an example for one particular ray, where intensity is removed according to the absorption coefficient, $\alpha_{i,j}$, of each cell it passes through. Notice that closer cells, such as cell a, have more rays intersecting them than further cells, such as cell b, meaning redundant work is performed in the close cells.}
 \label{fig:raytracing}
 \end{figure}
 
-In principle, this process would solve the radiative transfer problem provided enough rays were cast. However, many practical problems arise that require special care. When casting rays, closer cells are intersected by far more rays than far away cells, as can be seen in figure \ref{fig:raytracing}. This means redundant work is performed near the source in order to get sufficient resolution of intensity at large distances. Many codes have created adaptive techniques to reduce the number of rays that are needed. For example, \citet{abelWandelt02} make use of the HEALPIX algorithm \citep{gorskiEt99} to determine rays that create an equal area per ray on a sphere. As the ray moves out and the ratio of the surface area of a cell to the solid angle of a ray decreases, the HEALPIX algorithm is recursively called on a single ray to subdivide it into four smaller rays to better sample further cells. This reduces the number of rays that need to be cast (see figure 2 in \citet{abelWandelt02}).
+In principle, this process would solve the radiative transfer problem provided enough rays were cast. However, many practical problems arise that require special care. When casting rays, closer cells are intersected by far more rays than far away cells, as can be seen in figure \ref{fig:raytracing}, comparing cells a and b. This means redundant work is performed near the source in order to get sufficient resolution of intensity at large distances. Many codes have created adaptive techniques to reduce the number of rays that are needed. For example, \citet{abelWandelt02} make use of the HEALPIX algorithm \citep{gorskiEt99} to determine rays that create an equal area per ray on a sphere. As the ray moves out and the ratio of the surface area of a cell to the solid angle of a ray decreases, the HEALPIX algorithm is recursively called on a single ray to subdivide it into four smaller rays to better sample further cells. This reduces the number of rays that need to be cast (see figure 2 in \citet{abelWandelt02}).
 
 A more difficult problem that arises is the computational cost associate with more sources. For most ray tracing codes, every additional source requires the whole tracing procedure to be performed again. While there are a few codes that have attempted to remove this poor scaling [fill in authors], it is more often seen as a limitation of the method and so the method is not often applied to problems with large numbers of sources [I don't know if I like this sentence].
 
 While the above description was based off of the initial assumption that scattering was zero, ray tracing codes do exist that attempt to model scattering in some way. Some authors have chosen to break the field into a direct component (due to ionizing sources) and a diffuse component (due to recombination in gas). The diffuse component can then be tracked and solved separately from the direct component. For example, \citet{razoumovScott99} chooses to use an operator split explicit-implicit scheme to advect the radiation variable along the separate rays. Other authors, e.g. \citet{abelNormanMadau99}, use a similar approach advecting the diffuse radiation, but choose not to keep track of rays at this point.
+
+The scenarios presented up until now have all focused on sending rays out from sources. URCHIN \citep{altayTheuns13} is a ray tracing code that has adopted the opposite strategy of sending rays out from sinks. While this may seem counter-intuitive at first, there are many computational advantages to doing this in particular physical scenarios. \citet{altayTheuns13} designed the algorithm to efficiently model the post-reionization Universe, where radiation is coming from all directions. In this case, tracing rays outward from sinks is guaranteed to find sources of radiation and alleviates any sampling issues associated with choosing sources to start tracing from.
+
+Note that many of the algorithms mentioned above rely on tracing radiation outward along structured data. If the data is unstructured, it is far more difficult to properly estimate what portion of ray segments are affected by absorbing media. As well, it becomes very difficult to ensure that sufficiently many rays are propagated to each resolution element. Unfortunately, this is exactly the scenario that is present in SPH simulations, where resolution elements are completely irregular.
+
+\citet{pawlikSchaye} have created a short-characteristics ray tracing scheme specifically designed to deal with the unstructured nature of SPH simulations called TRAPHIC. In this ray tracer, radiation is ``traced'' out in cones to neighboring SPH particles. However, since particles do no necessary exist in all directions for a given particle, virtual particles can be introduced to help propagate radiation through voids without particles. Note that by keeping a fixed solid angle for each particle, a natural adaptivity arises since the same solid angle on a particle further from a source will cover a smaller solid angle with respect to the source. TRAPHIC also introduces a method of merging sources that are close in angle for a receiving gas particles. Merging sources means that the algorithm can handle very large numbers of sources, making it one of the most currently powerful algorithms for cosmological simulations. [transition...]
 
 The ray tracing method affords many advantages - it can handle arbitrary geometries and gives good error control, meaning very accurate results can be obtained. However, the method is typically limited to simulations that contain small numbers of sources due to poor scaling. As well, the method tends to have difficulty with very high optical depths and it usually becomes more practical to use a moment method (section \ref{sec:momentmethods}) [why is this? is this because of time steps? Says more complicated solvers needed? Mention time steps...].
 
@@ -306,7 +312,7 @@ $\chi_F$ is the flux mean total opacity, $\kappa_P$ is the planck mean absorptio
 %\subsubsection{Flux Limited Diffusion}
 
 %add whitehouse & bate
-One popular moment method is Flux Limited Diffusion (FLD) \citep{almeWilson74,levermorePomraning81,pomraning83,meliaZylstra91,anileRomano92}. In FLD, the assumption is made that intensity is a slowly varying function of space and time. This is certainly true in the limit of very high or very low optical depth. It is the intermediate region ($\tau \approx 1$) where this assumption may not be true. This assumption allows the radiative flux to be written in the form of Fick's Law of diffusion \citep{livermorePomraning81},
+One popular moment method is Flux Limited Diffusion (FLD) \citep{almeWilson74,levermorePomraning81,pomraning83,meliaZylstra91,anileRomano92}. In FLD, the assumption is made that intensity is a slowly varying function of space and time. This is certainly true in the limit of very high or very low optical depth. It is the intermediate region ($\tau \approx 1$) where this assumption may not be true. This assumption allows the radiative flux to be written in the form of Fick's Law of diffusion \citep{levermorePomraning81},
 
 \begin{equation}
 \label{eq:fluxfdiffusion}
@@ -343,7 +349,7 @@ By combining equations \ref{eq:fluxfdiffusion} and a relationship between moment
 Other common moment methods follow a similar path, but use different assumptions for the closure relation. Another popular choice is called the ``M1 closure relation'' \citep{levermore84, skinnerOstriker13}[add more codes here]. This assumes that intensity is rotationally invariant about the direction of radiative flux, rather than fully isotropic. This assumption allows better results in particular scenarios (e.g. shadowing behind dense objects \citep{skinnerOstriker13}) and a more efficient numerical solution \citep{gonzalezEt07,aubertTeyssier08}. However, its applications are limited as it cannot deal with complex radiation fields from distributed sources since it uses entirely local information to get the closure relation.
 
 %add stone et al 92
-The majority of moment methods tend to have a difficult time dealing with complex source distributions because they adopt a closure relation that only accounts for short-characteristics of the radiation field (local intensity). There is one moment code that has managed to get around this, called OTVET \citep{gnedinAbel01}. OTVET explicitly constructs the radiation pressure tensor from the source distribution in the simulation, removing the need to assume a relationship between moments. This enables a combination of contributions to the intensity from both long characteristics and short characteristics.
+The majority of moment methods tend to have a difficult time dealing with complex source distributions because they adopt a closure relation that only accounts for local characteristics of the radiation field. One moment code (among others) that has managed to get around this is OTVET \citep{gnedinAbel01}. OTVET explicitly constructs the radiation pressure tensor from the source distribution in the simulation, removing the need to assume a relationship between moments. This enables a combination of contributions to the intensity from all sources.
 
 Overall, moment methods provide a useful and efficient way to solve problems that consist of high optical depth, where long characteristics are not important, or low optical depth with simple source distributions, so the intensity field is simple. Note that the method also tends to be very diffusive in many cases, and so special care must be taken to avoid this behavior if it is not desired.
 
@@ -352,7 +358,13 @@ Overall, moment methods provide a useful and efficient way to solve problems tha
 
 Sections \ref{sec:montecarlo}-\ref{sec:momentmethods} cover some of the most common radiative transfer methods currently used in astrophysics. However, it is worth mentioning a few other methods that aren't as easily grouped into the above categories.
 
+In order to overcome some of the shortcomings of moment methods and ray tracing methods, some authors have created hybrid codes that use both methods in different regimes in the simulation. \citet{kuiperEt10} has created one such scheme. The basic idea is to attempt to use each method in the regime where it's most advantageous to save on computation and improve accuracy. In the case of \citet{kuiperEt10}, the algorithm is designed to approach the problem of massive star formation. It uses a first order ray tracer to transfer stellar photons at higher frequencies to the gas. A secondary moment method (FLD) then diffuses the photons through high density gas. This is meant to efficiently model transfer of high frequency photons from a massive star and reprocessing of those photons to lower frequency emission.
 
+The method avoids the difficulties that ray tracing can have in high optical depth regions and benefits from the speed and accuracy of FLD in appropriate physical regions. While the hybrid code of \citet{kuiperEt10} was specialized to do simulations of a single massive star, the code has since been extended to work on an arbitrary number of sources \citep{klassenEt2014}.
+
+Another strategy is to make use of the Fast Fourier Transform (FFT) techniques. \citet{cen02} makes use of the property that if the sum of a quantity over a volume can be written in the standard convolution form, than it can be solved using an FFT. By re-writing equations \ref{eq:} and \ref{eq:} in this form, one can solve the equations in $N\log(N)$ time for each direction. Using trees to discretize the angles, you end up with roughly $\log(N)$ angles to solve for, and so the solution scales as $N\log^2(N)$. [More here.... I don't get this method.]
+
+Finally, \citet{clarkEt12} have created an algorithm most similar to ray tracers, but whose purpose is to calculate column depths for exterior sources [check if this is right]. The basic idea is to map the simulation volume onto a sphere that has been divided into equal area segments by the HEALPIX algorithm \citep{gorski99}. By performing this action during the tree walk, columns can be calculated to any point within the simulation at a cost of $N\log(N)$. However, since this algorithm only calculates column depth as a function of $\theta, \phi$ for each particle, it is limited to cases in which sources are located outside of all absorbing material.
 
 %Grid methods, statistic approach (MC?), fourier transforms (cen), hybrid methods (rijkhorst, mikhail), treeCOL, TRAPHIC.
 
@@ -369,6 +381,27 @@ Sections \ref{sec:montecarlo}-\ref{sec:momentmethods} cover some of the most com
 
 \section{Summary of Methods}
 \label{sec:summaryofmethods}
+
+Section \ref{sec:currentmethods} gave an overview of some of the most common methods currently used in astrophysics, so we are now well posed to assess the field of computational radiative transfer.
+
+In order to solve the equations of radiative transfer, codes must make certain approximations. In all but MC codes, authors typically start by dropping scattering. Moment methods typically make a further assumption about the relationship between the moments of radiation, with the most common being the Eddington Approximation (eqation \ref{eq:eddingtonapprox}), or the assumption of radiation isotropy.
+
+The above assumptions are still often not sufficient to make the problem computationally viable. Ray tracing has needed to make algorithm-specific improvements to become more computationally efficient. Making rays adaptive as they get further from the source reduces redundant work near the source, and in some scenarios, tracing the rays backwards from the sinks can provide another efficiency boost. Some codes, both ray tracing and moment methods, have also made the improvement of merging sources, which can reduce the number of sources to do calculations for from N to $\log(N)$.
+
+Very roughly, the current code base occupies particular spaces in the computational radiative transfer volume. Monte carlo codes are typically the most accurate, but also the most computationally expensive. For this reason, they are usually limited to post processing and image creation in simulations. Ray tracers are the most popular, and offer very good accuracy, but typically scale quite poorly with the number of sources, and so are usually limited to simulations containing small numbers of sources. Moment codes are a step up in computational speed, but are usually only appropriate in simulations that have high optical depth where the assumption of radiation isotropy is appropriate. Otherwise, unwanted diffusion in the radiation field can give large errors. Despite the simplifying assumptions, many moment codes are still the dominant computational cost in simulations compared to other common physics solvers such as gravity and hydrodynamics.
+
+Currently, there is a gap in the market for solvers that can deal with large numbers of sources over a range of optical depths without any diffusive assumptions. OTVET \citep{gnedinAbel01} is close to this regime, and perhaps the most widely recognized tool for cosmological simulations at the time, but is still a diffusive code [?]. TRAPHIC is currently the only code that satisfies the above criteria, and has recently started to take impressive steps forward on the computational cosmology front. TRAPHIC is SPH-specific, and so the algorithm is limited in this way. However, it is probably the most appropriate tool at the time for cosmological radiative transfer.
+
+%\citep{pawlikEt15,jeonEt15,jeonEt14b,jeonEt14a,pawlikEt14,rahmatiEt13b,rahmatiEt13a,jeonEt12}
+
+The goal of this thesis is to present a new algorithm for solving radiative transfer that is capable of dealing with large numbers of sources, non-diffusive, at a similar computational cost to gravity. In order to achieve these goals, we do not stress achieving exact solutions, but aim for correct qualitative behavior and correct equilibrium solutions.
+
+\section{TO-DO (REMOVE THIS)}
+
+\begin{itemize}
+\item RAMSES-RT \citep{rosDahlTeyssier15,rosdahlEt13}
+\item Mention error convergence
+\end{itemize}
 
 
 %The current set of computational methods can be classified as follows:

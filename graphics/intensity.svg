@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="612px" height="792px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+<path fill="#C0C2C4" stroke="#000000" stroke-width="0.8152" stroke-miterlimit="10" d="M244.388,378.489
+	c0,0-22.163,60.674-112.275,160.394C104.248,445.905,17.478,375.118,17.478,375.118s80.478-84.832,112.275-160.393
+	C218.854,287.478,244.388,378.489,244.388,378.489z"/>
+<g opacity="0.53">
+	<g>
+		
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" x1="148.5" y1="379" x2="152.5" y2="379"/>
+		
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" stroke-dasharray="7.8513,7.8513" x1="160.352" y1="379" x2="439.074" y2="379"/>
+		
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" x1="443" y1="379" x2="447" y2="379"/>
+	</g>
+</g>
+<defs>
+	<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="141.16" y="253.142" width="295.985" height="257.86">
+		
+			<feColorMatrix  type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0" color-interpolation-filters="sRGB" result="source"/>
+	</filter>
+</defs>
+<mask maskUnits="userSpaceOnUse" x="141.16" y="253.142" width="295.985" height="257.86" id="SVGID_1_">
+	<g filter="url(#Adobe_OpacityMaskFilter)">
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="296.3726" y1="510.7305" x2="296.3726" y2="253.0005">
+			<stop  offset="0.0727" style="stop-color:#000000"/>
+			<stop  offset="0.503" style="stop-color:#000000;stop-opacity:0.3099"/>
+			<stop  offset="0.9455" style="stop-color:#000000"/>
+		</linearGradient>
+		<path fill="url(#SVGID_2_)" d="M445,510.73c1.174-0.759-297.259-127.899-297.259-127.899v-9.225
+			c0,0,292.933-120.135,293.259-120.606c-58.826,52.972-21.326,35.972-31.185,92.986C404.43,377.134,387.674,469.472,445,510.73z"/>
+	</g>
+</mask>
+<path mask="url(#SVGID_1_)" fill="#374BA0" stroke="#000000" stroke-width="0.8152" stroke-miterlimit="10" d="M434.826,510.509
+	C436,509.75,141.567,385.609,141.567,385.609v-9.225c0,0,292.933-120.135,293.259-120.606C376,308.75,413.5,291.75,403.642,348.765
+	C398.256,379.912,377.5,469.25,434.826,510.509z"/>
+<path opacity="0.44" fill="#374BA0" stroke="#000000" stroke-width="0.8152" stroke-miterlimit="10" d="M424.826,500.714
+	C376.5,454,397.256,382.928,402.642,348.314c9.858-63.357-27.642-33.466,31.185-92.331h-0.84
+	c61.014,36.64,42.807,65.761,55.185,153.005c4.923,34.697-6.858,45.877-64.185,91.726H424.826z"/>
+<path fill="none" stroke="#000000" stroke-width="0.8593" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M424.826,500.714C378,457,397.256,382.928,402.642,348.314c9.858-63.357-27.642-33.466,31.185-92.331h-0.84
+	c61.014,36.64,42.807,65.761,55.185,153.005c4.923,34.697-6.858,45.877-64.185,91.726H424.826z"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.8152" stroke-miterlimit="10" d="M451.326,288.528"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.8152" stroke-miterlimit="10" d="M451.326,420.349"/>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" x1="447" y1="379" x2="451" y2="379"/>
+		
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" stroke-dasharray="7.9424,7.9424" x1="458.942" y1="379" x2="566.165" y2="379"/>
+		
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" x1="570.137" y1="379" x2="574.137" y2="379"/>
+		<g>
+			<path d="M585,379c-5.111,1.896-11.454,5.133-15.385,8.561l3.096-8.561l-3.096-8.559C573.546,373.869,579.889,377.105,585,379z"/>
+		</g>
+	</g>
+</g>
+<circle cx="448" cy="379.5" r="3"/>
+<line fill="none" stroke="#000000" stroke-width="3.5" stroke-linecap="round" stroke-miterlimit="10" x1="503.493" y1="295.975" x2="571" y2="281"/>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#000000" stroke-width="3.5" stroke-linecap="square" stroke-miterlimit="10" x1="349.188" y1="329.649" x2="495.183" y2="297.262"/>
+		<g>
+			<path d="M505.493,294.975c-4.452,2.876-9.791,7.284-12.801,11.365l1.137-8.777l-4.741-7.472
+				C493.541,292.517,500.242,294.253,505.493,294.975z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#000000" stroke-width="3.5" stroke-linecap="round" stroke-miterlimit="10" x1="147" y1="374.5" x2="338.877" y2="331.936"/>
+		<g>
+			<path d="M349.188,329.649c-4.452,2.876-9.791,7.283-12.801,11.365l1.137-8.777l-4.741-7.472
+				C337.235,327.19,343.937,328.927,349.188,329.649z"/>
+		</g>
+	</g>
+</g>
+<rect x="257" y="388" fill="none" width="102" height="18"/>
+<text transform="matrix(1 0 0 1 277.1401 402.2002)" font-family="'MyriadPro-Regular'" font-size="20">Normal</text>
+<rect x="473" y="262" fill="none" width="102" height="18"/>
+<text transform="matrix(1 0 0 1 509.0898 276.2002)" font-family="'MyriadPro-Regular'" font-size="20">Ray</text>
+<rect x="27" y="307" fill="none" width="210" height="66"/>
+<text transform="matrix(1 0 0 1 121.0703 321.2002)" font-family="'MyriadPro-It'" font-size="20">dA</text>
+<rect x="348" y="420" fill="none" width="210" height="66"/>
+<text transform="matrix(1 0 0 1 440.0693 434.2002)"><tspan x="0" y="0" font-family="'MyriadPro-It'" font-size="20">d</tspan><tspan x="10.5" y="0" font-family="'SymbolMT'" font-size="20">W</tspan></text>
+</svg>
