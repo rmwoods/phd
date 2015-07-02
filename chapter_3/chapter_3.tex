@@ -176,7 +176,7 @@ where $\tau_i$ is the optical depth in cell i, $\bar{\rho}$ is the average densi
 
 At each higher cell during the tree climb, we obtain a larger representative volume from that cell. The new volume contains the previous volume as well as a new contribution from the previous cell's sibling. This sibling's volume may or may not lie on the vector connecting the two interacting cells. This can be determined by calculating the distance to the edge of the current volume along the vector from the centers of the original interacting cells, an operation that takes $\mathcal{(1)}$ time.
 
-At each new parent cell, if the calculated line segment is longer than the accumulated distance so far, than the difference is the amount of the ray contained in the sibling cell. By recording this new line segment, the average density of the cell, and the average opacity of the cell, we have everything needed to calculate the optical depth of the line segment. By summing the optical depth of each line segment, we will have obtained the full optical depth between the interacting cells in order $log{N}$ time, giving a full scaling of $\mathcal{O}(N_{sink}\log(N_{source})\log(N))$. The algorithm is depicted graphically in figure \ref{fig:absorption}
+At each new parent cell, if the calculated line segment is longer than the accumulated distance so far, than the difference is the amount of the ray contained in the sibling cell. By recording this new line segment, the average density of the cell, and the average opacity of the cell, we have everything needed to calculate the optical depth of the line segment. By summing the optical depth of each line segment, we will have obtained the full optical depth between the interacting cells in order $log{N}$ time, giving a full scaling of $\mathcal{O}(N_{sink}\log(N_{source})\log(N))$. The algorithm is depicted graphically in figure \ref{fig:absorption}.
 
 %\begin{figure}
 %\includegraphics[width=\textwidth]{graphics/placeholder.eps}
@@ -197,7 +197,8 @@ At each new parent cell, if the calculated line segment is longer than the accum
                 \caption{The colors correspond to the volumes on the left.}
                 \label{fig:absorptiontree}
         \end{subfigure}
-        \caption[The absorption algorithm.]{The absorption algorithm.}\label{fig:absorption}
+        \caption[The absorption algorithm.]{The absorption algorithm.}
+        \label{fig:absorption}
 \end{figure}
 
 
@@ -207,14 +208,7 @@ At each new parent cell, if the calculated line segment is longer than the accum
 
 While section \ref{sec:absorption} introduces a very fast algorithm for calculating a radiation field, it relies heavily on the geometry of the underlying tree. In volumes with very smooth density and opacity, the above algorithm performs very well. However, in cases with sharp density or opacity gradients, the gradient is discretized into widths of order the cell size at the current tree depth. This can become problematic, causing the tree structure to be imposed into the calculated radiation field. In order to solve this, we introduce a refinement process to the algorithm that allows a descent back down the tree during the tree climb in order to obtain a more detailed description of the medium.
 
-\begin{itemize}
-\item The refinement is a fairly straightforward addition to the algorithm. At the point where the average properties of the cell would normally be considered, we simply check if the current cell passes a refinement criteria.
-\item If the cell passes the criteria to refine, rather than recording the average properties, we recursively check the children of section of the tree we did \emph{not} ascend from.
-\item Once we arrive at a cell that fails the criteria to refine (or at a leaf and can no longer refine), we record the line segment within the cell and the average properties as normal, and return up the recursive call. See figure \ref{fig:refining} for a visual representation.
-\item The specific refinement criteria has deliberately been left vague until this point. In principle, one can refine on any cell property desired.
-\item For the purposes of this paper, we have decided to use an opacity refinement criteria. Within any cell, if a constant times the standard deviation of the average opacity is larger than the average opacity, the cell is refined. We find this produces a reasonable amount of refinement in code tests.
-\item Note that this is not necessarily the ideal criteria for physical simulations. It would be wise not only to look at the variation in opacity, but also the absolute value. In cases where the optical depth is very high, most of the radiation will be absorbed anyway, and the algorithm can be terminated since this particular vector yields a negligible flux of photons to the receiving cell.
-\end{itemize}
+Refinement is a fairly straightforward addition to the algorithm. At the point where the average properties of the cell would normally be considered, we simply check if the current cell passes a refinement criteria. If the cell passes the criteria to refine, rather than recording the average properties, we recursively check the children of the section of the tree we did \emph{not} ascend from. Once we arrive at a cell that fails the criteria to refine (or at a leaf and can no longer refine), we record the line segment within the cell and the average properties as normal, and return up the recursive call. See figure \ref{fig:refining} for a visual representation.
 
 \begin{figure}
         \centering
@@ -232,64 +226,59 @@ While section \ref{sec:absorption} introduces a very fast algorithm for calculat
         \caption[Refinement during the absorption algorithm.]{When the line segment is too rough in some physical sense, refinement can be triggered. Visually, the algorithm descends back down the tree the opposite direction it came from until the criteria to refine is no longer satisfied or until a leaf is reached.}\label{fig:refining}
 \end{figure}
 
+The specific refinement criteria has deliberately been left vague until this point. In principle, one can refine on any cell property desired. Ideally, the criteria should be true when an average opacity in a region may not be accurate to the true distribution, such as a clumpy medium. In our testing, we have decided to use an opacity refinement criteria. Within any cell, if a constant times the standard deviation of the average opacity is larger than the average opacity, the cell is refined. We find this produces a reasonable amount of refinement in code tests [Need to update this]. Note that this is not necessarily the most computationally ideal criteria for physical simulations. It would be wise not only to look at the variation in opacity, but also the absolute value. In cases where the optical depth is very high, most of the radiation will be absorbed anyway, and the algorithm can be terminated since this particular ray yields a negligible flux of photons to the receiving cell.
 
-
-Extension of the refinement to ray-tracing
-\begin{itemize}
-\item If very high accuracy is required, the refinement routine is flexible enough that sub-leaf refinement is possible. While this has not currently been tested since it leaves the regime of low computational expense, it could easily be implemented.
-\item If a leaf was reached during refinement and still passed the criteria to be refined on, the individual particles inside the cell could be considered.
-\item A ray tracing scheme through the cell similar to SPHRay \citep{altayEt08} could be performed. The machinery to do this ray trace is already established for use within the receiving and sending cells (see section \ref{sec:resolvingleaves} and figure \ref{fig:particletracing}).
-\end{itemize}
+If very high accuracy is required, the refinement routine is flexible enough that sub-leaf refinement is possible. If a leaf was reached during refinement and still passed the criteria to be refined on, the individual particles inside the cell could be considered. A ray tracing scheme through the cell similar to SPHRay \citep{altayEt08} could be performed. The machinery to do this ray trace is already established for use within the receiving and sending cells (see section \ref{sec:resolvingleaves} and figure \ref{fig:particletracing}). However, this has not currently been tested since it leaves the regime of low computational expense.
 
 \section{Resolving the Receiving Cells}
 \label{sec:resolvingleaves}
 
-During testing, we ran into issues with ionization fronts ``stalling'' in certain cells. If a sharp ionization front is passing through a receiving bucket, then the effects of averaging can cause issues if the optical depth of the bucket is of order unity or higher. (below section needs re-wording and more specifics).
+During testing, we ran into issues with ionization fronts ``stalling'' in certain cells. If a sharp ionization front is passing through a receiving leaf node, then the effects of averaging can cause issues if the optical depth of the bucket is of order unity or higher. To understand why, consider the following scenario.
 
-\begin{itemize}
-\item Consider an ionization front that has passed halfway through a leaf node (half of the particles are ionizaed, half are not).
-\item The average opacity will be $\kappa/2$, where $\kappa$ is the opacity of the unionized particles.
-\item The ionized particles will use an opacity that is much too large, therefore reducing the flux that particles at the ``rear'' of the leaf see.
-\item This means that particles at the rear of the leaf are harder to ionize than at the front, and the propagation speed of the front is drastically reduced.
-\item In order to combat this, more detailed tracing is required \emph{only in the receiving leaf}.
-\item This is easily accomplished by implementing a scheme similar to SPHRay \citep{altayEt08}. (introduce simpler method that we use where we order particles along vector and linearly add optical depth?). See figure \ref{fig:particletracing}.
-\end{itemize}
+Consider an ionization front that has passed halfway through a leaf node (half of the particles are ionizaed, half are not). The average opacity will be $\kappa/2$, where $\kappa$ is the opacity of the unionized particles. The ionized particles will use an opacity that is much too large, therefore reducing the flux that particles at the ``rear'' (further from the direction of radiation) of the leaf see. This means that particles at the rear of the leaf are harder to ionize than at the front, and the propagation speed of the front is drastically reduced.
+
+In order to combat this, more detailed tracing is required \emph{only in the receiving leaf}. This is easily accomplished by implementing a scheme similar to SPHRay \citep{altayEt08}. In this method, all particles in a cell are projected down to the ray, and an impact parameter, b, is calculated. See figure \ref{fig:particletracing}.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/raytrace.eps}
-\caption[Ray tracing schemes for receiving cells.]{Two ray tracing schemes. The first is the scheme of \citet{altayEt08} in which the photons are diminished by optical depth along each particle's smoothing length that they pass through. The second scheme is much simpler and yields very similar results. It relies on the fact that the ray actually represents a very large cone of photons, and that most particles in the cell will probably contribute to the absorption of photons at the receiving particle. It essentially simplifies to setting b = 0 for every particle in the receiving leaf.}
+\caption[Ray tracing schemes for receiving cells.]{The ray tracing scheme, similar to \citet{altayEt08}. In this scheme, the photons are diminished by the optical depth along each particle's density field.}
 \label{fig:particletracing}
 \end{figure}
 
+Since the density field of a particle varies with radius from the particle due to the smoothed nature of SPH, an integral over the kernel must be performed. Thus, equation \ref{eq:opticaldepth} changes to
+
+\begin{equation}
+\label{eq:kernelintegral}
+\tau_{\nu} = (m_i\int W)\kappa ds,
+\end{equation}
+
+where $(m_i\int W)$ represents the effective density along the particular ray, and $ds$ is the section of the ray intersected by the particle's smoothing length.
+
 Introducing the ray tracing machinery for the above purpose also creates the ability to ray trace within leaves during the refine mentioned in section \ref{sec:refinement}. In principle, this means the code can easily be forced into a full ray trace if this behavior is desired.
 
-\subsection{High Optical Depth Particles}
-\label{sec:hightau}
+%\subsection{High Optical Depth Particles}
+%\label{sec:hightau}
+%
+%High tau particles are problematic. This is how we deal with them...
 
-High tau particles are problematic. This is how we deal with them...
-
-\section{Periodicity}
-\label{sec:periodicity}
-
-Move to future work?
+%\section{Periodicity}
+%\label{sec:periodicity}
+%
+%Move to future work?
 
 \section{Cosmological Background Radiation}
 \label{sec:cosmobackground}
 
-In order to do cosmological simulations properly, we must account for the radiation coming from the rest of the universe outside of the simulation volume. Most current codes apply a constant UV field to the entire box, essentially the lowest order approximation possible.
-\begin{itemize}
-\item Few codes have moved past this for cosmology, though some have.
-\item OTVET \citep{petkovaSpringel09} uses their radiation scheme with periodic boundaries.
-\item Other more detailed scheme apply a constant radiation field at the boundaries coming into the volume (add citations).
-\item While our scheme is perfectly capable of doing a periodic option, we have opted to set up a number of ``background sources.'' The sources are distributed on the surface of a sphere at the very edge of the simulation (or larger if required) and the number of sources can be varied to match the required angular resolution of the background.
-\item Finding the flux at the center of a sphere of sources is a problem akin to Newton's Shell Theorem. However, because the flux doesn't cancel like force, the solution does not work out the same. See equation \ref{eq:shellflux}.
-\item Since the solution is logarithmic in r, the we can assume the flux is roughly constant at similar radii. Since most cosmological zoom simulations only consider gas at a fairly small radius, this is acceptable.
-\end{itemize}
+In order to do cosmological simulations properly, we must account for the radiation coming from the rest of the universe outside of the simulation volume. Most current codes apply a constant UV field to the entire box, essentially the lowest order approximation possible. Some specialized codes (e.g. URCHIN \citet{altayTheuns13}) do inverse ray tracing from sinks to the edge of a box, where a background flux is assumed to be coming from. Other, such as TRAPHIC \citep{pawlikSchaye08} or OTVET \citep{petkovaSpringel09}, allow their ray trace to be periodic, so that photons leaving the box represent photons coming in from the other side.
+
+While our scheme is perfectly capable of doing a periodic treatment, we have opted to set up a number of ``background sources.'' ``Background'' particles are distributed on the surface of a sphere at the very edge of the simulation (or larger if required) and the number of sources can be varied to match the required angular resolution of the background. Finding the flux at the center of a sphere of sources is a problem akin to Newton's Shell Theorem. However, because the flux doesn't cancel like force, the solution does not work out the same. Instead, the solution is
 
 \begin{equation}
 \label{eq:shellflux}
-F = K\left[ \log{R+r} - ln(R-r) \right]
+F = K\left[ \log{R+r} - ln(R-r) \right],
 \end{equation}
+
+where $K$ is a constant, $R$ is the radius of the sphere, and $r$ is the radius the flux is being measured at. The shape of this function can be seen in figure \ref{fig:backgroundflux}, where we have plotted flux vs radius for a cube of particles.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/backgroundflux.eps}
@@ -297,36 +286,36 @@ F = K\left[ \log{R+r} - ln(R-r) \right]
 \label{fig:backgroundflux}
 \end{figure}
 
-\section{Cosmological Effects}
-\label{sec:cosmoeffects}
-Move this section to ``future plans'' section?
+We note that due to the logarithms, the flux is nearly constant at small radii. Since most cosmological zoom simulations only consider gas at a fairly small radius, this setup of background sources is an acceptable method to providing a cosmological background flux. We simply require that the sources be placed at a large enough radius to ensure all gas particles are at a radius much smaller than the radius of the sphere.
 
-\subsection{Cosmological Redshift of Radiation}
-\label{sec:redshiftingradiation}
+The benefit of this method is that we can use all of the existing RT machinery described in the previous sections. The background particles are treated as normal sources and the algorithm proceeds as normal. There is no need to create periodic copies of the simulation volume.
 
+%\section{Cosmological Effects}
+%\label{sec:cosmoeffects}
+%Move this section to ``future plans'' section?
+%
+%\subsection{Cosmological Redshift of Radiation}
+%\label{sec:redshiftingradiation}
+%
+%
+%\subsection{Accounting for a Finite Speed of Light}
+%\label{sec:finitespeedoflight}
+%
+%Move this section to ```future plans'' section?
 
-\subsection{Accounting for a Finite Speed of Light}
-\label{sec:finitespeedoflight}
-
-Move this section to ```future plans'' section?
-
-\section{Summary of Algorithm}
+\section{Summary of the Algorithm}
 \label{sec:algorithmsummary}
 
-We have presented a flexible and computationally inexpensive algorithm for calculating the radiation field within a simulation. The algorithm affords many benefits (note: need to introduce many of stated benefits below in previous sections):
+We have presented a flexible and computationally inexpensive algorithm for calculating the radiation field within a simulation. It is flexible enough to allow a wide range of accuracy depending on the application. Scaling starts at  $N_{sink}\log{N_{source}}\log{N}$ and approaches that of ray tracing [check this...] when the algorithm is tuned to that level of refinement.
 
-\begin{itemize}
-\item It is flexible enough to allow a wide range of accuracy depending on the application. Speed starts at  $N\log{N}\log{N}$ and approaches that of ray tracing (check this...) when the algorithm is tuned to that level of refinement.
-\item Because radiation is transferred instantaneously, the speed of light does not become a limiting time step. If ionization dynamics are important, then the propagation of the ionization front becomes the limiting time step. If only end behavior is required, then the there is very little the algorithm does to limit the time step.
-\item There is no scan dependence. Because flux is accumulated at each receiving bucket without explicitly depositing the photons into the intervening material, ionization/heating/cooling is performed completely separate to radiation. This means that the solution will not change based on the order in which the sources are visited.
-\item The algorithm is independent of wavelength or even number of wavelengths. The algorithm need only perform the tree walk and tree climb a single time in order to obtain the line segments in each cell. Performing different wavebands simply equates to recording multiple average opacities. This enables multi-band radiative transfer at little additional cost.
-\end{itemize}
+Because radiation is transferred instantaneously, the speed of light does not become a limiting factor to time steps. If ionization dynamics are important, then the propagation of the ionization front becomes the limiting time step. If only end behavior is required, then the there is very little the algorithm does to limit the time step.
+
+The algorithm is independent of wavelength or even number of wavelengths. The algorithm need only perform the tree walk and tree climb a single time in order to obtain the line segments in each cell. Performing different wavebands simply equates to recording multiple average opacities. This enables multi-band radiative transfer at no additional cost.
 
 However, it is important to keep in mind the limitations and assumptions of this algorithm.
-\begin{itemize}
-\item Photons are not explicitly conserved. In order to save computational time, we can not keep track of the photons deposited in intervening material during an exchange. We obtain an optical depth and simply assume that the photons lost in the process have been deposited in the intervening material. When the intervening material is the receiving bucket at a later point in the algorithm, it should receive roughly the correct number of photons due to a matching initial segment (wording...).
-\item Light is transferred instantaneously, meaning that photon fronts could travel faster than allowed, and that sinks could receive photons from a source too far away to have sent photons there yet.
-\item Very large opacities in single particles can be problematic for both cooling (calculating the emitted flux from a particle is complex if the particle itself is optically thick) and ionization propagation. Particle self-absorption can impart the same ``stall'' in a single particle that was mentioned in section \ref{sec:resolvingleaves} for leaves.
-\item Extra computation time can be required in the heating and cooling code due to intense local radiation fields. However, if the goal is to obtain a radiation field, this is already a built in cost to any algorithm. We simply mention it to suggest that increased computation time is due not only to the radiation algorithm, but the increased computation time for the cooling integrations (remove this point?). 
-\end{itemize}
 
+Photons are not explicitly conserved. In order to save computational time, we can not keep track of the photons deposited in intervening material during an exchange. We obtain an optical depth and simply assume that the photons lost in the process have been deposited in the intervening material. When the intervening material is the receiving bucket at a later point in the algorithm, it should receive roughly the correct number of photons due to a similar initial segment.
+
+Light is transferred instantaneously, meaning that photon fronts could travel faster than allowed, and that sinks could receive photons from a source too far away to have sent photons there yet.
+
+[Add more here. Compare to codes from section 2.]

@@ -13,25 +13,48 @@
 \label{chap:intro} 
 \thispagestyle{fancy} 
 
-It doesn't take much to convince a physicist of the importance of photons - astrophysical objects speak in photons. As astronomers, we receive all of our information in the universe through photons. In order to understand the objects we observe, we must understand photons; how are they created? How are they removed? What processes can alter a photon? To answer these questions, let's explore some of the many objects and photon energies present in astrophysics.
+It doesn't take much to convince a physicist of the importance of photons - astrophysical objects ``speak'' in photons. As astronomers, we receive all of our information in the universe through photons. In order to understand the objects we observe, we must understand photons and the physical processes that tie them to matter. 
 
-\section{Astrophysics and Radiation}
-\label{sec:astroandrad}
+\section{The Role of Radiation in Astrophysics}
+\label{sec:radinastro}
 
+When considering galaxies, for example, many of the galaxy properties are determined by the stars inside of it and the gas and dust between those stars. The rate at which a galaxy forms stars is dependent on the state of the gas, which is largely dependent on the Interstellar Radiation Field (ISRF), which is in turn dependent on the surrounding stars. While gas can be heated by other sources than the ISRF such as gravitational heating, for the purpose of this thesis, we focus on the ISRF.
 
+In order to form stars, gas must be at low temperatures and high densities. This means gas cooling must be high compared to heating due to the ISRF. Cooling rates depend on the species present in the gas and the processes that are removing energy. Important processes include line cooling, bremsstrahlung radiation, synchrotron radiation, thermal emission from dust grains, and thermal x-ray emission. Many of the photons emitted in the above fashion can also act to heat the gas if the gas temperature is lower than the energy associated with the incident photons. Other heating sources include stellar emission, photoelectric heating, and (although they're not photons), cosmic rays.
 
-\begin{itemize}
-\item FUV - 6.2-10.16 ev -
-\item Ly$\alpha$ - 10.16-10.25 - 
-\item EUV - 12.4 - 124 ev - 
-\item Soft X-rays - 124 ev - 5 kev - 
-\item hard X-rays - 5-10 kev
-\item IR - 1.24mev - 1.7 ev - 
-\item Cosmic Rays - ...
-\end{itemize}
+If photon energies are higher than the binding energy of electrons in gas or dust, then electrons can be freed. In the case of atoms, this causes (photo) ionization. In the case of dust, it causes the dust grains to become negatively charged and the freed electrons to be available for photoelectric heating. In the case of molecules, the molecule can be dissociated.
 
+Photoionization is most common with the most abundant gas elements, Hydrogen. This requires photons more energetic than 13.6 ev corresponding to the Extreme Ultraviolet (EUV) part of the spectrum. Near massive O and B stars, which emit heavily in the UV, these photons cause large ionized regions of Hydrogen, or HII regions. However, because these photons are so readily absorbed, they are largely absent from regions further from stars. Photons at energies higher than 13.6 ev not only ionize the atoms, but impart kinetic energy to the ejected electrons, which in turn heats the gas to average temperatures of 25,000 K.
 
+In neutral regions where no H-ionizing photons are present, ionization of other elements become important. Due to Carbon's high abundance, it becomes the dominant heating mechanism. The energy needed to ionize Carbon is 11.3 ev, so photons between 11.3 ev and 13.6 ev become an important source of heating. 
 
+Below 11.3 ev, the Far Ultra Violet (FUV) spectrum becomes important. Photons in this part of the spectrum are typical of large B stars, and while they don't have enough energy to ionize Hydrogen, they do have enough to free electrons from dust and Polycyclic Aromatic Hydrocarbon (PAH) molecules and impart kinetic energy to the freed electron. This drives one of the most important heating mechanisms in Interstellar Medium (ISM), photoelectric heating.
+
+At energies much lower than FUV, photons become a a less important factor to heating and tend to act more as cooling mechanisms. Emission in the Infrared (IR) is especially common for dust cooling due to blackbody radiation.
+
+Further sources of heating can be found at higher energies in X-rays, which have large energies but low intensity. X-rays become an important heating mechanisms for warm, low density, neutral gas.
+
+%\begin{itemize}
+%\item ISM
+%\begin{enumerate}
+%  \item photoelectric (PE)
+%  \item cosmic rays (CR)
+%  \item Carbon I (CI)
+%\end{enumerate}
+%\item Warm Neutral Medium
+%\begin{enumerate}
+%  \item CR/PE
+%  \item X-rays
+%\end{enumerate}
+%\item Molecular Clouds
+%\begin{enumerate}
+%\item Cosmic Rays
+%\item Turbulence
+%\item Dust + gas
+%\end{enumerate}
+%\end{itemize}
+
+Even with this very limited overview of heating and cooling, it becomes abundantly clear how important radiation is in determining the state of astronomical material. If we are to simulate the Universe, then we must properly capture the behavior of radiative transfer.
 
 %
 %\begin{itemize}
@@ -70,5 +93,6 @@ It doesn't take much to convince a physicist of the importance of photons - astr
 
 
 \section{Overview}
+\label{sec:overview}
 
 Chapter \ref{chap:radtransfer} will go over the background of radiative transfer and the currently available codes that solve the radiative transfer problem. It will also motivate the need for a new code in a particular niche. Chapter \ref{chap:method} will introduce the new radiative transfer method that we have developed. Chapter \ref{chap:codetests} will demonstrate the strengths and weaknesses of the new algorithm through a variety of numerical and phyical tests. Chapter \ref{chap:galaxyformation} will show the results of using the algorithm on an isolated galaxy in the FUV band, and will also focus on future projects that the algorithm will be used for. Finally, chapter \ref{chap:conclusions} contains the conclusions of this thesis.

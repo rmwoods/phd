@@ -1,4 +1,4 @@
-\begin{thebibliography}{65}
+\begin{thebibliography}{72}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -92,6 +92,15 @@ R.~{Cen}.
 \newblock \emph{\apjs}, 141:\penalty0 211--227, July 2002.
 \newblock \doi{10.1086/339805}.
 
+\bibitem[{Christensen} et~al.(2012){Christensen}, {Quinn}, {Governato},
+  {Stilp}, {Shen}, and {Wadsley}]{christensenEt12}
+C.~{Christensen}, T.~{Quinn}, F.~{Governato}, A.~{Stilp}, S.~{Shen}, and
+  J.~{Wadsley}.
+\newblock {Implementing molecular hydrogen in hydrodynamic simulations of
+  galaxy formation}.
+\newblock \emph{\mnras}, 425:\penalty0 3058--3076, October 2012.
+\newblock \doi{10.1111/j.1365-2966.2012.21628.x}.
+
 \bibitem[{Clark} et~al.(2012){Clark}, {Glover}, and {Klessen}]{clarkEt12}
 P.~C. {Clark}, S.~C.~O. {Glover}, and R.~S. {Klessen}.
 \newblock {TreeCol: a novel approach to estimating column densities in
@@ -169,6 +178,12 @@ J.~C. {Hayes} and M.~L. {Norman}.
 \newblock \emph{\apjs}, 147:\penalty0 197--220, July 2003.
 \newblock \doi{10.1086/374658}.
 
+\bibitem[{Hernquist}(1990)]{hernquist90}
+L.~{Hernquist}.
+\newblock {An analytical model for spherical galaxies and bulges}.
+\newblock \emph{\apj}, 356:\penalty0 359--364, June 1990.
+\newblock \doi{10.1086/168845}.
+
 \bibitem[{Iliev} et~al.(2006){Iliev}, {Ciardi}, {Alvarez}, {Maselli},
   {Ferrara}, {Gnedin}, {Mellema}, {Nakamoto}, {Norman}, {Razoumov},
   {Rijkhorst}, {Ritzerveld}, {Shapiro}, {Susa}, {Umemura}, and
@@ -241,6 +256,35 @@ R.~{Kannan}, G.~S. {Stinson}, A.~V. {Macci{\`o}}, J.~F. {Hennawi}, R.~{Woods},
 \newblock \emph{\mnras}, 437:\penalty0 2882--2893, January 2014.
 \newblock \doi{10.1093/mnras/stt2098}.
 
+\bibitem[{Keller} et~al.(2014){Keller}, {Wadsley}, {Benincasa}, and
+  {Couchman}]{kellerEt14}
+B.~W. {Keller}, J.~{Wadsley}, S.~M. {Benincasa}, and H.~M.~P. {Couchman}.
+\newblock {A superbubble feedback model for galaxy simulations}.
+\newblock \emph{\mnras}, 442:\penalty0 3013--3025, August 2014.
+\newblock \doi{10.1093/mnras/stu1058}.
+
+\bibitem[{Kim} et~al.(2014){Kim}, {Abel}, {Agertz}, {Bryan}, {Ceverino},
+  {Christensen}, {Conroy}, {Dekel}, {Gnedin}, {Goldbaum}, {Guedes}, {Hahn},
+  {Hobbs}, {Hopkins}, {Hummels}, {Iannuzzi}, {Keres}, {Klypin}, {Kravtsov},
+  {Krumholz}, {Kuhlen}, {Leitner}, {Madau}, {Mayer}, {Moody}, {Nagamine},
+  {Norman}, {Onorbe}, {O'Shea}, {Pillepich}, {Primack}, {Quinn}, {Read},
+  {Robertson}, {Rocha}, {Rudd}, {Shen}, {Smith}, {Szalay}, {Teyssier},
+  {Thompson}, {Todoroki}, {Turk}, {Wadsley}, {Wise}, {Zolotov}, and {AGORA
+  Collaboration29}]{kimEt14}
+J.-h. {Kim}, T.~{Abel}, O.~{Agertz}, G.~L. {Bryan}, D.~{Ceverino},
+  C.~{Christensen}, C.~{Conroy}, A.~{Dekel}, N.~Y. {Gnedin}, N.~J. {Goldbaum},
+  J.~{Guedes}, O.~{Hahn}, A.~{Hobbs}, P.~F. {Hopkins}, C.~B. {Hummels},
+  F.~{Iannuzzi}, D.~{Keres}, A.~{Klypin}, A.~V. {Kravtsov}, M.~R. {Krumholz},
+  M.~{Kuhlen}, S.~N. {Leitner}, P.~{Madau}, L.~{Mayer}, C.~E. {Moody},
+  K.~{Nagamine}, M.~L. {Norman}, J.~{Onorbe}, B.~W. {O'Shea}, A.~{Pillepich},
+  J.~R. {Primack}, T.~{Quinn}, J.~I. {Read}, B.~E. {Robertson}, M.~{Rocha},
+  D.~H. {Rudd}, S.~{Shen}, B.~D. {Smith}, A.~S. {Szalay}, R.~{Teyssier},
+  R.~{Thompson}, K.~{Todoroki}, M.~J. {Turk}, J.~W. {Wadsley}, J.~H. {Wise},
+  A.~{Zolotov}, and t.~{AGORA Collaboration29}.
+\newblock {The AGORA High-resolution Galaxy Simulations Comparison Project}.
+\newblock \emph{\apjs}, 210:\penalty0 14, January 2014.
+\newblock \doi{10.1088/0067-0049/210/1/14}.
+
 \bibitem[{Klassen} et~al.(2014){Klassen}, {Kuiper}, {Pudritz}, {Peters},
   {Banerjee}, and {Buntemeyer}]{klassenEt2014}
 M.~{Klassen}, R.~{Kuiper}, R.~E. {Pudritz}, T.~{Peters}, R.~{Banerjee}, and
@@ -285,6 +329,11 @@ F.~{Melia} and G.~J. {Zylstra}.
 D.~{Mihalas} and B.~W. {Mihalas}.
 \newblock \emph{{Foundations of radiation hydrodynamics}}.
 \newblock 1984.
+
+\bibitem[{Navarro} et~al.(1997){Navarro}, {Frenk}, and {White}]{navarroEt97}
+J.~F. {Navarro}, C.~S. {Frenk}, and S.~D.~M. {White}.
+\newblock {A Universal Density Profile from Hierarchical Clustering}.
+\newblock \emph{\apj}, 490:\penalty0 493--508, December 1997.
 
 \bibitem[{Nenkova} et~al.(1999){Nenkova}, {Ivezic}, and {Elitzur}]{nenkovaEt99}
 M.~{Nenkova}, Z.~{Ivezic}, and M.~{Elitzur}.
@@ -418,6 +467,15 @@ L.~{Spitzer}.
 \newblock \emph{{Physical processes in the interstellar medium}}.
 \newblock 1978.
 
+\bibitem[{Stinson} et~al.(2010){Stinson}, {Bailin}, {Couchman}, {Wadsley},
+  {Shen}, {Nickerson}, {Brook}, and {Quinn}]{stinsonEt10}
+G.~S. {Stinson}, J.~{Bailin}, H.~{Couchman}, J.~{Wadsley}, S.~{Shen},
+  S.~{Nickerson}, C.~{Brook}, and T.~{Quinn}.
+\newblock {Cosmological galaxy formation simulations using smoothed particle
+  hydrodynamics}.
+\newblock \emph{\mnras}, 408:\penalty0 812--826, October 2010.
+\newblock \doi{10.1111/j.1365-2966.2010.17187.x}.
+
 \bibitem[{Str{\"o}mgren}(1939)]{stromgren39}
 B.~{Str{\"o}mgren}.
 \newblock {The Physical State of Interstellar Hydrogen.}
@@ -448,6 +506,13 @@ S.~{Wolf}.
 \newblock \emph{Computer Physics Communications}, 150:\penalty0 99--115,
   February 2003.
 \newblock \doi{10.1016/S0010-4655(02)00675-6}.
+
+\bibitem[{Wolfire} et~al.(2003){Wolfire}, {McKee}, {Hollenbach}, and
+  {Tielens}]{wolfireEt03}
+M.~G. {Wolfire}, C.~F. {McKee}, D.~{Hollenbach}, and A.~G.~G.~M. {Tielens}.
+\newblock {Neutral Atomic Phases of the Interstellar Medium in the Galaxy}.
+\newblock \emph{\apj}, 587:\penalty0 278--311, April 2003.
+\newblock \doi{10.1086/368016}.
 
 \bibitem[{Wood} et~al.(2004){Wood}, {Mathis}, and {Ercolano}]{woodEt2004}
 K.~{Wood}, J.~S. {Mathis}, and B.~{Ercolano}.
