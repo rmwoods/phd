@@ -126,7 +126,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Store the title of the thesis.
-\newcommand{\mac@title}{Radiative Transfer in Galaxies}
+\newcommand{\mac@title}{Seeing the Forest \emph{With} the Trees: A Novel Radiative Transfer Algorithm for Astrophysical Simulations.}
 \renewcommand{\title}[1]{\renewcommand{\mac@title}{#1}}
 
 % Store the author's name.
@@ -158,7 +158,7 @@
 \providecommand{\honorsdegreeinfo}[1]{\renewcommand{\mac@honorsdegreeinfo}{#1}}
 
 % Store the academic unit to which the document has been submitted.
-\newcommand{\mac@honorsadviser}{Dr.~James Wadsley}
+\newcommand{\mac@honorsadviser}{Drs.~James Wadsley}
 \providecommand{\honorsadviser}[1]{\renewcommand{\mac@honorsadviser}{#1}}
 
 % Store the academic unit to which the document has been submitted.
@@ -216,7 +216,7 @@
 %Supervisor and committee members
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\mac@advisor}{Dr.~James Wadsley}
+\newcommand{\mac@advisor}{Drs.~James Wadsley & Hugh Couchman}
 \newcommand{\mac@advisortitle}{}
 \newcommand{\mac@advisoroption}{}%
 \providecommand{\advisor}[3][]%
@@ -321,7 +321,7 @@ I grant McMaster University the non-exclusive right to use this work for the Uni
 \vspace*{2.75in}
 
 \begin{center}
-  RADIATIVE TRANSFER IN GALAXIES
+  SEEING THE FOREST \emph{WITH} THE TREES: A NOVEL RADIATIVE TRANSFER ALGORITHM FOR ASTROPHYSICAL SIMULATIONS.
 \end{center}
 
 %\vfill

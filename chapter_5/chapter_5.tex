@@ -33,38 +33,66 @@ We have chosen to run the isolated disk initial condition in order to examine FU
 
 The initial conditions have been generated at three different resolutions using the \textsc{MakeDisk} code, written by Volker Springel. The disk is created with four components: a dark matter halo, a gas disk, a stellar disk, and stellar bulge. The low resolution disk has $10^5$ DM particles, $10^5$ stellar disk particles, $10^5$ gas particles, and $1.24\e{4}$ stellar bulge particles. The medium and high resolution disks have 10 and 100 times more particles in each component, respectively.
 
-The DM follows a NFW profile \citep{navarroEt97} with a concentration parameter $c = 10$ and a spin parameter $\lambda = 0.04$. The disk has an exponential profile with a scale length of $r_d = 3.432$ kpc and a scale height of $z_d = 0.1 r_d$. The disk is split into the stellar component, which has a mass of $4.297\e{10} M_{\odot}$, and a gas component, which has a mass of 20\% of the DM mass. The stellar bulge follows the Hernquist \citeyear{hernquist90} density profile with a bulge-to-disk mass ratio of B/D = 0.1. Gas is initiated at $10^4$ K. The \textsc{MakeDisk} code ensures that the above conditions give quasi-equilibrium [what does that mean?] for the four components. An image of the IC is shown in figure \ref{fig:agoraic}.
+The DM follows a NFW profile \citep{navarroEt97} with a concentration parameter $c = 10$ and a spin parameter $\lambda = 0.04$. The disk has an exponential profile with a scale length of $r_d = 3.432$ kpc and a scale height of $z_d = 0.1 r_d$. The disk is split into the stellar component, which has a mass of $4.297\e{10} M_{\odot}$, and a gas component, which has a mass of 20\% of the DM mass. The stellar bulge follows the Hernquist \citeyear{hernquist90} density profile with a bulge-to-disk mass ratio of B/D = 0.1. Gas is initiated at $10^4$ K. The \textsc{MakeDisk} code ensures that the above conditions give quasi-equilibrium [what does that mean?] for the four components. 
+
+We have run the IC for 335~Myr in order to make sure it was relaxed, and started all subsequent runs from this point. An image of the relaxed IC is shown in figure \ref{fig:agoraic}.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/placeholder.eps}
-\caption[The AGORA IC]{A density slice in the z plane of the AGORA initial condition.}
+\includegraphics[width=\textwidth]{graphics/AGORAic.eps}
+\caption[The AGORA IC]{A density projection of a relaxed version of the AGORA initial condition. We have run the IC for 335 Myr in order to relax it.}
 \label{fig:agoraic}
 \end{figure}
 
 %notes about various runs we did
 
-We have run the low resolution simulation with a number of different physical parameters, including our radiative transfer with FUV, a background FUV at two intensities (the standard for most codes without radiative transfer), and Supernovae (SNe) feedback \citep{kellerEt14}. Table \ref{tab:simsummary} summarizes the simulations and the names we have given them.
+We have run the low resolution simulation with a number of different physical parameters, including our radiative transfer with FUV, a background FUV at two intensities (the standard for most codes without radiative transfer), Supernovae (SNe) feedback \citep{kellerEt14}, and a number of different opacities. Table \ref{tab:simsummary} summarizes the simulations and the names we have given them.
 
 \begin{table}
-\begin{tabular}{llll}
-Name & RT & UV Strength (units?) & SNe Feedback\\ \hline \hline
-RadFUV & Yes & 0 & No\\
-RadFUV2e-26 & No & 2e-26 & No\\
-RadFUV2e-27 & No & 2e-27 & No\\
-RadFB & No & ? & yes\\
-RadFB\_FUV & Yes & 0 & yes\\
-RadFB\_FUV2e-26 & No & 2e-26 & yes\\
-RadFB\_FUV2-27 & No & 2e-27 & yes\\
+\begin{tabular}{lllll}
+Name & RT & UV Strength (units?) & Opacity (g/cm$^{-2}$) & SNe Feedback\\ \hline \hline
+FUV0 & No & 0 & 0 & No\\
+FUV & Yes & 0 & 300 & No\\
+FUVop100 & Yes & 0 & 100 & No\\
+FUVthin & Yes & 0 & 0 & No\\
+FUV2e-26 & No & 2e-26 & 300 & No\\
+FUV2e-27 & No & 2e-27 & 300 & No\\
+FB & No & ? & 300 & yes\\
+FB\_FUV & Yes & 0 & 300 & yes\\
+FB\_FUV2e-26 & No & 2e-26 & 300 & yes\\
+FB\_FUV2-27 & No & 2e-27 & 300 & yes\\
 \hline
 \end{tabular}
 \caption[Summary of simulations]{A summary of the simulations that were run.}
+\label{tab:simsummary}
 \end{table}
+
+We attempted to match opacities given in \citet{wolfireEt03}. The left pane of figure \ref{fig:wolfiresummary} shows the midplane HI density and absorption coefficient, and the right pane is the inferred opacity from the left pane, obtained by dividing absorption by mass density.
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/densityabsorptionvr.eps}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/opacityvr.eps}
+        \end{subfigure}
+        \caption[Parameters from \citet{wolfireEt03}.]{Parameters from \citet{wolfireEt03}. The left plot shows the mid plane number density and absorption coefficient. The right plot is obtained by converting number density to a mass density and dividing absorption coefficient by mass density.}
+        \label{fig:wolfiresummary}
+\end{figure}
+
+Note that the profile in opacity is due solely to a scaling in metallicity of the local opacity. \citet{wolfireEt03} assume that opacity changes as
+
+\begin{equation}
+\kappa = \kappa_{\odot}\left(\frac{Z}{Z_{\odot}}\right),
+\end{equation}
+
+where $\kappa_{\odot}$ is the metallicity in the solar neighborhood, inferred to be ~400 g/cm$^{-2}$ from figure \ref{fig:wolfiresummary}.
 
 We have also included a run at medium resolution to check on convergence of results. It is important to note that resolution may play an important factor in the following results. \citet{FILL IN} [ask sam for references] found that in order to get proper ISM behavior, a simulation needs to be at a high enough resolution. As will be noted in section \ref{sec:futurework}, a convergence study in resolution should be performed on this work.
 
 \section{The Role of FUV on Star Formation}
 \label{sec:fuvsfr}
-
 
 We begin by looking at the star formation history of each simulation. Figure \ref{fig:sfrvtime} shows the star formation rate as a function of time for each simulation. 
 
@@ -79,12 +107,39 @@ It is clear that SNe feedback has a very strong regulation effect on star format
 We must check whether the FUV field present in the galaxy is similar to observations. Figure \ref{fig:intensitywolfire} is a plot of FUV intensity vs radius in the midplane of the galaxy.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/intensityvrRadFB_FUV00101.eps}
+\includegraphics[width=\textwidth]{graphics/intensityvrRadFUV00200.eps}
 \caption[FUV intensity vs radius]{FUV intensity vs radius in the galaxy midplane for the RadFUV case. The dots are individual particle fluxes and the solid line is from figure 5.5 of \citet{wolfireEt03}.}
 \label{fig:intensitywolfire}
 \end{figure}
 
-The points are intensities for individual particles and the lines is the mean intensity presented in \citet{wolfireEt03}. On average, the FUV intensity seen by a particle is far lower than the mean field presented by \citet{wolfireEt03}.
+The points are intensities for individual particles and the lines is the mean intensity presented in \citet{wolfireEt03}. On average, the FUV intensity seen by a particle is far lower than the mean field presented by \citet{wolfireEt03}. We can examine the runs with varying opacity to see how this effects to local FUV intensity as well as the SFR.
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/intensityvrRadFUVop10000200.eps}
+                \label{fig:intensity100}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{graphics/intensityvrRadFUVthin00200.eps}
+                \label{fig:intensitythin}
+        \end{subfigure}
+        \caption[Intensity with varying opacity.]{FUV intensity vs radius in the galaxy midplane for $\kappa = 100$ g/cm$^{-2}$ and for an optically thin medium.}
+        \label{fig:intensityvopacity}
+\end{figure}
+
+We see that opacity, not surprisingly, makes a large difference in the mean intensity seen by particles. However, what's notable is that even in the optically thin case, we are unable to attain the intensity levels reported in \citet{wolfireEt03}.
+
+It is worth revisiting the star formation histories of the new simulations. Figure \ref{fig:sfrvtimeRT} shows the star formation histories for various runs with RT.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/sfrvtimeRT.eps}
+\caption[Star formation histories for varying opacities.]{Star formation rate vs time with varying opacity. While the assumed opacity value of 400 g/cm,$^{-2}$ gives very minimal regulation in star formation, an optically thin approximation gives incredibly strong regulation. An opacity of 100 $g/cm^{-2}$ gives the most reasonable star formation rate, if comparing to the Milky Way.}
+\label{fig:sfrvtimeRT}
+\end{figure}
+
+In the optically thin case, we see how important FUV can be at regulating star formation when intensities are much higher. Even lowering opacity to 100 g/cm$^{-2}$ makes a very significant difference, and gives a star formation rate in agreement with the Milky Way.
 
 In order to understand the affect FUV has on gas, we consider phase diagrams for gas in the galaxy. Figure \ref{fig:phasediagrams} shows phase diagrams of gas in a number of the different simulations.
 
@@ -95,6 +150,9 @@ In order to understand the affect FUV has on gas, we consider phase diagrams for
 \end{figure}
 
 In cases with FUV simulated with radiative transfer, a portion of the gas is seen to be heated to about $10^4$ K around densities of 100 atoms cm$^{-3}$.
+
+[Add commentary. Re-radiation important? Clumpy medium vs average opacity not the same.]
+
 
 \section{Future Projects [Move to Ch 6?]}
 \label{sec:futurework}

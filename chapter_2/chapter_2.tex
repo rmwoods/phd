@@ -14,7 +14,6 @@
 
 \thispagestyle{fancy}
 
-This chapter will contain an overview of current radiative transfer methods and where we stand.
 
 \section{The Radiative Transfer Problem}
 \label{sec:rtformulation}
@@ -38,32 +37,34 @@ dE = I_{\nu}dA dt d\Omega d\nu,
 
 where $I_{\nu}$ is \emph{specific intensity} (specific because it is within a frequency range; dropping the frequency dependence makes this intensity). Specific intensity has units of energy per unit area per unit time per unit solid angle per unit frequency. It is useful to consider radiation in terms of intensity because it enables a macroscopic description of radiation that includes microscopic effects like scattering and absorption.
 
-We can recover familiar values such as flux (or pressure or density) by taking moments of the intensity,
+We can recover familiar values such as radiative flux, pressure, and density by taking moments of the intensity,
 
-\begin{equation}
-\label{eq:flux}
+\begin{align}
+\label{eq:moments}
+E_{\nu} = \int I_{\nu}d\Omega,
 F_{\nu} = \int I_{\nu}\cos{\theta}d\Omega,
-\end{equation}
+P_{\nu} = \int I_{\nu}\cos{\theta}^2d\Omega,
+\end{align}
 
-where $F_{\nu}$ is the specific flux (flux at a particular wavelength).
+where $E_{\nu}$ is the radiation energy density, $F_{\nu}$ is the specific flux (flux at a particular wavelength), and $P_{\nu}$ is the radiation pressure.
 
 Let us now consider the passage of these rays through some matter. If we consider a ray, then energy may be added or removed from this ray due to absorption (removing photons), emission from the matter (adding photons), or scattering (scattering into or out of the ray). We first consider emission.
 
-We define the specific (monochromatic) emission emission coefficient, j, as the energy emitted per unit time, per unit solid angle, per unit volume, and per unit frequency,
+We define the specific (monochromatic) emission coefficient, j, as the energy emitted per unit time, per unit solid angle, per unit volume, and per unit frequency,
 
 \begin{equation}
 \label{eq:emissioncoef}
 dE = j_{\nu} dV dt d\Omega d\nu.
 \end{equation}
 
-If we trace along a ray with cross section dA some distance ds, it will cover a volume of $dV = dA ds$. Since equation \ref{eq:emissioncoef} and equation \ref{eq:intensity} only differ by a factor of distance (dA compared to dV), we can find the change intensity along the beam due to emission as
+If we trace along a ray with cross section dA some distance ds, it will cover a cylindrical volume of $dV = dA ds$. Since equation \ref{eq:emissioncoef} and equation \ref{eq:intensity} only differ by a factor of distance (dA compared to dV), we can find the change intensity along the beam due to emission as
 
 \begin{equation}
 \label{eq:emissionintensity}
 dI = j_{\nu} ds.
 \end{equation}
 
-Equation \ref{eq:emissionintensity} describes the amount of intensity added to a ray along some path ds due to spontaneous emission. If emission were the only process to worry about, finding intensity would be a simple matter of integrating the equation. [However, we must consider other physical processes for a more complete description.]
+Equation \ref{eq:emissionintensity} describes the amount of intensity added to a ray along some path ds due to spontaneous emission. If emission were the only process to worry about, finding intensity would be a simple matter of integrating the equation.
 
 We next consider absorption. Consider again a ray traveling along a path ds. The amount of intensity lost due to absorption can be defined as
 
@@ -79,7 +80,7 @@ where $\alpha$ is called the absorption coefficient and has units of distance$^{
 \alpha = -n \sigma I ds = -\rho \kappa I ds
 \end{equation}
 
-where n is the number density of particles, $\sigma$ is the cross section (in units of distance squared) of each absorbing particle, $\rho$ is the mass density, and $\kappa$ is the opacity (in units of distance squared per unit mass). Notice that the only difference between $n \sigma$ and $\rho \kappa$ is the average mass of the absorbing particles. Note that our algorithm has chosen to use $\rho$ and $\kappa$.
+where n is the number density of particles, $\sigma$ is the cross section (in units of distance squared) of each absorbing particle, $\rho$ is the mass density, and $\kappa$ is the opacity (in units of distance squared per unit mass). Notice that the only difference between $n \sigma$ and $\rho \kappa$ is the average mass of the absorbing particles. We proceed from here using $\rho$ and $\kappa$, as these values are more directly available in our code.
 
 Finally, we consider scattering. Scattering is a process that both subtracts and adds to the intensity. We can define a specific emission coefficient for scattering by equating the power per unit volume per frequency emitted to the power received,
 
@@ -97,19 +98,25 @@ J_{\nu} = \frac{1}{4\pi}\int I_{\nu} d\Omega.
 
 Before combining all of the processes affecting radiative transfer, it is useful to introduce a variable called the specific \emph{Source Function},
 
-\begin{align}
-S_{a,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}, \label{eq:sourcefunction_a}\\
-S_{s,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}. \label{eq:sourcefunction_s}
-\end{align}
+%\begin{align}
+%S_{a,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}, \label{eq:sourcefunction_a}\\
+%S_{s,\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}. \label{eq:sourcefunction_s}
+%\end{align}
+
+\begin{equation}
+\label{eq:sourcefunction}
+S_{\nu} &\equiv \frac{j_{\nu}}{\alpha_{\nu}}.
+\end{equation}
+
 
 The source function is the ratio of emission to absorption and describes the intensity that an object will tend to. In the case of pure absorption, emission is 0 and so the source function is 0, since the intensity would tend to 0. In the case of pure emission, the source function is infinite and intensity tends to infinity since nothing is removing photons.
 
-We now have the base equations to put together a description of radiative transfer that includes the processes of spontaneous emission, absorption, and scattering. Combining equations \ref{eq:emissionintensity}, \ref{eq:absorption}, \ref{eq:scatteringcoefficient}, \ref{eq:meanintensity}, \ref{eq:sourcefunction_a}, and \ref{eq:sourcefunction_s}, we can write
+We now have the base equations to put together a description of radiative transfer that includes the processes of spontaneous emission, absorption, and scattering. Combining equations \ref{eq:emissionintensity}, \ref{eq:absorption}, \ref{eq:scatteringcoefficient}, \ref{eq:meanintensity}, and \ref{eq:sourcefunction}, we can write
 
 \begin{align}
 \label{eq:combinedtransfer}
 \frac{dI_{\nu}}{ds} &= (-\alpha_{\nu}I_{\nu} + j_{\nu}) - (\sigma_{\nu}I_{\nu} + j_{s,\nu}) \nonumber\\
- &= -\alpha_{\nu}(I_{\nu} - S_{a,\nu}) - \sigma_{\nu}(I_{\nu} - S_{s,\nu}) \nonumber\\
+ &= -\alpha_{\nu}(I_{\nu} - S_{a,\nu}) - \sigma_{\nu}(I_{\nu} - J_{\nu}) \nonumber\\
  &= -(\alpha_{\nu} + \sigma_{\nu})(I_{\nu}-S_{\nu}),
 \end{align}
 
@@ -117,12 +124,12 @@ where the combined source function $S_{\nu}$ is defined as
 
 \begin{equation}
 \label{eq:combinedsourcefunction}
-S_{\nu} \equiv \frac{\alpha_{\nu}S_{a,\nu} + \sigma_{\nu}S_{s,\nu}}{\alpha_{\nu} + \sigma_{\nu}}.
+S_{\nu} \equiv \frac{\alpha_{\nu}S_{a,\nu} + \sigma_{\nu}J_{\nu}}{\alpha_{\nu} + \sigma_{\nu}}.
 \end{equation}
 
-According to equation \ref{eq:scatteringcoefficient}, the source function for scattering is actually mean intensity (equation \ref{eq:meanintensity}), meaning that the above equation is actually an integro-differential equation - it is a function of $I_{\nu}$, $\frac{dI_{\nu}}{ds}$, and $\int I_{\nu} d\Omega$. Thus, any equation involving scattering is significantly more difficult to solve. Numerical solutions to integro-differential equations are usually specialized and complex [cite someone].
+The above equation is an integro-differential equation - it is a function of $I_{\nu}$, $\frac{dI_{\nu}}{ds}$, and $\int I_{\nu} d\Omega$. Thus, any equation involving scattering is significantly more difficult to solve. Numerical solutions to integro-differential equations are usually specialized and complex [cite someone], and in the above case, the integral depends on all directions, making it especially costly.
 
-For this reason, scattering is often omitted from radiative transfer solver due to very large added computational cost. In this thesis, our solutions do not explicitly account for scattering, though it is possible scattering-like behavior (due to properties of the RT algorithm and the properties of SPH) may result in some solutions [remove this line I think].
+For this reason, scattering is often omitted from radiative transfer solvers due to the very large added computational cost. In this thesis, our solutions do not explicitly account for scattering, though as is discussed in chapter \ref{chap:conclusions}, it is possible to add that functionality.
 
 If scattering is omitted, equation \ref{eq:combinedtransfer} is simplified to a nicer form. We combine equations \ref{eq:emissionintensity}, \ref{eq:absorption}, and \ref{eq:sourcefunction_a} to obtain
 
@@ -149,14 +156,28 @@ Equation \ref{eq:transferequation_t} is the transfer equation for radiation as i
 
 \begin{equation}
 \label{eq:transferequationsolution}
-I_{\nu}(\tau_{\nu}) = I_{\tau}(0)e^{-\tau_{\nu}} + \int_0^{\tau_{\nu}} e^{-(\tau_\nu - \tau'_{\nu})} S_{\nu}(\tau'_{\nu})d\tau'_{\nu}.
+I_{\nu}(\tau_{\nu}) = I_{\nu}(0)e^{-\tau_{\nu}} + \int_0^{\tau_{\nu}} e^{-(\tau_\nu - \tau'_{\nu})} S_{\nu}(\tau'_{\nu})d\tau'_{\nu}.
 \end{equation}
 
-Solving the above equation at a point in a simulation would give you a radiation field that accounted for emission and absorption at all other points in the simulation. This would then be repeated at all points for which a radiation field should be known.
+Solving the above equation at a point in a simulation would give you a radiation field that accounted for emission and absorption at all other points in the simulation. This would then be repeated at all points for which a radiation field is needed.
+
+It is useful also to consider the case of only absorption. In many astrophysical simulations, only a single or few sources are modeled, and so the emission coefficient is zero at most points. For this reason, it become more efficient to just sum over all sources and treat only absorption. In this case, equation \ref{eq:transferequation_t} simplifies to
+
+\begin{equation}
+\label{eq:transferequation_abs}
+\frac{dI_{\nu}}{d\tau_{\nu}} = -I_{\nu},
+\end{equation}
+
+which has the solution
+
+\begin{equation}
+\label{eq:absorptionsolution}
+I_{\nu}(\tau_{\nu}) = I_{\nu}(0)e^{-\tau_{\nu}}.
+\end{equation}
+
+This creates a much simpler (though still quite difficult) problem to solve.
 
 It should now be clear why radiative transfer is a difficult problem; analytically, it involves integrals over source functions that are not necessarily known at all points in space, with both density and opacity varying as a function of position as well. Numerically, we are trying to solve a function of seven variables - three position, two angular, time, and frequency - $I = I(x,y,z,\theta,\phi,t,\nu)$.
-
-[Add further simplifications to the equation here? Just talk about the absorption solution? Mention that integrating over all emission typically amounts to summing over all sources.]
 
 %\begin{equation}
 %\label{eq:rademission}
@@ -171,20 +192,20 @@ It should now be clear why radiative transfer is a difficult problem; analytical
 \section{Current Methods}
 \label{sec:currentmethods}
 
-The equations presented in section \ref{sec:rtformulation} are very difficult to solve if approximations are not made. Seven dimensions means that even if each dimension only has a resolution of 100 elements, we must keep track of $10^14$ elements, or roughly one petabyte of data if each element is 10 bytes. In many cases, 100 elements is not nearly fine enough to resolve important features in a dimension, especially in frequency where many sharp features are present. The problem is already numerically impractical from a memory perspective.
+The equations presented in section \ref{sec:rtformulation} are very difficult to solve if approximations are not made. Seven dimensions means that even if each dimension only has a resolution of 100 elements, we must keep track of $10^{14}$ elements, or roughly one petabyte of data if each element is just 10 bytes. In many cases, 100 elements is not nearly fine enough to resolve important features in a dimension, especially in frequency where many sharp features are present. The problem is already numerically impractical from a memory perspective.
 
-As well, the transfer equation is an integro-differential equation, meaning that common numerical solvers are not useful. Solvers for this type of equation are generally complex and specific purpose, so the actual numerical method side is also difficult.
+As well, the full transfer equation is an integro-differential equation, meaning that common numerical solvers are not useful. Solvers for this type of equation are generally complex and specific purpose, so the actual numerical method side is also difficult.
 
 In order to overcome the above, different approximations to the equation are adopted. Different approximations give rise to different advantages and disadvantages in accuracy and speed and typically apply best to particular regimes.
 
-Current popular strategies include monte-carlo, ray tracing, grid-based solvers, and moment methods. The following sections will give a brief description of each method as well as common properties of the methods.
+Current popular strategies include monte-carlo, ray tracing, moment methods, and a variety of others. The following sections will give a brief description of some of the most common and successful techniques as well as common properties of each method.
 
 \subsection{Monte-Carlo Solvers}
 \label{sec:montecarlo}
 
-Monte-Carlo (MC) methods are perhaps the most obvious way to solve the radiative transfer problem. The most basic solution follows a photon from emission, through any scattering, absorption, and re-emission, until it leaves the simulation. At any point during the path, random numbers are used to determine whether the photon will be scattered, what direction it will be scattered, whether it will be absorbed and re-emitted, and what wavelength the re-emitted photon(s) will be.
+Monte-Carlo (MC) methods are perhaps the most obvious way to solve the radiative transfer problem. The most basic solution follows a photon from emission, through any scattering, absorption, and re-emission, until it leaves the simulation. At any point during the path, random numbers are used to determine whether the photon will be scattered, what direction it will be scattered, whether it will be absorbed, and what wavelength the re-emitted photon(s) will be.
 
-In practice, following individual photons is not practical. Instead, following ``photon packets'' is more useful. Packets are typically defined as a group of photons [cite codes that do this] or as having a specified energy [codes that do this](in which case, the number of photons can be determined by using $E = h\nu$). The latter choice has the benefit that when re-emission occurs after an absorption at a lower wavelength, there are not now more photons to keep track of. The ray retains the same energy and more photons are implied since $\nu$ changes \citep{ercolanoEt03,abbottLucy85}.
+Of course, following individual photons is not practical. Instead, following ``photon packets'' is more useful. Like intensity, packets are typically defined as having a specified energy (in which case, the number of photons can be determined by using $E = h\nu$ \citep{ercolanoEt03,abbottLucy85}.
 
 In order to determine when a photon packet will interact, most codes use one of two methods. The first strategy is to use a probability distribution function (PDF) for optical depth. The PDF takes the form
 
@@ -197,7 +218,7 @@ where P(l) is the probability of an interaction happening at a distance l and $\
 
 Another strategy is to simply trace the photon packet from resolution element to resoultion element (cells, particles), and at each point, to use a random number to determine if the photon packet should interact at that cell. This has the advantage that the code does not need to calculate and normalize optical depths \citep{lucy99,ercolanoEt03}.
 
-The above process is repeated until a photon packet leaves the simulation volume, and for many photon packets. Once a large number of photon packets have been sent out, physical quantities must be estimated from observed MC quantities. In this case, a common physical quantity to determine is mean intensity $J$ and the MC quantity is the photon packet. In order to relate the quantities, an \emph{estimator} is needed. An obvious choice (though not necessarily the most optimal, \citet{ercolanoEt03}) is to simply use the definition of intensity (equation \ref{eq:intensity}),
+The above process is repeated until a photon packet leaves the simulation volume, and is performed for many photon packets. Once a large number of photon packets have been sent out, physical quantities must be estimated from observed MC quantities. In this case, a common physical quantity to determine is mean intensity $J$ and the MC quantity is the photon packet. In order to relate the quantities, an \emph{estimator} is needed. An obvious choice (though not necessarily the most optimal \citep{ercolanoEt03}) is to simply use the definition of intensity (equation \ref{eq:intensity}),
 
 \begin{equation}
 \label{eq:mcstimator}
@@ -211,13 +232,15 @@ Where $\Delta A$ is the reference surface, $\theta$ is the angle between the pho
 J_{\nu}(r) = \frac{1}{4\pi}\frac{\Delta E}{\Delta t} \sum_i^{N_k} \frac{1}{\cos{\theta}}\frac{1}{\Delta A}\frac{1}{\Delta \nu}.
 \end{equation}
 
-Once a mean intensity is found at a location, a solution for ionization can be iterated to by integrating out the ionization and heating terms. Note that it must be iterated since a chance in ionization and temperature may imply a change in local absorption properties.
+Once a mean intensity is found at a location, a solution for ionization can be iterated to by integrating out the ionization and heating terms with the mean intensity. Note that it must be iterated since a change in ionization and temperature may imply a change in local absorption properties.
 
 The MC process is very accurate. It can deal with arbitrary spatial distributions, arbitrary scattering functions, polarization, and provides a natural way for ``observing'' a simulated object.
 
-However, MC is \emph{very} computationally costly. Large numbers of photon packets must be sent out and individually tracked in order to get a good estimate of the true mean intensity. While photons can be added to a packet along its path, new photon packets must be created for all sources [is this strictly true?] in order to ensure energy conservation (a star should radiate $L\Delta t$ energy in time $\Delta t$). This means as more sources are added, the computational cost rises quickly.
+However, MC is \emph{very} computationally costly. Large numbers of photon packets must be sent out and individually tracked in order to get a good estimate of the true mean intensity. Due to the random nature, typically errors only converge as 1/$\sqrt{N_{\gamma}}$, where $\sqrt{N_{\gamma}}$ is the number of photon packets per source. While photons can be added to a packet along its path by gas and dust, new photon packets must be created for all stellar sources to guarantee their emission is added. This means as more sources are added, the computational cost rises linearly.
 
-There is also an indirect cost associated with optical depth. In the case of very optically thick systems, interactions occur far more often between photon packets and the medium, meaning more computation is needed per photon packet. In the case of very optically thin systems, interactions are very rare and very large numbers of photons must be cast to get accurate statistics on heating, ionization, and scattering. From a numerical perspective, MC provides poor error control. The typical solution to better accuracy is to simply increase the number of photons [check if other strategies?). However, this converges very slowly and often still does not guarantee good statistics on rare events such as low probability re-emission or scattering.
+There is also an indirect cost associated with optical depth. In the case of very optically thick systems, interactions occur far more often between photon packets and the medium, meaning more computation is needed per photon packet. In the case of very optically thin systems, interactions are very rare and very large numbers of photons must be cast to get accurate statistics on heating, ionization, and scattering. 
+
+From a numerical perspective, MC provides poor error control. Higher accuracy requires an increase in the number of photons. However, as was mentioned, this converges very slowly and often still does not guarantee good statistics on rare events such as low probability re-emission or scattering.
 
 For the above reasons, MC radiative transfer is most commonly used as a post-processing technique for creating images of astrophysical objects. For more details on specific codes, please see \citet{dullemond12,cantalupoPorciani11,altayEt08,ercolanoEt03,nenkovaEt99,lucy99,harriesHowarth97}, among many others.
 
@@ -232,7 +255,7 @@ For the above reasons, MC radiative transfer is most commonly used as a post-pro
 \subsection{Ray Tracing}
 \label{sec:raytracing}
 
-At the most basic level, Ray Tracing is a fairly natural way to go about solving the equations of radiative transfer and is probably the most popular method in astrophysics. Rays are cast from sources and the energy or photons contained in the ray are diminished as it passes through absorbing material \citep{razoumovScott99,abelNormanMadau99} [add more RT codes here]. This may sound familiar to section \ref{sec:montecarlo} because many Monte Carlo codes often use a ray tracing approach to follow their photon packets.
+At the most basic level, Ray Tracing is a fairly natural way to go about solving the equations of radiative transfer and is probably the most popular method in astrophysics. Rays are cast from sources and the energy or photons contained in the ray are diminished as it passes through absorbing material \citep{altayTheuns13, razoumovScott99,abelNormanMadau99}. This may sound familiar to section \ref{sec:montecarlo} because many Monte Carlo codes often use a ray tracing approach to follow their photon packets.
 
 Most ray tracing codes tend to start by simplifying the radiative transport equation (\ref{eq:transferequation_s}) by assuming the the emissivity of intervening material is 0. This leads to a much simplified version of the equation
 

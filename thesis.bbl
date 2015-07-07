@@ -1,4 +1,4 @@
-\begin{thebibliography}{72}
+\begin{thebibliography}{73}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -301,6 +301,17 @@ R.~{Kuiper}, H.~{Klahr}, C.~{Dullemond}, W.~{Kley}, and T.~{Henning}.
   hydrodynamics simulations in massive star formation}.
 \newblock \emph{\aap}, 511:\penalty0 A81, February 2010.
 \newblock \doi{10.1051/0004-6361/200912355}.
+
+\bibitem[{Leitherer} et~al.(1999){Leitherer}, {Schaerer}, {Goldader},
+  {Delgado}, {Robert}, {Kune}, {de Mello}, {Devost}, and
+  {Heckman}]{leithererEt99}
+C.~{Leitherer}, D.~{Schaerer}, J.~D. {Goldader}, R.~M.~G. {Delgado},
+  C.~{Robert}, D.~F. {Kune}, D.~F. {de Mello}, D.~{Devost}, and T.~M.
+  {Heckman}.
+\newblock {Starburst99: Synthesis Models for Galaxies with Active Star
+  Formation}.
+\newblock \emph{\apjs}, 123:\penalty0 3--40, July 1999.
+\newblock \doi{10.1086/313233}.
 
 \bibitem[{Levermore}(1984)]{levermore84}
 C.~D. {Levermore}.
