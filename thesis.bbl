@@ -1,4 +1,4 @@
-\begin{thebibliography}{73}
+\begin{thebibliography}{76}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -66,11 +66,25 @@ D.~{Aubert} and R.~{Teyssier}.
 \newblock \emph{\mnras}, 387:\penalty0 295--307, June 2008.
 \newblock \doi{10.1111/j.1365-2966.2008.13223.x}.
 
+\bibitem[{Audit} and {Gonz{\'a}lez}(2006)]{auditGonzalez06}
+E.~{Audit} and M.~{Gonz{\'a}lez}.
+\newblock {HERACLES: a three dimensional radiation hydrodynamics code}.
+\newblock In P.~{Stee}, editor, \emph{EAS Publications Series}, volume~18 of
+  \emph{EAS Publications Series}, pages 115--128, 2006.
+\newblock \doi{10.1051/eas:2006008}.
+
 \bibitem[{Barnes} and {Hut}(1986)]{barnesHut86}
 J.~{Barnes} and P.~{Hut}.
 \newblock {A hierarchical O(N log N) force-calculation algorithm}.
 \newblock \emph{\nat}, 324:\penalty0 446--449, December 1986.
 \newblock \doi{10.1038/324446a0}.
+
+\bibitem[{Bate}(2012)]{bate12}
+M.~R. {Bate}.
+\newblock {Stellar, brown dwarf and multiple star properties from a radiation
+  hydrodynamical simulation of star cluster formation}.
+\newblock \emph{\mnras}, 419:\penalty0 3115--3146, February 2012.
+\newblock \doi{10.1111/j.1365-2966.2011.19955.x}.
 
 \bibitem[{Cantalupo} and {Porciani}(2011)]{cantalupoPorciani11}
 S.~{Cantalupo} and C.~{Porciani}.
@@ -128,6 +142,13 @@ B.~{Ercolano}, M.~J. {Barlow}, and P.~J. {Storey}.
   dust radiative transfer models}.
 \newblock \emph{\mnras}, 362:\penalty0 1038--1046, September 2005.
 \newblock \doi{10.1111/j.1365-2966.2005.09381.x}.
+
+\bibitem[{Fragile} et~al.(2014){Fragile}, {Olejar}, and {Anninos}]{fragileEt14}
+P.~C. {Fragile}, A.~{Olejar}, and P.~{Anninos}.
+\newblock {Numerical Simulations of Optically Thick Accretion onto a Black
+  Hole. II. Rotating Flow}.
+\newblock \emph{\apj}, 796:\penalty0 22, November 2014.
+\newblock \doi{10.1088/0004-637X/796/1/22}.
 
 \bibitem[{Gendelev} and {Krumholz}(2012)]{gendelevKrumholz12}
 L.~{Gendelev} and M.~R. {Krumholz}.
@@ -434,14 +455,14 @@ A.~O. {Razoumov} and D.~{Scott}.
 \newblock \doi{10.1046/j.1365-8711.1999.02775.x}.
 
 \bibitem[{Rijkhorst} et~al.(2006){Rijkhorst}, {Plewa}, {Dubey}, and
-  {Mellema}]{rijkhorstEt2006}
+  {Mellema}]{rijkhorstEt06}
 E.-J. {Rijkhorst}, T.~{Plewa}, A.~{Dubey}, and G.~{Mellema}.
 \newblock {Hybrid characteristics: 3D radiative transfer for parallel adaptive
   mesh refinement hydrodynamics}.
 \newblock \emph{\aap}, 452:\penalty0 907--920, June 2006.
 \newblock \doi{10.1051/0004-6361:20053401}.
 
-\bibitem[{Rosdahl} and {Teyssier}(2015)]{rosDahlTeyssier15}
+\bibitem[{Rosdahl} and {Teyssier}(2015)]{rosdahlTeyssier15}
 J.~{Rosdahl} and R.~{Teyssier}.
 \newblock {A scheme for radiation pressure and photon diffusion with the M1
   closure in RAMSES-RT}.
