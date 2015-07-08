@@ -1,4 +1,4 @@
-\begin{thebibliography}{76}
+\begin{thebibliography}{83}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -199,6 +199,13 @@ J.~C. {Hayes} and M.~L. {Norman}.
 \newblock \emph{\apjs}, 147:\penalty0 197--220, July 2003.
 \newblock \doi{10.1086/374658}.
 
+\bibitem[{Hegmann} and {Kegel}(2003)]{hegmanKegel03}
+M.~{Hegmann} and W.~H. {Kegel}.
+\newblock {Radiative transfer in clumpy environments: absorption and scattering
+  by dust}.
+\newblock \emph{\mnras}, 342:\penalty0 453--462, June 2003.
+\newblock \doi{10.1046/j.1365-8711.2003.06543.x}.
+
 \bibitem[{Hernquist}(1990)]{hernquist90}
 L.~{Hernquist}.
 \newblock {An analytical model for spherical galaxies and bulges}.
@@ -315,6 +322,14 @@ M.~{Klassen}, R.~{Kuiper}, R.~E. {Pudritz}, T.~{Peters}, R.~{Banerjee}, and
 \newblock \emph{\apj}, 797:\penalty0 4, December 2014.
 \newblock \doi{10.1088/0004-637X/797/1/4}.
 
+\bibitem[{Kravtsov} et~al.(1997){Kravtsov}, {Klypin}, and
+  {Khokhlov}]{kravtsovEt87}
+A.~V. {Kravtsov}, A.~A. {Klypin}, and A.~M. {Khokhlov}.
+\newblock {Adaptive Refinement Tree: A New High-Resolution N-Body Code for
+  Cosmological Simulations}.
+\newblock \emph{\apjs}, 111:\penalty0 73--94, July 1997.
+\newblock \doi{10.1086/313015}.
+
 \bibitem[{Kuiper} et~al.(2010){Kuiper}, {Klahr}, {Dullemond}, {Kley}, and
   {Henning}]{kuiperEt10}
 R.~{Kuiper}, H.~{Klahr}, C.~{Dullemond}, W.~{Kley}, and T.~{Henning}.
@@ -362,6 +377,14 @@ D.~{Mihalas} and B.~W. {Mihalas}.
 \newblock \emph{{Foundations of radiation hydrodynamics}}.
 \newblock 1984.
 
+\bibitem[{Mirocha} et~al.(2012){Mirocha}, {Skory}, {Burns}, and
+  {Wise}]{mirochaEt12}
+J.~{Mirocha}, S.~{Skory}, J.~O. {Burns}, and J.~H. {Wise}.
+\newblock {Optimized Multi-frequency Spectra for Applications in Radiative
+  Feedback and Cosmological Reionization}.
+\newblock \emph{\apj}, 756:\penalty0 94, September 2012.
+\newblock \doi{10.1088/0004-637X/756/1/94}.
+
 \bibitem[{Navarro} et~al.(1997){Navarro}, {Frenk}, and {White}]{navarroEt97}
 J.~F. {Navarro}, C.~S. {Frenk}, and S.~D.~M. {White}.
 \newblock {A Universal Density Profile from Hierarchical Clustering}.
@@ -377,6 +400,13 @@ M.~{Nenkova}, Z.~{Ivezic}, and M.~{Elitzur}.
 S.~R. {Och}, L.~B. {Lucy}, and M.~R. {Rosa}.
 \newblock {Diffuse radiation in models of photoionized nebulae}.
 \newblock \emph{\aap}, 336:\penalty0 301--308, August 1998.
+
+\bibitem[{O'Shea} et~al.(2004){O'Shea}, {Bryan}, {Bordner}, {Norman}, {Abel},
+  {Harkness}, and {Kritsuk}]{osheaEt04}
+B.~W. {O'Shea}, G.~{Bryan}, J.~{Bordner}, M.~L. {Norman}, T.~{Abel},
+  R.~{Harkness}, and A.~{Kritsuk}.
+\newblock {Introducing Enzo, an AMR Cosmology Application}.
+\newblock \emph{ArXiv Astrophysics e-prints}, March 2004.
 
 \bibitem[{Osterbrock} and {Ferland}(2006)]{osterbrockFerland2006}
 D.~E. {Osterbrock} and G.~J. {Ferland}.
@@ -499,6 +529,14 @@ L.~{Spitzer}.
 \newblock \emph{{Physical processes in the interstellar medium}}.
 \newblock 1978.
 
+\bibitem[{Springel} et~al.(2001){Springel}, {Yoshida}, and
+  {White}]{springelEt01}
+V.~{Springel}, N.~{Yoshida}, and S.~D.~M. {White}.
+\newblock {GADGET: a code for collisionless and gasdynamical cosmological
+  simulations}.
+\newblock \emph{\na}, 6:\penalty0 79--117, April 2001.
+\newblock \doi{10.1016/S1384-1076(01)00042-2}.
+
 \bibitem[{Stinson} et~al.(2010){Stinson}, {Bailin}, {Couchman}, {Wadsley},
   {Shen}, {Nickerson}, {Brook}, and {Quinn}]{stinsonEt10}
 G.~S. {Stinson}, J.~{Bailin}, H.~{Couchman}, J.~{Wadsley}, S.~{Shen},
@@ -514,6 +552,13 @@ B.~{Str{\"o}mgren}.
 \newblock \emph{\apj}, 89:\penalty0 526, May 1939.
 \newblock \doi{10.1086/144074}.
 
+\bibitem[{Teyssier}(2002)]{teyssier02}
+R.~{Teyssier}.
+\newblock {Cosmological hydrodynamics with adaptive mesh refinement. A new high
+  resolution code called RAMSES}.
+\newblock \emph{\aap}, 385:\penalty0 337--364, April 2002.
+\newblock \doi{10.1051/0004-6361:20011817}.
+
 \bibitem[{Tielens}(2005)]{tielens05}
 A.~G.~G.~M. {Tielens}.
 \newblock \emph{{The Physics and Chemistry of the Interstellar Medium}}.
@@ -525,6 +570,13 @@ N.~J. {Turner} and J.~M. {Stone}.
   Flux-limited Diffusion}.
 \newblock \emph{\apjs}, 135:\penalty0 95--107, July 2001.
 \newblock \doi{10.1086/321779}.
+
+\bibitem[{V{\'a}rosi} and {Dwek}(1999)]{varosiDwek99}
+F.~{V{\'a}rosi} and E.~{Dwek}.
+\newblock {Analytical Approximations for Calculating the Escape and Absorption
+  of Radiation in Clumpy Dusty Environments}.
+\newblock \emph{\apj}, 523:\penalty0 265--305, September 1999.
+\newblock \doi{10.1086/307729}.
 
 \bibitem[{Wadsley} et~al.(2004){Wadsley}, {Stadel}, and {Quinn}]{wadsleyEt03}
 J.~W. {Wadsley}, J.~{Stadel}, and T.~{Quinn}.

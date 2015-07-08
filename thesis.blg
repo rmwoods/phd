@@ -1,13 +1,13 @@
 This is BibTeX, Version 0.99d (TeX Live 2013/Cygwin)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
-White space in argument---line 313 of file thesis.aux
+White space in argument---line 322 of file thesis.aux
  : \citation{FILL
  :                IN}
 I'm skipping whatever remains of this command
 The style file: plainnat.bst
 Database file #1: thesis.bib
-Repeated entry---line 1148 of file thesis.bib
+Repeated entry---line 1240 of file thesis.bib
  : @article{turnerStone01
  :                       ,
 I'm skipping whatever remains of this entry
@@ -17,45 +17,45 @@ Warning--empty publisher in osterbrockFerland2006
 Warning--empty publisher in rybickiLightman86
 Warning--empty publisher in spitzer78
 Warning--empty publisher in tielens05
-You've used 76 entries,
+You've used 83 entries,
             2773 wiz_defined-function locations,
-            1155 strings with 20504 characters,
-and the built_in function-call counts, 40656 in all, are:
-= -- 3519
-> -- 2879
-< -- 40
-+ -- 971
-- -- 892
-* -- 3711
-:= -- 6467
-add.period$ -- 290
-call.type$ -- 76
-change.case$ -- 520
-chr.to.int$ -- 73
-cite$ -- 157
-duplicate$ -- 1563
-empty$ -- 2905
-format.name$ -- 1018
-if$ -- 8371
+            1198 strings with 21823 characters,
+and the built_in function-call counts, 44051 in all, are:
+= -- 3821
+> -- 3096
+< -- 43
++ -- 1044
+- -- 958
+* -- 4014
+:= -- 7006
+add.period$ -- 317
+call.type$ -- 83
+change.case$ -- 563
+chr.to.int$ -- 80
+cite$ -- 171
+duplicate$ -- 1706
+empty$ -- 3162
+format.name$ -- 1095
+if$ -- 9075
 int.to.chr$ -- 4
 int.to.str$ -- 1
-missing$ -- 80
-newline$ -- 450
-num.names$ -- 306
-pop$ -- 894
+missing$ -- 87
+newline$ -- 491
+num.names$ -- 334
+pop$ -- 963
 preamble$ -- 1
-purify$ -- 449
+purify$ -- 485
 quote$ -- 0
-skip$ -- 1189
+skip$ -- 1292
 stack$ -- 0
-substring$ -- 1452
-swap$ -- 164
+substring$ -- 1562
+swap$ -- 178
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 811
+type$ -- 888
 warning$ -- 5
-while$ -- 290
+while$ -- 316
 width$ -- 0
-write$ -- 1106
+write$ -- 1208
 (There were 2 error messages)
