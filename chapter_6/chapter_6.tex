@@ -14,3 +14,44 @@
 \thispagestyle{fancy}
 
 
+\section{Future Projects}
+\label{sec:futurework}
+
+\subsection{Astrophysics Projects}
+\label{sec:astroprojects}
+
+Future work of this algorithm is quite broad; the flexibility allows application to a wide range of problems. An immediate follow up is to the work presented in section \ref{sec:agora}. [Author] suggests that four radiation bands, HI ionization, He ionization, LyWerner, and CI, are needed to sufficiently recreate ISM properties. Using these four bands, we would like to calculate the effect of radiation on the ISM. Including these four sources of heating and ionization will enable classification of which bands regulate star formation as a function of environment, and which bands drive particular phases of the ISM.
+
+Currently, there is very little work in computational astrophysics that models the UV fields in and around galaxies. While many models have been created from the observational side [references], due to large computational cost, simulations have left this area largely unexplored or explored only at high redshift [references].
+
+The next project for the radiative transfer code will be to include UV in the McMaster Unbiased Galaxy Simulations 2 (MUGS2) simulations. The MUGS2 project is a set of cosmological simulations of galaxies spanning a large range of parameter space. There are currently [16] galaxies in the set spanning a mass range of $5\e{11} M_{\odot}$ to $2\e{12} M_{\odot}$. Including explicit radiative transfer in these cosmological simulations all the way down to redshift zero would be an unprecedented accomplishment in computational galaxy formation. The group of simulations would enable comparison of the effectiveness of radiative transfer in transforming and regulating galaxy formation across a wide mass range at different epochs in time.
+
+Having a wide range of simulated galaxies all with RT will also enable a plethora of other analysis. Currently, escape fractions of radiation from galaxies are typically assumed to be certain values (e.g. \citet{kannanEt14}). With the MUGS2 simulations including RT, escape fractions could be explicitly calculated.
+
+\textsc{Gasoline} has a chemical network for molecular Hydrogen (H2) creation and destruction \citep{christensenEt12}, but requires an accurate Lyman-Werner field in order to be used. The new RT can provide this, and enables studies on H2 formation and destruction in galaxies, as well as studies of H2 shielding, self and dust, in molecular clouds. This has the additional advantage of easily being linked to observations.
+
+We note that a potential application is to study cosmic re-ionization. However, this application may not be as ideal. Besides having already received a fair bit of attention from simulators, our code does not explicitly conserve photons and so does not guarantee correct ionization front propagation speeds, which are quite important for studies of cosmic re-ionization.
+
+Finally, an exciting potential application is to look at re-radiation of photons from gas. This could include the effects of gas re-radiating ionizing photons when electrons recombine back to the ground state. This effectively increases the penetration depth of ionizing photons and can have an important effect on the gas in the ISM at particular densities [cite rahmati]. As well, processing of stellar emission down to IR wavelengths could be a very interesting study. However, both of these applications rely on a successful implementation of gas radiation in \textsc{Gasoline}. While in principle the implemented RT can handle any radiation, allowing gas to radiate requires care in that it must be self-consistently tied to the cooling that gas experiences. At first glance, separating cooling and cooling radiation induces a cooling instability and so requires further investigation to be done properly (see section \ref{sec:codeadditions}).
+
+\subsection{Code Additions}
+\label{sec:codeadditions}
+
+The algorithm we have presented is very flexible, efficient, and powerful. However, there is a lot of room for improvement in the algorithm and optimizations that can be made.
+
+For example, if it is know a priori that all sources lie outside of the absorbing material, the algorithm can be simplified to run in order $N\log{N}$ time by implementing the algorithm presented in TreeCOL \citep{clarkEt12}. In this scenario, each receiving leaf partitions the rest of the tree into equal areas on the sky (TreeCOL uses the HEALPIX algorithm \citep{gorskiEt05}, but it is not required) during the tree walk. Since an effective size of each cell the leaf interacts with can be calculated, each cell can add its absorption contributions to the proper area on the leaf's sky map.
+
+It is also possible to make optimizations in the tree build process. Currently, the tree is rebuilt for every substep the simulation takes, regardless of how large the time step is. It's possible to simply ``fix'' the tree rather than rebuilding it in cases where particles have not moved by much [cite codes that do this]. Along the same lines, it's also possible to avoid recalculating radiation if the time step is very small. If particles have not moved by much and radiation sources have not been significantly changed, than there is no reason to recalculate the radiation field. This would require flagging of ``unimportant'' regions or including a radiation-set time step in the code. If the code time step was smaller than the radiation time step, then the radiation calculation could be skipped.
+
+Currently, the algorithm supports an arbitrary number of wave bands. However, work is still needed to couple the photons in these bands to cooling and heating processes in the code. Adding this functionality will greatly open up the number of projects the algorithm can be used for.
+
+It would also be very interesting to create the ability to use gas particles as sources. This enables the code to treat re-radiation by gas, dust emission, and potentially even scattering if a gas particle's emission in one band was based on its incident intensity in another band. Due to the excellent scaling with the number of sources that the algorithm provides, this should not be computationally prohibitive. The consideration to make here is how self consistent the cooling is with radiation. For example, if a gas particle emits a certain luminosity in certain bands, but the cooling code integrates out a different cooling rate, energy conservation can be violated, and cooling instabilities in the gas particle can be created [more details here]. This code addition will require special attention to get right.
+
+Other minor features can be added without too much difficulty. For example, radiation is currently not allowed to be periodic. However, there is no reason a tree cell cannot be copied in a similar way to gravitational periodicity (where an offset is simply added to each cell in the tree to represent a periodic copy). As well, it is possible to add dynamical effects due to radiation such as radiation pressure. This simply requires code to be added into the acceleration calculations to use the radiation field information.
+
+[closing statement?]
+
+\section{Conclusions}
+\label{sec:conclusion}
+
+Deep thoughts here.
