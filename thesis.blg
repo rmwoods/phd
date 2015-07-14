@@ -1,61 +1,60 @@
 This is BibTeX, Version 0.99d (TeX Live 2012/Mageia)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
-White space in argument---line 322 of file thesis.aux
- : \citation{FILL
- :                IN}
-I'm skipping whatever remains of this command
 The style file: plainnat.bst
 Database file #1: thesis.bib
-Repeated entry---line 1240 of file thesis.bib
+Warning--string name "december" is undefined
+--line 1324 of file thesis.bib
+Repeated entry---line 1587 of file thesis.bib
  : @article{turnerStone01
  :                       ,
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "hopkins"
+Warning--empty publisher in draine11
 Warning--empty publisher in mihalasMihalas84
 Warning--empty publisher in osterbrockFerland2006
 Warning--empty publisher in rybickiLightman86
 Warning--empty publisher in spitzer78
 Warning--empty publisher in tielens05
-You've used 83 entries,
+You've used 106 entries,
             2773 wiz_defined-function locations,
-            1198 strings with 21823 characters,
-and the built_in function-call counts, 44051 in all, are:
-= -- 3821
-> -- 3096
-< -- 43
-+ -- 1044
-- -- 958
-* -- 4014
-:= -- 7006
-add.period$ -- 317
-call.type$ -- 83
-change.case$ -- 563
-chr.to.int$ -- 80
-cite$ -- 171
-duplicate$ -- 1706
-empty$ -- 3162
-format.name$ -- 1095
-if$ -- 9075
-int.to.chr$ -- 4
+            1348 strings with 26675 characters,
+and the built_in function-call counts, 56414 in all, are:
+= -- 4894
+> -- 3987
+< -- 53
++ -- 1344
+- -- 1234
+* -- 5156
+:= -- 8979
+add.period$ -- 404
+call.type$ -- 106
+change.case$ -- 722
+chr.to.int$ -- 102
+cite$ -- 218
+duplicate$ -- 2174
+empty$ -- 4031
+format.name$ -- 1408
+if$ -- 11614
+int.to.chr$ -- 5
 int.to.str$ -- 1
-missing$ -- 87
-newline$ -- 491
-num.names$ -- 334
-pop$ -- 963
+missing$ -- 110
+newline$ -- 624
+num.names$ -- 426
+pop$ -- 1231
 preamble$ -- 1
-purify$ -- 485
+purify$ -- 623
 quote$ -- 0
-skip$ -- 1292
+skip$ -- 1648
 stack$ -- 0
-substring$ -- 1562
-swap$ -- 178
+substring$ -- 2007
+swap$ -- 224
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 888
-warning$ -- 5
-while$ -- 316
+type$ -- 1136
+warning$ -- 6
+while$ -- 404
 width$ -- 0
-write$ -- 1208
-(There were 2 error messages)
+write$ -- 1540
+(There was 1 error message)

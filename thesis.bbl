@@ -1,4 +1,4 @@
-\begin{thebibliography}{83}
+\begin{thebibliography}{106}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -33,6 +33,13 @@ T.~{Abel}, M.~L. {Norman}, and P.~{Madau}.
 \newblock \emph{\apj}, 523:\penalty0 66--71, September 1999{\natexlab{b}}.
 \newblock \doi{10.1086/307739}.
 
+\bibitem[{Ahn} and {Shapiro}(2007)]{ahnShapiro07}
+K.~{Ahn} and P.~R. {Shapiro}.
+\newblock {Does radiative feedback by the first stars promote or prevent second
+  generation star formation?}
+\newblock \emph{\mnras}, 375:\penalty0 881--908, March 2007.
+\newblock \doi{10.1111/j.1365-2966.2006.11332.x}.
+
 \bibitem[{Alme} and {Wilson}(1974)]{almeWilson74}
 M.~L. {Alme} and J.~R. {Wilson}.
 \newblock {Numerical study of X-ray induced mass transfer in the HZ
@@ -53,6 +60,12 @@ G.~{Altay}, R.~A.~C. {Croft}, and I.~{Pelupessy}.
 \newblock \emph{\mnras}, 386:\penalty0 1931--1946, June 2008.
 \newblock \doi{10.1111/j.1365-2966.2008.13212.x}.
 
+\bibitem[{Alvarez} et~al.(2006){Alvarez}, {Bromm}, and {Shapiro}]{alvarezEt06}
+M.~A. {Alvarez}, V.~{Bromm}, and P.~R. {Shapiro}.
+\newblock {The H II Region of the First Star}.
+\newblock \emph{\apj}, 639:\penalty0 621--632, March 2006.
+\newblock \doi{10.1086/499578}.
+
 \bibitem[{Anile} and {Romano}(1992)]{anileRomano92}
 A.~M. {Anile} and V.~{Romano}.
 \newblock {Covariant flux-limited diffusion theories}.
@@ -72,6 +85,14 @@ E.~{Audit} and M.~{Gonz{\'a}lez}.
 \newblock In P.~{Stee}, editor, \emph{EAS Publications Series}, volume~18 of
   \emph{EAS Publications Series}, pages 115--128, 2006.
 \newblock \doi{10.1051/eas:2006008}.
+
+\bibitem[{Baek} et~al.(2009){Baek}, {Di Matteo}, {Semelin}, {Combes}, and
+  {Revaz}]{baekEt09}
+S.~{Baek}, P.~{Di Matteo}, B.~{Semelin}, F.~{Combes}, and Y.~{Revaz}.
+\newblock {The simulated 21 cm signal during the epoch of reionization: full
+  modeling of the Ly-{$\alpha$} pumping}.
+\newblock \emph{\aap}, 495:\penalty0 389--405, February 2009.
+\newblock \doi{10.1051/0004-6361:200810757}.
 
 \bibitem[{Barnes} and {Hut}(1986)]{barnesHut86}
 J.~{Barnes} and P.~{Hut}.
@@ -106,6 +127,13 @@ R.~{Cen}.
 \newblock \emph{\apjs}, 141:\penalty0 211--227, July 2002.
 \newblock \doi{10.1086/339805}.
 
+\bibitem[{Chomiuk} and {Povich}(2011)]{chomiukPovich11}
+L.~{Chomiuk} and M.~S. {Povich}.
+\newblock {Toward a Unification of Star Formation Rate Determinations in the
+  Milky Way and Other Galaxies}.
+\newblock \emph{\aj}, 142:\penalty0 197, December 2011.
+\newblock \doi{10.1088/0004-6256/142/6/197}.
+
 \bibitem[{Christensen} et~al.(2012){Christensen}, {Quinn}, {Governato},
   {Stilp}, {Shen}, and {Wadsley}]{christensenEt12}
 C.~{Christensen}, T.~{Quinn}, F.~{Governato}, A.~{Stilp}, S.~{Shen}, and
@@ -121,6 +149,11 @@ P.~C. {Clark}, S.~C.~O. {Glover}, and R.~S. {Klessen}.
   astrophysical simulations}.
 \newblock \emph{\mnras}, 420:\penalty0 745--756, February 2012.
 \newblock \doi{10.1111/j.1365-2966.2011.20087.x}.
+
+\bibitem[{Draine}(2011)]{draine11}
+B.~T. {Draine}.
+\newblock \emph{{Physics of the Interstellar and Intergalactic Medium}}.
+\newblock 2011.
 
 \bibitem[{Dullemond}(2012)]{dullemond12}
 C.~P. {Dullemond}.
@@ -162,6 +195,13 @@ N.~Y. {Gnedin} and T.~{Abel}.
   Eddington Tensor formalism}.
 \newblock \emph{\na}, 6:\penalty0 437--455, October 2001.
 \newblock \doi{10.1016/S1384-1076(01)00068-9}.
+
+\bibitem[{Gnedin} et~al.(2009){Gnedin}, {Tassis}, and {Kravtsov}]{gnedinEt09}
+N.~Y. {Gnedin}, K.~{Tassis}, and A.~V. {Kravtsov}.
+\newblock {Modeling Molecular Hydrogen and Star Formation in Cosmological
+  Simulations}.
+\newblock \emph{\apj}, 697:\penalty0 55--67, May 2009.
+\newblock \doi{10.1088/0004-637X/697/1/55}.
 
 \bibitem[{Gonz{\'a}lez} et~al.(2007){Gonz{\'a}lez}, {Audit}, and
   {Huynh}]{gonzalezEt07}
@@ -211,6 +251,13 @@ L.~{Hernquist}.
 \newblock {An analytical model for spherical galaxies and bulges}.
 \newblock \emph{\apj}, 356:\penalty0 359--364, June 1990.
 \newblock \doi{10.1086/168845}.
+
+\bibitem[{Hosokawa} and {Inutsuka}(2006)]{hosawaInutsuka06}
+T.~{Hosokawa} and S.-i. {Inutsuka}.
+\newblock {Dynamical Expansion of Ionization and Dissociation Front around a
+  Massive Star. II. On the Generality of Triggered Star Formation}.
+\newblock \emph{\apj}, 646:\penalty0 240--257, July 2006.
+\newblock \doi{10.1086/504789}.
 
 \bibitem[{Iliev} et~al.(2006){Iliev}, {Ciardi}, {Alvarez}, {Maselli},
   {Ferrara}, {Gnedin}, {Mellema}, {Nakamoto}, {Norman}, {Razoumov},
@@ -291,6 +338,12 @@ B.~W. {Keller}, J.~{Wadsley}, S.~M. {Benincasa}, and H.~M.~P. {Couchman}.
 \newblock \emph{\mnras}, 442:\penalty0 3013--3025, August 2014.
 \newblock \doi{10.1093/mnras/stu1058}.
 
+\bibitem[{Kennicutt} and {Evans}(2012)]{kennicuttEvans12}
+R.~C. {Kennicutt} and N.~J. {Evans}.
+\newblock {Star Formation in the Milky Way and Nearby Galaxies}.
+\newblock \emph{\araa}, 50:\penalty0 531--608, September 2012.
+\newblock \doi{10.1146/annurev-astro-081811-125610}.
+
 \bibitem[{Kim} et~al.(2014){Kim}, {Abel}, {Agertz}, {Bryan}, {Ceverino},
   {Christensen}, {Conroy}, {Dekel}, {Gnedin}, {Goldbaum}, {Guedes}, {Hahn},
   {Hobbs}, {Hopkins}, {Hummels}, {Iannuzzi}, {Keres}, {Klypin}, {Kravtsov},
@@ -366,11 +419,40 @@ L.~B. {Lucy}.
 \newblock {Computing radiative equilibria with Monte Carlo techniques}.
 \newblock \emph{\aap}, 344:\penalty0 282--288, April 1999.
 
+\bibitem[{Maselli} et~al.(2003){Maselli}, {Ferrara}, and {Ciardi}]{maselliEt03}
+A.~{Maselli}, A.~{Ferrara}, and B.~{Ciardi}.
+\newblock {CRASH: a radiative transfer scheme}.
+\newblock \emph{\mnras}, 345:\penalty0 379--394, October 2003.
+\newblock \doi{10.1046/j.1365-8711.2003.06979.x}.
+
 \bibitem[{Melia} and {Zylstra}(1991)]{meliaZylstra91}
 F.~{Melia} and G.~J. {Zylstra}.
 \newblock {Flux-limited diffusion in a scattering medium}.
 \newblock \emph{\apj}, 374:\penalty0 732--740, June 1991.
 \newblock \doi{10.1086/170157}.
+
+\bibitem[{Mellema} et~al.(1998){Mellema}, {Raga}, {Canto}, {Lundqvist},
+  {Balick}, {Steffen}, and {Noriega-Crespo}]{mellema98}
+G.~{Mellema}, A.~C. {Raga}, J.~{Canto}, P.~{Lundqvist}, B.~{Balick},
+  W.~{Steffen}, and A.~{Noriega-Crespo}.
+\newblock {Photo-evaporation of clumps in planetary nebulae}.
+\newblock \emph{\aap}, 331:\penalty0 335--346, March 1998.
+
+\bibitem[{Mellema} et~al.(2006{\natexlab{a}}){Mellema}, {Arthur}, {Henney},
+  {Iliev}, and {Shapiro}]{mellemaEt06}
+G.~{Mellema}, S.~J. {Arthur}, W.~J. {Henney}, I.~T. {Iliev}, and P.~R.
+  {Shapiro}.
+\newblock {Dynamical H II Region Evolution in Turbulent Molecular Clouds}.
+\newblock \emph{\apj}, 647:\penalty0 397--403, August 2006{\natexlab{a}}.
+\newblock \doi{10.1086/505294}.
+
+\bibitem[{Mellema} et~al.(2006{\natexlab{b}}){Mellema}, {Iliev}, {Alvarez}, and
+  {Shapiro}]{ilievEt06b}
+G.~{Mellema}, I.~T. {Iliev}, M.~A. {Alvarez}, and P.~R. {Shapiro}.
+\newblock {C $^{2}$-ray: A new method for photon-conserving transport of
+  ionizing radiation}.
+\newblock \emph{\na}, 11:\penalty0 374--395, March 2006{\natexlab{b}}.
+\newblock \doi{10.1016/j.newast.2005.09.004}.
 
 \bibitem[{Mihalas} and {Mihalas}(1984)]{mihalasMihalas84}
 D.~{Mihalas} and B.~W. {Mihalas}.
@@ -384,6 +466,14 @@ J.~{Mirocha}, S.~{Skory}, J.~O. {Burns}, and J.~H. {Wise}.
   Feedback and Cosmological Reionization}.
 \newblock \emph{\apj}, 756:\penalty0 94, September 2012.
 \newblock \doi{10.1088/0004-637X/756/1/94}.
+
+\bibitem[{Nakamoto} et~al.(2001){Nakamoto}, {Umemura}, and
+  {Susa}]{nakamotoEt01}
+T.~{Nakamoto}, M.~{Umemura}, and H.~{Susa}.
+\newblock {The effects of radiative transfer on the reionization of an
+  inhomogeneous universe}.
+\newblock \emph{\mnras}, 321:\penalty0 593--604, March 2001.
+\newblock \doi{10.1046/j.1365-8711.2001.04008.x}.
 
 \bibitem[{Navarro} et~al.(1997){Navarro}, {Frenk}, and {White}]{navarroEt97}
 J.~F. {Navarro}, C.~S. {Frenk}, and S.~D.~M. {White}.
@@ -461,6 +551,15 @@ G.~C. {Pomraning}.
 \newblock \emph{\apj}, 266:\penalty0 841--847, March 1983.
 \newblock \doi{10.1086/160832}.
 
+\bibitem[{Raga} et~al.(1999){Raga}, {Mellema}, {Arthur}, {Binette}, {Ferruit},
+  and {Steffen}]{ragaEt99}
+A.~C. {Raga}, G.~{Mellema}, S.~J. {Arthur}, L.~{Binette}, P.~{Ferruit}, and
+  W.~{Steffen}.
+\newblock {3D Transfer of the Diffuse Ionizing Radiation in ISM Flows and the
+  Preionization of a Herbig-Haro Working Surface}.
+\newblock \emph{Revista Mexicana de Astronom\'i y Astrof\'isica}, 35:\penalty0
+  123, October 1999.
+
 \bibitem[{Rahmati} et~al.(2013{\natexlab{a}}){Rahmati}, {Pawlik}, {Raicevic},
   and {Schaye}]{rahmatiEt13a}
 A.~{Rahmati}, A.~H. {Pawlik}, M.~{Raicevic}, and J.~{Schaye}.
@@ -477,12 +576,34 @@ A.~{Rahmati}, J.~{Schaye}, A.~H. {Pawlik}, and M.~{Raicevic}.
 \newblock \emph{\mnras}, 431:\penalty0 2261--2277, May 2013{\natexlab{b}}.
 \newblock \doi{10.1093/mnras/stt324}.
 
+\bibitem[{Razoumov} and {Cardall}(2005)]{razoumovCardall05}
+A.~O. {Razoumov} and C.~Y. {Cardall}.
+\newblock {Fully threaded transport engine: new method for multi-scale
+  radiative transfer}.
+\newblock \emph{\mnras}, 362:\penalty0 1413--1417, October 2005.
+\newblock \doi{10.1111/j.1365-2966.2005.09409.x}.
+
 \bibitem[{Razoumov} and {Scott}(1999)]{razoumovScott99}
 A.~O. {Razoumov} and D.~{Scott}.
 \newblock {Three-dimensional numerical cosmological radiative transfer in an
   inhomogeneous medium}.
 \newblock \emph{\mnras}, 309:\penalty0 287--298, October 1999.
 \newblock \doi{10.1046/j.1365-8711.1999.02775.x}.
+
+\bibitem[{Reynolds} et~al.(2009){Reynolds}, {Hayes}, {Paschos}, and
+  {Norman}]{reynoldsEt09}
+D.~R. {Reynolds}, J.~C. {Hayes}, P.~{Paschos}, and M.~L. {Norman}.
+\newblock {Self-consistent solution of cosmological radiation-hydrodynamics and
+  chemical ionization}.
+\newblock \emph{Journal of Computational Physics}, 228:\penalty0 6833--6854,
+  October 2009.
+\newblock \doi{10.1016/j.jcp.2009.06.006}.
+
+\bibitem[{Rijkhorst}(2005)]{rijkhorst05}
+E.-J. {Rijkhorst}.
+\newblock \emph{{Numerical nebulae}}.
+\newblock PhD thesis, Leiden Observatory, Leiden University, P.O.~Box 9513,
+  2300 RA Leiden, The Netherlands, 2005.
 
 \bibitem[{Rijkhorst} et~al.(2006){Rijkhorst}, {Plewa}, {Dubey}, and
   {Mellema}]{rijkhorstEt06}
@@ -491,6 +612,12 @@ E.-J. {Rijkhorst}, T.~{Plewa}, A.~{Dubey}, and G.~{Mellema}.
   mesh refinement hydrodynamics}.
 \newblock \emph{\aap}, 452:\penalty0 907--920, June 2006.
 \newblock \doi{10.1051/0004-6361:20053401}.
+
+\bibitem[{Ritzerveld} et~al.(2003){Ritzerveld}, {Icke}, and
+  {Rijkhorst}]{ritzerveldEt03}
+J.~{Ritzerveld}, V.~{Icke}, and E.-J. {Rijkhorst}.
+\newblock {Triangulating Radiation: Radiative Transfer on Unstructured Grids}.
+\newblock \emph{ArXiv Astrophysics e-prints}, December 2003.
 
 \bibitem[{Rosdahl} and {Teyssier}(2015)]{rosdahlTeyssier15}
 J.~{Rosdahl} and R.~{Teyssier}.
@@ -510,6 +637,21 @@ J.~{Rosdahl}, J.~{Blaizot}, D.~{Aubert}, T.~{Stranex}, and R.~{Teyssier}.
 G.~B. {Rybicki} and A.~P. {Lightman}.
 \newblock \emph{{Radiative Processes in Astrophysics}}.
 \newblock June 1986.
+
+\bibitem[{Scannapieco} et~al.(2012){Scannapieco}, {Wadepuhl}, {Parry},
+  {Navarro}, {Jenkins}, {Springel}, {Teyssier}, {Carlson}, {Couchman}, {Crain},
+  {Dalla Vecchia}, {Frenk}, {Kobayashi}, {Monaco}, {Murante}, {Okamoto},
+  {Quinn}, {Schaye}, {Stinson}, {Theuns}, {Wadsley}, {White}, and
+  {Woods}]{scannapiecoEt12}
+C.~{Scannapieco}, M.~{Wadepuhl}, O.~H. {Parry}, J.~F. {Navarro}, A.~{Jenkins},
+  V.~{Springel}, R.~{Teyssier}, E.~{Carlson}, H.~M.~P. {Couchman}, R.~A.
+  {Crain}, C.~{Dalla Vecchia}, C.~S. {Frenk}, C.~{Kobayashi}, P.~{Monaco},
+  G.~{Murante}, T.~{Okamoto}, T.~{Quinn}, J.~{Schaye}, G.~S. {Stinson},
+  T.~{Theuns}, J.~{Wadsley}, S.~D.~M. {White}, and R.~{Woods}.
+\newblock {The Aquila comparison project: the effects of feedback and numerical
+  methods on simulations of galaxy formation}.
+\newblock \emph{\mnras}, 423:\penalty0 1726--1749, June 2012.
+\newblock \doi{10.1111/j.1365-2966.2012.20993.x}.
 
 \bibitem[{Shapiro} et~al.(2004){Shapiro}, {Iliev}, and {Raga}]{shapiroEt04}
 P.~R. {Shapiro}, I.~T. {Iliev}, and A.~C. {Raga}.
@@ -546,11 +688,26 @@ G.~S. {Stinson}, J.~{Bailin}, H.~{Couchman}, J.~{Wadsley}, S.~{Shen},
 \newblock \emph{\mnras}, 408:\penalty0 812--826, October 2010.
 \newblock \doi{10.1111/j.1365-2966.2010.17187.x}.
 
+\bibitem[{Stinson} et~al.(2013){Stinson}, {Brook}, {Macci{\`o}}, {Wadsley},
+  {Quinn}, and {Couchman}]{stinsonEt13}
+G.~S. {Stinson}, C.~{Brook}, A.~V. {Macci{\`o}}, J.~{Wadsley}, T.~R. {Quinn},
+  and H.~M.~P. {Couchman}.
+\newblock {Making Galaxies In a Cosmological Context: the need for early
+  stellar feedback}.
+\newblock \emph{\mnras}, 428:\penalty0 129--140, January 2013.
+\newblock \doi{10.1093/mnras/sts028}.
+
 \bibitem[{Str{\"o}mgren}(1939)]{stromgren39}
 B.~{Str{\"o}mgren}.
 \newblock {The Physical State of Interstellar Hydrogen.}
 \newblock \emph{\apj}, 89:\penalty0 526, May 1939.
 \newblock \doi{10.1086/144074}.
+
+\bibitem[{Susa}(2006)]{susa06}
+H.~{Susa}.
+\newblock {Smoothed Particle Hydrodynamics Coupled with Radiation Transfer}.
+\newblock \emph{\pasj}, 58:\penalty0 445--460, April 2006.
+\newblock \doi{10.1093/pasj/58.2.445}.
 
 \bibitem[{Teyssier}(2002)]{teyssier02}
 R.~{Teyssier}.
@@ -563,6 +720,12 @@ R.~{Teyssier}.
 A.~G.~G.~M. {Tielens}.
 \newblock \emph{{The Physics and Chemistry of the Interstellar Medium}}.
 \newblock August 2005.
+
+\bibitem[{Trac} and {Pen}(2004)]{tracPen04}
+H.~{Trac} and U.-L. {Pen}.
+\newblock {A moving frame algorithm for high Mach number hydrodynamics}.
+\newblock \emph{\na}, 9:\penalty0 443--465, July 2004.
+\newblock \doi{10.1016/j.newast.2004.02.002}.
 
 \bibitem[{Turner} and {Stone}(2001)]{turnerStone01}
 N.~J. {Turner} and J.~M. {Stone}.
@@ -583,6 +746,13 @@ J.~W. {Wadsley}, J.~{Stadel}, and T.~{Quinn}.
 \newblock {Gasoline: a flexible, parallel implementation of TreeSPH}.
 \newblock \emph{\na}, 9:\penalty0 137--158, February 2004.
 \newblock \doi{10.1016/j.newast.2003.08.004}.
+
+\bibitem[{Whalen} and {Norman}(2006)]{whalenNorman06}
+D.~{Whalen} and M.~L. {Norman}.
+\newblock {A Multistep Algorithm for the Radiation Hydrodynamical Transport of
+  Cosmological Ionization Fronts and Ionized Flows}.
+\newblock \emph{\apjs}, 162:\penalty0 281--303, February 2006.
+\newblock \doi{10.1086/499072}.
 
 \bibitem[{Wolf}(2003)]{wolf03}
 S.~{Wolf}.
